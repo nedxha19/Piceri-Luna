@@ -1,0 +1,191 @@
+@media(max-width:1024px){
+    /*----- Heading Style -----*/
+    h1 {
+        font-size: 50px;
+        line-height: 64px;
+    }
+
+    /*----- Button Style -----*/
+    .owl-nav{
+        button{
+            width: 44px;
+            height: 44px;
+            line-height: 44px !important;
+        }
+    }
+
+    /*----- Header Style -----*/
+    .menu-toggle,.opener {
+        display: block;
+    }
+    .sidemenu-header{
+        display: flex;
+    }
+    .icon-menu{
+        order: 1;
+    }
+    .main-menu{
+        justify-content: end;
+        padding-bottom: 0px;
+    }
+    .header-inner{
+        padding: 0px 0px;
+    }
+    .menu{
+        position: fixed;
+        width: 100%;
+        padding-right: 0px;
+        left: 0;
+        top: 0px;
+        background: $white;
+        height: calc(100vh - 0px);
+        z-index: 999;
+        overflow: hidden;
+        overflow-y: auto;
+        display: none;
+        > ul{
+            display: block;
+            padding: 20px 20px 30px 20px;
+            > li{
+                margin: 0px 0px;
+                width: 100%;
+                a{
+                    font-size: 18px;
+                    padding: 10px 0px;
+                    &:before {
+                        display: none;
+                    }
+                }
+            }
+            ul{
+                background: transparent;
+                position: unset;
+                min-width: unset;
+                border-radius: 0px;
+                padding: 0px 0px 10px 0px;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                transition: 0s;
+
+                li{
+                    a{
+                        color: $black;
+                        font-weight: 600;
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+    }
+    header{
+        padding: 20px 0px;
+        &.header-border{
+            &::after{
+                bottom: 30px;
+            }
+        }
+        &.fixed{
+            .menu{
+                > ul{
+                    > li{
+                        > a{
+                            padding: 10px 0px;
+                        }
+                    }
+                }
+            }
+        }
+        .header-vacter{
+            width: 100%;
+        }
+    }
+
+    /*----- Home Banner Css -----*/
+    .home-banner{
+        &.left-padding{
+            padding-left: 15px !important;
+            padding-right: 15px;
+            max-width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .home-left-content{
+            width: 100%;
+            padding-right: 0px;
+        }
+        .home-right-img{
+            width: 100%;
+            padding-left: 0px;
+        }
+    }
+    .home-banner-content{
+        text-align: center;
+    }
+    .home-banner-title{
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 590px;
+    }
+    .home-banner-desc{
+        margin: auto;
+    }
+    .home-banner-img{
+        margin-top: 30px;
+    }
+    .home-img{
+        position: unset;
+        max-width: 600px;
+        margin: auto;
+    }
+    .home-img-bottom,.home-onion,.slider-round-box{
+        display: none;
+    }
+
+    /*----- Daily Fresh Css -----*/
+    .daily-fresh-inner{
+        .fresh-img{
+            width: 260px;
+        }
+        .fresh-content{
+            width: calc(100% - 260px);
+            padding-left: 50px;
+        }
+    }
+    .daily-fresh-vacter{
+        left: 87%;
+        max-width: 90px;
+    }
+
+    /*----- Our Menu Css -----*/
+    .our-menu-content{
+        margin-left: -30%;
+    }
+
+    /*----- Our Strength Css -----*/
+    .strength-vacter {
+        max-width: 200px;
+    }
+
+    /*----- Sub Banner -----*/
+    .sub-banner {
+        padding-top: 200px;
+        padding-bottom: 100px;
+    }
+    .sub-banner-title {
+        margin-bottom: 10px;
+    }
+    .sub-banner{
+        .leaf-img{
+            top: 28%;
+            max-width: 6%;
+        }
+    }
+
+    /*----- Shop Detail Page -----*/
+    .add-cart-box{
+        .cart-button{
+            padding: 0px 6px;
+        }
+    }
+}

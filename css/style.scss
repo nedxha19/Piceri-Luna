@@ -1,0 +1,28 @@
+
+/*------- Font Include -------*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+$montserrat: 'Montserrat', sans-serif;
+
+/*------- General Color -------*/
+$primary: #fbb200;
+$black: #111111;
+$white: #ffffff;
+$red: #f22e3e;
+$green: #33c741;
+$textcolor: #777777;
+$boxbordercolor: #e4ded9;
+$bg-yellow: #fffaed;
+
+/*------- Social Media Color -------*/
+$blue-color: #3b579d;
+$red-color: #cc2127;
+$sky-color: #2caae1;
+$orange-color: #dc4a38;
+
+/*------- General Style -------*/
+$transition: all 400ms ease;
+
+/*------- Css Include -------*/
+@import "include/animate";
+@import "include/general";
+@import "include/responsive";

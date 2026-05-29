@@ -1,0 +1,150 @@
+@media(max-width:1700px){
+    /*----- General Style -----*/
+    .container{
+        max-width: 95%;
+    }
+
+    /*----- Spacer Style -----*/
+    .pt-150 {
+        padding-top: 120px;
+    }
+    .pb-150 {
+        padding-bottom: 120px;
+    }
+    .ptb-150 {
+        padding-top: 120px;
+        padding-bottom: 120px;
+    }
+    .pb-120{
+        padding-bottom: 90px;
+    }
+    .pt-100 {
+        padding-top: 80px;
+    }
+    .pb-100 {
+        padding-bottom: 80px;
+    }
+    .ptb-100 {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+    .mt-150 {
+        margin-top: 120px;
+    }
+    .mb-150 {
+        margin-bottom: 120px;
+    }
+    .mtb-150 {
+        margin-top: 120px;
+        margin-bottom: 120px;
+    }
+
+    /*----- Header Style -----*/
+    header{
+        .header-vacter{
+            width: 70%;
+            img{
+                max-width: 235px;
+            }
+        }
+        &.fixed{
+            .container-big{
+                max-width: 95%;
+            }
+        }
+    }
+
+    /*----- Home Banner Css -----*/
+    .home-banner{
+        .black-jamun{
+            display: none;
+        }
+    }
+    .home-img{
+        max-width: 60%;
+        left: 10%;
+    }
+    .home-leaf{
+        max-width: 45%;
+    }
+    .home-img-bottom{
+        max-width: 35%;
+    }
+    .buy-one-get{
+        max-width: 20%;
+    }
+
+    /*----- Daily Fresh Css -----*/
+    .daily-fresh{
+        margin-top: -20px;
+    }
+    .daily-fresh-vacter{
+        left: 67%;
+        max-width: 150px;
+    }
+
+    /*----- Our Menu Css -----*/
+    .our-menu{
+        .section-heading{
+            max-width: 510px;
+        }
+    }
+    .our-menu-content{
+        margin-left: -26%;
+    }
+    .our-menu-vacter{
+        display: none;
+    }
+    .menu-item-box{
+        padding: 30px 30px 30px 30px;
+    }
+    .menu-item-des{
+        padding-bottom: 20px;
+    }
+    .menu-slider{
+        .owl-nav{
+            top: -110px;
+            right: 0;
+            transform: translateY(0%);
+            display: flex;
+            width: unset;
+            flex-direction: row-reverse;
+
+            button{
+                margin: 0px 10px;
+            }
+        }
+    }
+
+    /*----- Feedback Part Css -----*/
+    .feeddback-vacter{
+        top: -92px;
+        max-width: 100px;
+    }
+
+    /*----- Reservation Part Css -----*/
+    .reservation-pizza{
+        max-width: 570px;
+    }
+
+    /*----- Sub Banner -----*/
+    .sub-banner{
+        .black-jamun{
+            display: none;
+        }
+        .onion-img{
+            max-width: 8%;
+        }
+        .tamato-img{
+            max-width: 6%;
+        }
+        .leaf-img{
+            max-width: 8%;
+        }
+    }
+
+    /*----- Footer Style -----*/
+    .footer-pattern-1,.footer-pattern-2{
+        display: none;
+    }
+}

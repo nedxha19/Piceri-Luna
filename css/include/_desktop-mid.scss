@@ -1,0 +1,167 @@
+@media(max-width:1300px){
+    /*----- Heading Style -----*/
+    h1 {
+        font-size: 54px;
+        line-height: 66px;
+    }
+
+    /*----- Button Style -----*/
+    .btn-ct{
+        &.btn-large{
+            font-size: 20px;
+            padding: 12px 26px;
+        }
+        img{
+            max-width: 26px;
+        }
+    }
+
+    /*----- Spacer Style -----*/
+    .pt-150 {
+        padding-top: 100px;
+    }
+    .pb-150 {
+        padding-bottom: 100px;
+    }
+    .ptb-150 {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+    .pb-120{
+        padding-bottom: 70px;
+    }
+    .pt-100 {
+        padding-top: 60px;
+    }
+    .pb-100 {
+        padding-bottom: 60px;
+    }
+    .ptb-100 {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+    .mt-150 {
+        margin-top: 100px;
+    }
+    .mb-150 {
+        margin-bottom: 100px;
+    }
+    .mtb-150 {
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+    /*----- Header Style -----*/
+    .header-logo{
+        img{
+            max-height: 110px;
+        }
+    }
+    header{
+        .header-vacter{
+            width: 46%;
+            img{
+                max-width: 165px;
+            }
+        }
+    }
+
+    /*----- Home Banner Css -----*/
+    .home-banner{
+        margin-top: -30px;
+    }
+    .home-banner-title{
+        margin-bottom: 20px;
+    }
+    .home-banner-desc{
+        font-size: 20px;
+        line-height: 38px;
+        padding-bottom: 32px;
+    }
+
+    /*----- Daily Fresh Css -----*/
+    .daily-fresh{
+        margin-top: 20px;
+    }
+    .daily-fresh-inner{
+        .fresh-img{
+            width: 335px;
+        }
+        .fresh-content{
+            width: calc(100% - 335px);
+            padding-left: 65px;
+        }
+    }
+    .daily-fresh-vacter{
+        left: 78%;
+        max-width: 135px;
+    }
+
+    /*----- Our Story Css -----*/
+    .our-story{
+        .black-jamun{
+            max-width: 100px;
+        }
+    }
+    .story-onion{
+        bottom: -6%;
+    }
+
+    /*----- Our Strength Css -----*/
+    .strength-vacter {
+        max-width: 260px;
+    }
+
+    /*----- Reservation Part Css -----*/
+    .reservation-pizza{
+        max-width: 420px;
+    }
+    .book-leaf{
+        max-width: 66px;
+        &.book-leaf-2{
+            top: 19%;
+            left: -11%;
+        }
+    }
+    .book-jamun{
+        max-width: 90px;
+        z-index: -1;
+    }
+    .book-leaf-big{
+        max-width: 160px;
+    }
+
+    /*----- Sub Banner -----*/
+    .sub-banner-content {
+        p{
+            font-size: 20px;
+            line-height: 38px;
+        }
+    }
+    .bread-crumb{
+        ul{
+            li{
+                font-size: 20px;
+                &::after{
+                    height: 20px;
+                    top: 7px;
+                }
+            }
+        }
+    }
+
+    /*----- Team Page -----*/
+    .team-box,.skill-box{
+        margin-bottom: 40px;
+    }
+
+    /*----- Contact Page -----*/
+    .contact-info-box{
+        margin-bottom: 40px;
+    }
+
+    /*----- Cart Page -----*/
+    .cart-totals{
+        margin-top: 40px;
+    }
+}

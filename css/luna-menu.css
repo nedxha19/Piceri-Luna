@@ -1,0 +1,415 @@
+/* ==========================================================================
+   Piceri Luna — Menu cards (8px grid, computed wheel geometry)
+   ==========================================================================
+
+   Wheel math:
+   --luna-wheel-item     = 44px  (one row)
+   --luna-wheel-visible  = 3     (rows in viewport)
+   viewport height       = 44 × 3 = 132px
+   list padding (Y)      = 44px  (so row 0 and 3 can center)
+   scrollTop for index i = i × 44px
+   ========================================================================== */
+
+.our-menu.luna-menu-section {
+	--luna-space-1: 8px;
+	--luna-space-2: 16px;
+	--luna-space-3: 24px;
+	--luna-card-bg: #ffffff;
+	--luna-visual-bg: #f7f2ec;
+	--luna-text: #1d1d1f;
+	--luna-muted: #6e6e73;
+	--luna-accent: #c41e3a;
+	--luna-line: rgba(0, 0, 0, 0.08);
+	--luna-radius: 20px;
+	--luna-pad: 20px;
+	--luna-wheel-item: 44px;
+	--luna-wheel-visible: 3;
+	--luna-wheel-viewport: calc(var(--luna-wheel-item) * var(--luna-wheel-visible));
+	--luna-wheel-inset: 10px;
+	--luna-card-width: 300px;
+	--luna-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+	font-family: var(--luna-font);
+}
+
+/* ---- Carousel: equal-height slides ---- */
+.luna-menu-section .menu-slider.owl-carousel .owl-stage {
+	display: flex;
+	align-items: stretch;
+}
+
+.luna-menu-section .menu-slider .owl-item {
+	display: flex;
+	height: auto;
+	padding: var(--luna-space-1) 0;
+}
+
+.luna-menu-section .menu-slider .owl-item > .luna-card {
+	width: 100%;
+	height: 100%;
+}
+
+.luna-menu-section .menu-slider .owl-item img.luna-card__image {
+	width: auto !important;
+	max-width: 88%;
+	max-height: 100%;
+	height: auto !important;
+	margin: 0 auto;
+}
+
+/* ---- Card shell ---- */
+.luna-card {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: var(--luna-card-width);
+	margin: 0 auto;
+	padding: 0;
+	border: none;
+	background: transparent;
+}
+
+.luna-card__surface {
+	box-sizing: border-box;
+	display: grid;
+	grid-template-rows: auto auto auto;
+	height: 100%;
+	min-height: 460px;
+	background: var(--luna-card-bg);
+	border: 1px solid var(--luna-line);
+	border-radius: var(--luna-radius);
+	box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+	overflow: hidden;
+	transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.luna-card:hover .luna-card__surface {
+	transform: translateY(-3px);
+	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* ---- 1. Visual (fixed ratio frame) ---- */
+.luna-card__visual {
+	position: relative;
+	margin: 0;
+	padding: var(--luna-space-2) var(--luna-pad) var(--luna-space-1);
+	background: var(--luna-visual-bg);
+	border-bottom: 1px solid var(--luna-line);
+}
+
+.luna-card__image-box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	max-height: 200px;
+	margin: 0 auto;
+}
+
+.luna-card__image-link {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+}
+
+.luna-card__image {
+	display: block;
+	max-width: 82%;
+	max-height: 82%;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+	filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.12));
+}
+
+.luna-card__badge {
+	position: absolute;
+	top: var(--luna-space-2);
+	left: var(--luna-pad);
+	z-index: 2;
+	padding: 5px 10px;
+	font-size: 10px;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: #fff;
+	background: var(--luna-accent);
+	border-radius: 100px;
+}
+
+/* ---- 2. Details (title, price, ingredients) ---- */
+.luna-card__details {
+	padding: var(--luna-space-2) var(--luna-pad) var(--luna-space-1);
+}
+
+.luna-card__meta {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	grid-template-rows: auto auto;
+	column-gap: var(--luna-space-2);
+	row-gap: 2px;
+	align-items: start;
+	margin-bottom: var(--luna-space-1);
+}
+
+.luna-card__name {
+	grid-column: 1;
+	grid-row: 1 / 3;
+	align-self: center;
+	margin: 0;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1.3;
+	letter-spacing: -0.02em;
+}
+
+.luna-card__name a {
+	color: var(--luna-text);
+	text-decoration: none;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.luna-card__name a:hover {
+	color: var(--luna-accent);
+}
+
+.luna-card__price {
+	grid-column: 2;
+	grid-row: 1 / 3;
+	align-self: center;
+	text-align: right;
+	white-space: nowrap;
+}
+
+.luna-card__price-value {
+	display: block;
+	font-size: 22px;
+	font-weight: 700;
+	line-height: 1;
+	color: var(--luna-accent);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: -0.03em;
+}
+
+.luna-card__price-value--tick {
+	animation: lunaPriceTick 0.32s ease;
+}
+
+@keyframes lunaPriceTick {
+	0% { transform: scale(1); }
+	45% { transform: scale(1.06); }
+	100% { transform: scale(1); }
+}
+
+.luna-card__price-unit {
+	display: block;
+	margin-top: 3px;
+	font-size: 10px;
+	font-weight: 600;
+	color: var(--luna-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+}
+
+.luna-card__ingredients {
+	margin: 0;
+	font-size: 13px;
+	line-height: 1.45;
+	color: var(--luna-muted);
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	min-height: calc(13px * 1.45 * 2);
+}
+
+/* ---- 3. Size picker ---- */
+.luna-card__picker {
+	padding: 0 var(--luna-pad) var(--luna-space-3);
+	margin-top: auto;
+}
+
+.luna-card__picker-label {
+	margin: 0 0 var(--luna-space-1);
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--luna-muted);
+}
+
+.luna-picker {
+	box-sizing: border-box;
+	padding: var(--luna-wheel-inset);
+	background: #f2f2f7;
+	border-radius: 14px;
+	border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.luna-picker__window {
+	position: relative;
+	overflow: hidden;
+	border-radius: 10px;
+}
+
+/* Selection band = exactly one row, vertically centered in viewport */
+.luna-picker__selection {
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	right: 0;
+	top: 50%;
+	height: var(--luna-wheel-item);
+	transform: translateY(-50%);
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), inset 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+	pointer-events: none;
+}
+
+.luna-picker__shade {
+	position: absolute;
+	z-index: 2;
+	left: 0;
+	right: 0;
+	height: var(--luna-wheel-item);
+	pointer-events: none;
+}
+
+.luna-picker__shade--top {
+	top: 0;
+	background: linear-gradient(to bottom, #f2f2f7 55%, rgba(242, 242, 247, 0));
+}
+
+.luna-picker__shade--bottom {
+	bottom: 0;
+	background: linear-gradient(to top, #f2f2f7 55%, rgba(242, 242, 247, 0));
+}
+
+/* Scrollport = 3 visible rows */
+.luna-picker__list {
+	position: relative;
+	z-index: 3;
+	box-sizing: border-box;
+	height: var(--luna-wheel-viewport);
+	margin: 0;
+	padding: var(--luna-wheel-item) 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	scroll-snap-type: y mandatory;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+}
+
+.luna-picker__list::-webkit-scrollbar {
+	display: none;
+}
+
+.luna-picker__option {
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	height: var(--luna-wheel-item);
+	min-height: var(--luna-wheel-item);
+	padding: 0 14px;
+	margin: 0;
+	border: none;
+	background: transparent;
+	font-family: inherit;
+	cursor: pointer;
+	scroll-snap-align: center;
+	-webkit-tap-highlight-color: transparent;
+	will-change: transform, opacity;
+}
+
+.luna-picker__option:focus {
+	outline: none;
+}
+
+.luna-picker__option:focus-visible {
+	outline: 2px solid var(--luna-accent);
+	outline-offset: -2px;
+	border-radius: 8px;
+}
+
+.luna-picker__option-name {
+	font-size: 16px;
+	font-weight: 600;
+	color: var(--luna-text);
+	letter-spacing: -0.02em;
+}
+
+.luna-picker__option-size {
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--luna-muted);
+	font-variant-numeric: tabular-nums;
+}
+
+.luna-picker__option.is-active .luna-picker__option-name {
+	color: var(--luna-accent);
+}
+
+.luna-picker__option.is-active .luna-picker__option-size {
+	color: var(--luna-text);
+	font-weight: 600;
+}
+
+/* ---- Section + nav ---- */
+/* Legacy intro — use .luna-section-head__desc on homepage */
+.luna-menu-intro {
+	max-width: 520px;
+	margin-top: 12px;
+	color: var(--luna-muted);
+	font-size: 15px;
+	line-height: 1.5;
+}
+
+.page-home .luna-menu-section .luna-section-head {
+	margin-bottom: 32px;
+}
+
+.luna-menu-section .menu-slider .owl-nav button {
+	background: var(--luna-card-bg) !important;
+	border: 1px solid var(--luna-line) !important;
+	border-radius: 50% !important;
+	width: 44px !important;
+	height: 44px !important;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 767px) {
+	.our-menu.luna-menu-section {
+		--luna-pad: 18px;
+		--luna-card-width: 100%;
+	}
+
+	.luna-menu-section .our-menu-content {
+		margin-left: 0;
+		padding-left: 12px;
+		padding-right: 12px;
+	}
+
+	.luna-card__surface {
+		min-height: 440px;
+	}
+
+	.luna-card__image-box {
+		max-height: 180px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.luna-card__surface,
+	.luna-card__image,
+	.luna-card__price-value {
+		transition: none;
+		animation: none !important;
+	}
+}

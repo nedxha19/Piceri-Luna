@@ -1,0 +1,619 @@
+@media(max-width:767px){
+    /*----- General Style -----*/
+    body{
+        font-size: 16px;
+        line-height: 30px;
+    }
+    .container-big{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .container{
+        max-width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .main {
+        margin-top: 185px;
+    }
+    .section-heading{
+        padding-bottom: 30px;
+        .sub-title {
+            &:before {
+                width: 75px;
+            }
+        }
+        &.section-heading-right{
+            padding-bottom: 15px;
+        }
+        &.section-heading-left{
+            padding-bottom: 30px;
+        }
+    }
+
+    /*----- Heading Style -----*/
+    h1 {
+        font-size: 40px;
+        line-height: 52px;
+    }
+    h2{
+        font-size: 30px;
+        line-height: 42px;
+    }
+    h3{
+        font-size: 24px;
+        line-height: 36px;
+    }
+    h4{
+        font-size: 22px;
+        line-height: 36px;
+    }
+    h5{
+        font-size: 20px;
+        line-height: 34px;
+    }
+
+    /*----- Button Style -----*/
+    .btn-ct{
+        font-size: 18px;
+        padding: 9px 20px;
+        &.btn-small{
+            font-size: 14px;
+            padding: 5px 17px;
+            img{
+                max-width: 20px;
+                margin-right: 8px;
+            }
+        }
+        &.right-arrow{
+            img{
+                margin-left: 12px;
+            }
+        }
+        &.btn-large{
+            font-size: 18px;
+            padding: 9px 20px;
+        }
+        img{
+            max-width: 22px;
+            margin-right: 12px;
+        }
+    }
+
+    /*----- Form Style -----*/
+    .form-group {
+        padding-bottom: 30px;
+    }
+
+    /*----- Spacer Style -----*/
+    .pt-150 {
+        padding-top: 50px;
+    }
+    .pb-150 {
+        padding-bottom: 50px;
+    }
+    .ptb-150 {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+    .pb-120{
+        padding-bottom: 20px;
+    }
+    .pt-100 {
+        padding-top: 50px;
+    }
+    .pb-100 {
+        padding-bottom: 50px;
+    }
+    .pt-50 {
+        padding-top: 30px;
+    }
+    .ptb-100 {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+    .mt-150 {
+        margin-top: 50px;
+    }
+    .mb-150 {
+        margin-bottom: 50px;
+    }
+    .mtb-150 {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .mb-30{
+        margin-bottom: 20px;
+    }
+    .mb-15 {
+        margin-bottom: 10px;
+    }
+    .mb-20 {
+        margin-bottom: 15px;
+    }
+    .mb-sm-40{
+        margin-bottom: 40px;
+    }
+
+    /*----- Preloader Style -----*/
+    .preloader-box{
+        width: 176px;
+    }
+
+    /*----- Header Style -----*/
+    header{
+        .header-vacter{
+            width: 90%;
+            img{
+                max-width: 90px;
+            }
+        }
+        &.fixed{
+            padding: 12px 0px;
+            .container-big{
+                max-width: 100%;
+            }
+        }
+    }
+    .header-logo{
+        img{
+            max-height: 96px;
+        }
+    }
+    .search-form{
+        input{
+            min-width: 310px;
+            width: 100%;
+            padding: 14px 20px;
+            font-size: 16px;
+            padding-right: 60px;
+        }
+        form{
+            button{
+                font-size: 20px;
+                width: 70px;
+            }
+        }
+        button{
+            &.close{
+                width: 40px;
+                height: 40px;
+                &:before, &:after {
+                    top: 17px;
+                    left: 8px;
+                }
+            }
+        }
+    }
+    .cart-drawer{
+        width: 320px;
+        .cart-footer{
+            padding: 10px 20px;
+        }
+    }
+
+    /*----- Home Banner Css -----*/
+    .home-banner{
+        &.left-padding{
+            padding-left: 20px !important;
+            padding-right: 20px;
+            max-width: 100%;
+        }
+    }
+    .home-banner-title{
+        margin-bottom: 15px;
+    }
+    .home-banner-desc{
+        font-size: 18px;
+        line-height: 33px;
+        padding-bottom: 25px;
+    }
+
+    /*----- Daily Fresh Css -----*/
+    .daily-fresh{
+        margin-top: 30px;
+    }
+    .daily-fresh-vacter {
+        left: 85%;
+        top: 30%;
+    }
+    .daily-fresh-inner{
+        .fresh-img{
+            width: 100%;
+            order: 2;
+            padding-right: 20px;
+        }
+        .fresh-content{
+            width: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+            order: 1;
+        }
+        .title{
+            max-width: 100%;
+            padding-bottom: 10px;
+        }
+        .fresh-des{
+            max-width: 530px;
+            margin-bottom: 30px;
+        }
+    }
+
+    /*----- Our Menu Css -----*/
+    .our-menu-content{
+        margin-left: 0px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .menu-item-price{
+        font-size: 20px;
+    }
+    .menu-item-box{
+        margin-top: 30px;
+    }
+
+    /*----- Our Story Css -----*/
+    .our-story{
+        .our-story-inner{
+            max-width: 100%;
+            padding: 0px 20px;
+        }
+        .black-jamun{
+            bottom: 22%;
+            max-width: 15%;
+        }
+    }
+    .our-story-desc{
+        padding-bottom: 30px;
+    }
+    .story-img{
+        max-width: 460px;
+        margin: auto;
+    }
+    .story-onion{
+        bottom: -4%;
+        left: 8%;
+        max-width: 60px;
+    }
+
+     /*----- Our Strength Css -----*/
+     .strength-vacter {
+        max-width: 142px;
+        top: 18%;
+    }
+    .strength-icon{
+        padding-bottom: 18px;
+        max-width: 45px;
+    }
+    .strength-title{
+        padding-bottom: 6px;
+    }
+    .strength-content{
+        max-width: 500px;
+    }
+
+    /*----- Feedback Part Css -----*/
+    .feeddback-vacter{
+        top: -70px;
+        max-width: 64px;
+    }
+
+    /*----- Reservation Part Css -----*/
+    .book-leaf-big{
+        max-width: 72px;
+        top: -33px;
+    }
+    .book-form{
+        max-width: 100%;
+    }
+
+    /*----- Blog Part Css -----*/
+    .blog-singel-list{
+        margin-bottom: 30px;
+        .blog-img{
+            margin-bottom: 28px;
+        }
+    }
+    .blog-singel-list{
+        .blog-author{
+            .author{
+                width: 100%;
+                padding-right: 0px;
+            }
+            .read-link{
+                width: 100%;
+                margin-top: 25px;
+            }
+        }
+        .blog-title{
+            padding-bottom: 30px;
+        }
+        .blog-date{
+            span{
+                &::before{
+                    width: 60px;
+                }
+            }
+        }
+    }
+    .blog-list-row{
+        width: 100%;
+        margin-bottom: 30px;
+        .blog-title{
+            max-width: 100%;
+        }
+    }
+
+    /*----- Sub Banner -----*/
+    .sub-banner {
+        padding-top: 165px;
+        padding-bottom: 60px;
+        .onion-img,.tamato-img,.leaf-img{
+            display: none;
+        }
+    }
+
+    .sub-banner-content {
+        p{
+            font-size: 18px;
+            line-height: 33px;
+        }
+    }
+
+    .bread-crumb {
+        margin-top: 15px;
+        ul{
+            li{
+                font-size: 18px;
+                padding: 0px 10px;
+                &::after{
+                    height: 15px;
+                    top: 8px;
+                    left: -3px;
+                }
+            }
+        }
+    }
+
+    /*----- Team Page -----*/
+    .our-team,.our-skill{
+        padding-bottom: 20px;
+    }
+    .team-box,.skill-box {
+        margin-bottom: 30px;
+    }
+    .team-content{
+        margin-top: 22px;
+        .team-des{
+            padding-top: 3px;
+            font-size: 18px;
+        }
+    }
+    .skill-content{
+        margin-top: 26px;
+    }
+
+    /*----- Contact Page -----*/
+    .contact-info{
+        padding-bottom: 20px;
+    }
+    .contact-info-box{
+        margin-bottom: 30px;
+    }
+
+    /*----- Menu Page -----*/
+    .tab-link{
+        li{
+            padding: 0px 4px;
+            a{
+                min-width: 98px;
+                margin-bottom: 12px;
+            }
+        }
+    }
+
+    /*----- Error Page -----*/
+    .error-img{
+        max-width: 600px;
+        .error-top{
+            max-width: 60px;
+        }
+    }
+    .error-content{
+        padding-top: 34px;
+        .error-title{
+            font-size: 36px;
+            line-height: 46px;
+            margin-bottom: 14px;
+        }
+        p{
+            font-size: 20px;
+            line-height: 38px;
+            margin-bottom: 22px;
+        }
+    }
+
+    /*----- Blog List Page -----*/
+    .blog-list-part{
+        .blog-singel-list{
+            margin-bottom: 40px;
+            .blog-img{
+                margin-bottom: 30px;
+            }
+            .blog-date{
+                font-size: 16px;
+            }
+            .blog-title{
+                font-size: 20px;
+                line-height: 34px;
+                padding-bottom: 16px;
+            }
+            .read-more{
+                font-size: 16px;
+            }
+        }
+    }
+    .news-box{
+        .news-detail{
+            .date{
+                font-size: 14px;
+                padding-bottom: 6px;
+            }
+        }
+    }
+
+    /*----- Blog Detail Page -----*/
+    .blog-detail-part{
+        .blog-detail-title{
+            span{
+                font-size: 18px;
+            }
+            h1{
+                font-size: 30px;
+                line-height: 44px;
+            }
+        }
+        .blog-detail-tags{
+            .blog-tags{
+                text-align: center;
+            }
+            .footer-social{
+                justify-content: center;
+                margin-top: 10px;
+            }
+        }
+        .prev-post{
+            text-align: center;
+        }
+        .grid-post{
+            padding: 20px 0px;
+        }
+    }
+    .blog-img{
+        img{
+            min-height: 230px;
+            object-fit: cover;
+        }
+    }
+    .blog-comment-box{
+        padding: 30px 30px;
+        margin-top: 30px;
+    }
+    .blog-des-title{
+        font-size: 28px;
+        line-height: 38px;
+    }
+    .blog-comment-img{
+        width: 50px;
+        height: 50px;
+    }
+    .blog-comm-detail{
+        width: calc(100% - 50px);
+        padding-left: 24px;
+        .read-more{
+            font-size: 18px;
+        }
+    }
+
+    /*----- Shop List Page -----*/
+    .filter-btn{
+        text-align: center;
+        .btn-ct{
+            font-size: 16px;
+            padding: 7px 15px;
+        }
+    }
+    .sorting{
+        justify-content: center;
+        flex-direction: column;
+        margin: 20px 0px;
+        .results{
+            padding-right: 0px;
+            padding-bottom: 10px;
+        }
+    }
+    .shop-sidebar{
+        width: 320px;
+    }
+
+    /*----- Shop Detail Page -----*/
+    .gc-thumbs-area-main{
+        margin-top: 30px;
+    }
+    .product-title{
+        font-size: 30px;
+        line-height: 42px;
+        margin-bottom: 14px;
+    }
+    .product-price{
+        flex-wrap: wrap;
+        .price{
+            padding-right: 0px;
+            padding-bottom: 10px;
+            width: 100%;
+            span{
+                font-size: 22px;
+            }
+        }
+    }
+    .product-description{
+        padding-top: 15px;
+    }
+    .product-cat-info {
+        padding: 20px 0px 30px 0px;
+    }
+    .add-cart-box{
+        .number{
+            padding: 7px 32px 7px 20px;
+            input{
+                font-size: 20px;
+                width: 35px;
+            }
+            span{
+                font-size: 20px;
+                line-height: 20px;
+            }
+        }
+        .cart-button{
+            a{
+                font-size: 16px;
+                padding: 8px 18px;
+            }
+        }
+        .wish-btn{
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+        }
+    }
+    .product-tabing{
+        .tab-link{
+            li{
+                a{
+                    min-width: 180px;
+                }
+            }
+        }
+    }
+
+    /*----- Cart Page -----*/
+    .table-responsive{
+        margin-bottom: 30px;
+    }
+    .apply-coupon{
+        form{
+            max-width: 100%;
+        }
+    }
+    .update-cart{
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /*----- Footer Style -----*/
+    .footer-pattern-2{
+        display: block;
+        top: 10%;
+        right: 30px;
+    }
+}

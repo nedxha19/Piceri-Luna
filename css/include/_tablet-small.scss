@@ -1,0 +1,108 @@
+@media(max-width:991px){
+    /*----- General Style -----*/
+    .order-md_1{
+        order: 1;
+    }
+    .order-md_2{
+        order: 2;
+    }
+    .md-mb-40{
+        margin-bottom: 40px;
+    }
+    .mb-50 {
+        margin-bottom: 40px;
+    }
+    .section-heading{
+        padding-bottom: 50px;
+    }
+
+    /*----- Form Style -----*/
+    .form-button{
+        padding-top: 0px;
+    }
+
+    /*----- Our Story Css -----*/
+    .our-story{
+        &.right-padding{
+            padding-right: 0px !important;
+        }
+        .our-story-inner{
+            max-width: 95%;
+            padding: 0px 15px;
+            margin: auto;
+        }
+        .black-jamun{
+            top: unset;
+            bottom: 34%;
+            max-width: 110px;
+        }
+    }
+
+    /*----- Reservation Part Css -----*/
+    .book-form{
+        max-width: 97%;
+    }
+
+    /*----- Blog Part Css -----*/
+    .blog-singel-list{
+        margin-bottom: 40px;
+    }
+    .blog-list-box{
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0px -20px;
+    }
+    .blog-list-row{
+        width: 33.33%;
+        padding: 0px 20px;
+        margin-bottom: 0;
+        .blog-img{
+            margin-bottom: 20px;
+        }
+    }
+
+    /*----- Sub Banner -----*/
+    .sub-banner-content{
+        text-align: center;
+        margin: auto;
+        max-width: 530px;
+    }
+    .bread-crumb{
+        text-align: center;
+        margin-top: 20px;
+    }
+    .sub-banner{
+        .onion-img{
+            right: unset;
+            left: 8%;
+            top: 40%;
+        }
+    }
+
+    /*----- About Page -----*/
+    .abt-img-2{
+        display: none;
+    }
+
+    /*----- Book Page -----*/
+    .contact-map-box{
+        iframe{
+            height: 300px;
+        }
+    }
+
+    /*----- Blog List Page -----*/
+    .blog-sidebar{
+        margin-top: 50px;
+    }
+
+    /*----- Footer Style -----*/
+    .terms-menu{
+        padding-top: 0px;
+    }
+    .app-list{
+        justify-content: center;
+        margin-right: 0px;
+        margin-top: 30px;
+    }
+}
