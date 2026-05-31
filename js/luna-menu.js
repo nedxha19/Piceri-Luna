@@ -1,4 +1,3 @@
-
 (function ($) {
 	'use strict';
 
@@ -112,11 +111,6 @@
 			return;
 		}
 
-		/*
-			Use the same smooth Owl Carousel method as the reviews section.
-			The reviews slider works well because it stays as a real Owl Carousel,
-			with clean drag behavior and no custom native-scroll conversion.
-		*/
 		if ($slider.hasClass('owl-loaded')) {
 			$slider.trigger('destroy.owl.carousel');
 			$slider.removeClass('owl-loaded owl-hidden owl-drag owl-grab');
@@ -142,16 +136,19 @@
 			margin: 24,
 
 			/*
-				Smoother review-like feeling.
-				Higher speed = softer movement.
-			*/
-			smartSpeed: 850,
-			fluidSpeed: 850,
-			dragEndSpeed: 650,
+			 * Smooth, Apple-like feel — identical tuning to the reviews slider
+			 * that users find natural. Higher smartSpeed = softer deceleration.
+			 */
+			smartSpeed: 600,
+			fluidSpeed: 600,
+			dragEndSpeed: 450,
 
 			/*
-				Important for mobile touch.
-			*/
+			 * Touch configuration — the most important part.
+			 * pullDrag: true  → allows over-pull at boundaries (natural iOS feel)
+			 * freeDrag: false → snaps to item after release (no half-card states)
+			 * mouseDrag + touchDrag: both on for consistency
+			 */
 			mouseDrag: true,
 			touchDrag: true,
 			pullDrag: true,
@@ -167,27 +164,51 @@
 			],
 
 			responsive: {
+				/*
+				 * ── MOBILE (0–479px) ─────────────────────────────────────────
+				 * Key fixes vs old config:
+				 *  • stagePadding: 32 → peeks the next card edge, making the
+				 *    carousel visually "discoverable" — users see more content
+				 *    waiting and naturally swipe to reach it. This is the #1
+				 *    reason Apple/Airbnb/Uber carousels feel intuitive.
+				 *  • dots: true → progress indicator (like the reviews slider)
+				 *    gives users a map of where they are in 33 pizzas.
+				 *  • margin reduced → tighter gap looks cleaner at this width
+				 *    while stagePadding still reveals the next card.
+				 */
 				0: {
 					items: 1,
-					margin: 16,
-					stagePadding: 0,
+					margin: 14,
+					stagePadding: 32,
 					nav: false,
-					dots: false
+					dots: true
 				},
+				/*
+				 * ── MOBILE LARGE (480–767px) ─────────────────────────────────
+				 * Slightly wider padding to show more of the next card.
+				 */
 				480: {
 					items: 1,
-					margin: 18,
-					stagePadding: 0,
+					margin: 16,
+					stagePadding: 48,
 					nav: false,
-					dots: false
+					dots: true
 				},
+				/*
+				 * ── TABLET (768–991px) ────────────────────────────────────────
+				 * Two cards fit; a slim stagePadding teases the third.
+				 * Nav arrows return; dots stay off (arrows are sufficient).
+				 */
 				768: {
 					items: 2,
 					margin: 22,
-					stagePadding: 0,
+					stagePadding: 24,
 					nav: true,
 					dots: false
 				},
+				/*
+				 * ── DESKTOP SMALL (992–1299px) ────────────────────────────────
+				 */
 				992: {
 					items: 3,
 					margin: 22,
@@ -195,6 +216,9 @@
 					nav: true,
 					dots: false
 				},
+				/*
+				 * ── DESKTOP LARGE (1300px+) ───────────────────────────────────
+				 */
 				1300: {
 					items: 4,
 					margin: 24,
@@ -205,6 +229,7 @@
 			}
 		});
 	}
+
 	function mountSizePickers() {
 		if (typeof LunaSizePicker !== 'undefined' && typeof LunaSizePicker.mountAll === 'function') {
 			LunaSizePicker.mountAll('.luna-size-picker');
@@ -261,12 +286,12 @@
 		renderMenu();
 
 		/*
-			Important:
-			1. First render all pizza cards.
-			2. Then initialize Owl Carousel.
-			3. Then mount the size picker.
-			4. Then force the default size to Normale 30 cm.
-		*/
+		 * Order matters:
+		 * 1. Render cards
+		 * 2. Init carousel
+		 * 3. Mount size pickers
+		 * 4. Force default size to Normale 30 cm
+		 */
 		initCarousel();
 
 		setTimeout(function () {

@@ -1021,169 +1021,14 @@
 	}
 }
 
-/* ============================================================
-   PICERI LUNA — SMOOTH MOBILE PIZZA SCROLL
-   Paste at the END of css/luna-menu.css
-   ============================================================ */
-
-.luna-menu-section .menu-slider {
-	-webkit-tap-highlight-color: transparent;
-	overflow: visible !important;
-}
-
-.luna-menu-section .menu-slider .owl-stage-outer {
-	overflow: hidden !important;
-	padding-top: 6px;
-	padding-bottom: 16px;
-}
-
-.luna-menu-section .menu-slider .owl-stage,
-.luna-menu-section .menu-slider .owl-item,
-.luna-card,
-.luna-card__surface {
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	transform: translateZ(0);
-}
-
-.luna-menu-section .menu-slider.owl-drag .owl-item,
-.luna-menu-section .menu-slider .owl-stage {
-	touch-action: pan-y pinch-zoom !important;
-	-ms-touch-action: pan-y !important;
-	-webkit-user-select: none;
-	user-select: none;
-}
-
-.luna-menu-section .menu-slider img,
-.luna-menu-section .menu-slider a,
-.luna-menu-section .menu-slider button {
-	-webkit-user-drag: none;
-}
-
-@media (max-width: 767px) {
-	.our-menu.luna-menu-section {
-		--luna-card-width: min(84vw, 340px);
-		--luna-gap: 14px;
-	}
-
-	.page-home .luna-menu-section {
-		overflow: hidden !important;
-	}
-
-	.luna-menu-section .our-menu-content {
-		width: 100% !important;
-		margin: 0 !important;
-		padding-left: 0 !important;
-		padding-right: 0 !important;
-		overflow: visible !important;
-	}
-
-	.luna-menu-section .menu-slider {
-		padding-left: max(14px, env(safe-area-inset-left)) !important;
-		padding-right: max(14px, env(safe-area-inset-right)) !important;
-	}
-
-	.luna-menu-section .menu-slider .owl-stage-outer {
-		overflow: visible !important;
-	}
-
-	.luna-menu-section .menu-slider .owl-stage {
-		display: flex !important;
-		align-items: stretch !important;
-	}
-
-	.luna-menu-section .menu-slider .owl-item {
-		display: flex !important;
-		height: auto !important;
-		padding: 8px 0 18px !important;
-	}
-
-	.luna-menu-section .menu-slider .owl-item>.luna-card {
-		width: 100% !important;
-		height: 100% !important;
-		margin: 0 auto !important;
-	}
-
-	.luna-card__surface {
-		min-height: 490px !important;
-		border-radius: 28px !important;
-		box-shadow: 0 10px 28px rgba(0, 0, 0, 0.075) !important;
-	}
-
-	.luna-card__visual {
-		padding: 15px 15px 10px !important;
-	}
-
-	.luna-card__image-box {
-		max-height: 190px !important;
-		border-radius: 22px !important;
-	}
-
-	.luna-card__details {
-		padding-left: 17px !important;
-		padding-right: 17px !important;
-	}
-
-	.luna-menu-section .menu-slider .owl-nav {
-		display: none !important;
-	}
-
-	.luna-menu-section .menu-slider::after {
-		content: "Rrëshqit majtas / djathtas";
-		display: block;
-		width: fit-content;
-		margin: 4px auto 0;
-		padding: 7px 12px;
-		border: 1px solid rgba(29, 29, 31, 0.08);
-		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.72);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-		color: rgba(29, 29, 31, 0.58);
-		font-size: 12px;
-		font-weight: 700;
-		letter-spacing: -0.01em;
-	}
-}
-
-@media (hover: none) and (pointer: coarse) {
-	.luna-card:hover .luna-card__surface {
-		transform: none !important;
-		box-shadow: var(--luna-shadow-sm) !important;
-	}
-
-	.luna-card:hover .luna-card__image {
-		transform: none !important;
-	}
-}
-
-@media (max-width: 420px) {
-	.our-menu.luna-menu-section {
-		--luna-card-width: min(86vw, 318px);
-	}
-
-	.luna-card__surface {
-		min-height: 480px !important;
-	}
-
-	.luna-card__image-box {
-		max-height: 178px !important;
-	}
-
-	.luna-card__name {
-		font-size: 18px !important;
-	}
-
-	.luna-card__price-value {
-		font-size: 23px !important;
-	}
-}
 
 /* ============================================================
-   PICERI LUNA — PIZZA CAROUSEL LIKE REVIEWS SLIDER
-   Paste at the END of css/luna-menu.css
+   PICERI LUNA — APPLE-SMOOTH PIZZA CAROUSEL (MOBILE)
+   Replaces all previous mobile carousel overrides.
+   Keep this at the END of luna-menu.css.
    ============================================================ */
 
+/* ── Core carousel shell ─────────────────────────────────────── */
 .luna-menu-section .menu-slider.owl-carousel {
 	display: block !important;
 	position: relative !important;
@@ -1191,21 +1036,35 @@
 	-webkit-tap-highlight-color: transparent;
 }
 
-.luna-menu-section .menu-slider.owl-carousel .owl-stage-outer {
-	overflow: hidden !important;
-	padding: 8px 0 36px;
+/* GPU-accelerated rendering for every moving part */
+.luna-menu-section .menu-slider .owl-stage,
+.luna-menu-section .menu-slider .owl-item,
+.luna-card,
+.luna-card__surface {
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	transform: translateZ(0);
+	will-change: transform;
 }
 
+/* Stage outer: must clip on desktop, allow peek on mobile — handled per breakpoint */
+.luna-menu-section .menu-slider.owl-carousel .owl-stage-outer {
+	padding: 10px 0 38px;
+	-webkit-transform: translate3d(0, 0, 0);
+}
+
+/* Stage row layout */
 .luna-menu-section .menu-slider.owl-carousel .owl-stage {
 	display: flex !important;
 	align-items: stretch !important;
 }
 
+/* Each slide */
 .luna-menu-section .menu-slider.owl-carousel .owl-item {
 	display: flex !important;
 	align-items: stretch !important;
 	height: auto !important;
-	padding: 12px 0;
+	padding: 12px 0 20px;
 	-webkit-user-select: none;
 	user-select: none;
 }
@@ -1216,104 +1075,257 @@
 	margin: 0 auto !important;
 }
 
-.luna-menu-section .menu-slider.owl-carousel .owl-item img {
+/* Prevent image/link dragging from hijacking touch */
+.luna-menu-section .menu-slider.owl-carousel .owl-item img,
+.luna-menu-section .menu-slider.owl-carousel .owl-item a {
 	-webkit-user-drag: none;
 	user-drag: none;
+	pointer-events: none;
+	/* let Owl own the touch event; clicks still fire on tap */
 }
 
-.luna-menu-section .menu-slider.owl-carousel.owl-drag .owl-item {
+/* Re-enable pointer events for buttons inside cards (size picker, call) */
+.luna-menu-section .menu-slider.owl-carousel .owl-item button,
+.luna-menu-section .menu-slider.owl-carousel .owl-item .luna-card__image-link,
+.luna-menu-section .menu-slider.owl-carousel .owl-item .luna-card__name a {
+	pointer-events: auto;
+}
+
+/* Touch action: allow horizontal drag, never block vertical page scroll */
+.luna-menu-section .menu-slider.owl-carousel.owl-drag .owl-item,
+.luna-menu-section .menu-slider.owl-carousel .owl-stage {
 	touch-action: pan-y !important;
+	-ms-touch-action: pan-y !important;
 }
 
+/* ── Desktop nav arrows ──────────────────────────────────────── */
 .luna-menu-section .menu-slider.owl-carousel .owl-nav {
 	position: absolute !important;
-	top: -96px !important;
+	top: -92px !important;
 	right: 0 !important;
 	display: flex !important;
-	flex-direction: row-reverse !important;
-	gap: 12px !important;
+	align-items: center !important;
+	gap: 10px !important;
 	width: auto !important;
 	transform: none !important;
 	z-index: 20 !important;
+	pointer-events: none !important;
 }
 
-.luna-menu-section .menu-slider.owl-carousel .owl-nav button {
+.luna-menu-section .menu-slider.owl-carousel .owl-nav button.owl-prev,
+.luna-menu-section .menu-slider.owl-carousel .owl-nav button.owl-next {
 	display: inline-flex !important;
 	align-items: center !important;
 	justify-content: center !important;
 	width: 48px !important;
 	height: 48px !important;
 	margin: 0 !important;
-	border: 1px solid rgba(29, 29, 31, 0.08) !important;
+	border: 1px solid rgba(29, 29, 31, 0.09) !important;
 	border-radius: 999px !important;
-	background: rgba(255, 255, 255, 0.88) !important;
+	background: rgba(255, 255, 255, 0.92) !important;
 	color: #1d1d1f !important;
-	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08) !important;
+	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.09) !important;
 	backdrop-filter: blur(14px);
 	-webkit-backdrop-filter: blur(14px);
+	cursor: pointer !important;
+	pointer-events: auto !important;
 	transition:
-		transform 0.25s ease,
-		background 0.25s ease,
-		color 0.25s ease,
-		box-shadow 0.25s ease;
+		transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+		background 0.22s ease,
+		color 0.22s ease,
+		box-shadow 0.22s ease;
+}
+
+.luna-menu-section .menu-slider.owl-carousel .owl-nav button.owl-prev:hover,
+.luna-menu-section .menu-slider.owl-carousel .owl-nav button.owl-next:hover {
+	transform: translateY(-2px) !important;
+	background: #c41e3a !important;
+	color: #ffffff !important;
+	border-color: #c41e3a !important;
+	box-shadow: 0 14px 32px rgba(196, 30, 58, 0.28) !important;
+}
+
+.luna-menu-section .menu-slider.owl-carousel .owl-nav button.owl-prev:active,
+.luna-menu-section .menu-slider.owl-carousel .owl-nav button.owl-next:active {
+	transform: translateY(0) scale(0.96) !important;
 }
 
 .luna-menu-section .menu-slider.owl-carousel .owl-nav button span {
-	display: block;
-	font-size: 34px;
-	line-height: 1;
-	transform: translateY(-2px);
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	font-size: 30px !important;
+	line-height: 1 !important;
+	transform: translateY(-1px);
+	pointer-events: none !important;
 }
 
-.luna-menu-section .menu-slider.owl-carousel .owl-nav button:hover {
-	transform: translateY(-2px);
-	background: var(--luna-accent, #c41e3a) !important;
-	color: #ffffff !important;
-	box-shadow: 0 14px 30px rgba(196, 30, 58, 0.2) !important;
+.luna-menu-section .menu-slider.owl-carousel .owl-nav button.disabled {
+	opacity: 0.35 !important;
+	cursor: not-allowed !important;
+	box-shadow: none !important;
 }
 
-/* Mobile: same clean feeling as reviews, without arrows */
-@media (max-width: 767px) {
-	.luna-menu-section .menu-slider.owl-carousel .owl-stage-outer {
-		overflow: hidden !important;
-		padding: 6px 0 28px;
+/* ── Dot indicators (mobile only) ────────────────────────────── */
+.luna-menu-section .menu-slider.owl-carousel .owl-dots {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 7px;
+	margin-top: 6px;
+}
+
+.luna-menu-section .menu-slider.owl-carousel .owl-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 999px;
+	background: rgba(29, 29, 31, 0.15) !important;
+	border: 0 !important;
+	padding: 0 !important;
+	cursor: pointer;
+	transition:
+		width 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+		background 0.28s ease;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.luna-menu-section .menu-slider.owl-carousel .owl-dot.active {
+	width: 28px !important;
+	background: #c41e3a !important;
+}
+
+/* ── Disable hover lift on touch devices ─────────────────────── */
+@media (hover: none) and (pointer: coarse) {
+	.luna-card:hover .luna-card__surface {
+		transform: none !important;
+		box-shadow: var(--luna-shadow-sm) !important;
 	}
 
+	.luna-card:hover .luna-card__image {
+		transform: none !important;
+		filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.16)) !important;
+	}
+}
+
+/* ── Tablet (768–991px) ──────────────────────────────────────── */
+@media (max-width: 991px) {
+
+	/*
+	 * On tablet, move nav below the slider (centered) — same pattern
+	 * as the reviews slider which users already find comfortable.
+	 */
+	.luna-menu-section .menu-slider.owl-carousel .owl-nav {
+		position: relative !important;
+		top: auto !important;
+		right: auto !important;
+		justify-content: center !important;
+		margin-top: 16px !important;
+		pointer-events: none !important;
+	}
+
+	.luna-menu-section .menu-slider.owl-carousel .owl-nav button.owl-prev,
+	.luna-menu-section .menu-slider.owl-carousel .owl-nav button.owl-next {
+		width: 46px !important;
+		height: 46px !important;
+		min-width: 46px !important;
+		pointer-events: auto !important;
+	}
+
+	/* Stage must clip so stagePadding peek is clean on tablet */
+	.luna-menu-section .menu-slider.owl-carousel .owl-stage-outer {
+		overflow: hidden !important;
+	}
+}
+
+/* ── Mobile (0–767px): the core of the fix ───────────────────── */
+@media (max-width: 767px) {
+
+	/*
+	 * STAGE OUTER — overflow: visible lets the peeked card edge show
+	 * outside the container. The parent .our-menu-section clips
+	 * the rest of the page, so this is safe.
+	 */
+	.luna-menu-section .menu-slider.owl-carousel .owl-stage-outer {
+		overflow: visible !important;
+		padding: 6px 0 28px !important;
+	}
+
+	/* Clip at the section level so the peek stays inside the viewport */
+	.our-menu.luna-menu-section {
+		overflow: hidden !important;
+	}
+
+	.luna-menu-section .our-menu-content {
+		width: 100% !important;
+		margin: 0 !important;
+		padding-left: 16px !important;
+		padding-right: 16px !important;
+		overflow: visible !important;
+	}
+
+	/* No arrows on mobile — dots handle navigation */
 	.luna-menu-section .menu-slider.owl-carousel .owl-nav {
 		display: none !important;
 	}
 
+	/* Slide vertical padding */
 	.luna-menu-section .menu-slider.owl-carousel .owl-item {
 		padding: 8px 0 18px !important;
 	}
 
-	.luna-menu-section .our-menu-content {
-		padding-left: 10px !important;
-		padding-right: 10px !important;
-		overflow: hidden !important;
-	}
-
+	/* Card sizing */
 	.luna-card {
-		max-width: min(100%, 390px) !important;
+		max-width: 100% !important;
 	}
 
 	.luna-card__surface {
 		min-height: 500px !important;
 		border-radius: 26px !important;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
 	}
 
-	.luna-card:hover .luna-card__surface,
-	.luna-card:hover .luna-card__image {
-		transform: none !important;
+	.luna-card__visual {
+		padding: 15px 15px 10px !important;
+	}
+
+	.luna-card__image-box {
+		max-height: 195px !important;
+		border-radius: 20px !important;
+	}
+
+	.luna-card__details {
+		padding-left: 18px !important;
+		padding-right: 18px !important;
 	}
 }
 
-@media (max-width: 420px) {
-	.luna-card {
-		max-width: min(100%, 360px) !important;
-	}
-
+/* ── Small mobile (0–479px) ──────────────────────────────────── */
+@media (max-width: 479px) {
 	.luna-card__surface {
 		min-height: 490px !important;
+	}
+
+	.luna-card__image-box {
+		max-height: 180px !important;
+	}
+
+	.luna-card__name {
+		font-size: 18px !important;
+	}
+
+	.luna-card__price-value {
+		font-size: 22px !important;
+	}
+}
+
+/* ── Reduced motion ──────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+
+	.luna-menu-section .menu-slider.owl-carousel .owl-nav button,
+	.luna-menu-section .menu-slider.owl-carousel .owl-dot,
+	.luna-card__surface,
+	.luna-card__image {
+		transition: none !important;
+		animation: none !important;
 	}
 }
