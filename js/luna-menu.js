@@ -1,5 +1,6 @@
 /**
  * Piceri Luna — menu cards, size picker + working carousel
+ * Default opening size: Normale 30 cm
  */
 (function ($) {
 	'use strict';
@@ -48,7 +49,7 @@
 		var badge = index < 3 ? '<span class="luna-card__badge">E preferuar</span>' : '';
 
 		return (
-			'<article class="luna-card" data-pizza-id="' + pizza.id + '">' +
+			'<article class="luna-card" data-pizza-id="' + escapeHtml(pizza.id) + '">' +
 			'<div class="luna-card__surface">' +
 
 			'<figure class="luna-card__visual">' +
@@ -63,11 +64,13 @@
 			'<div class="luna-card__details">' +
 			'<div class="luna-card__meta">' +
 			'<h3 class="luna-card__name"><a href="shop-detail.html">' + escapeHtml(pizza.name) + '</a></h3>' +
+
 			'<div class="luna-card__price" data-luna-price data-selected-size="' + DEFAULT_SIZE_KEY + '" data-selected-price="' + defaultPrice + '">' +
 			'<span class="luna-card__price-value">' + formatPrice(defaultPrice) + '</span>' +
 			'<span class="luna-card__price-unit">ALL</span>' +
 			'</div>' +
 			'</div>' +
+
 			'<p class="luna-card__ingredients">' + escapeHtml(pizza.ingredients) + '</p>' +
 			'</div>' +
 
@@ -115,7 +118,12 @@
 		if ($slider.hasClass('owl-loaded')) {
 			$slider.trigger('destroy.owl.carousel');
 			$slider.removeClass('owl-loaded owl-hidden');
+
 			$slider.find('.owl-stage-outer').children().unwrap();
+			$slider.find('.owl-stage').children().unwrap();
+			$slider.find('.owl-item').children().unwrap();
+
+			$slider.find('.owl-nav, .owl-dots').remove();
 		}
 
 		$slider.owlCarousel({
@@ -172,20 +180,74 @@
 		}
 	}
 
+	function getPickerPrices($picker) {
+		var prices = $picker.data('prices');
+
+		if (prices && typeof prices === 'object') {
+			return prices;
+		}
+
+		try {
+			return JSON.parse($picker.attr('data-prices'));
+		} catch (e) {
+			return null;
+		}
+	}
+
+	function forceDefaultNormalSize() {
+		$('.luna-card').each(function () {
+			var $card = $(this);
+			var $picker = $card.find('.luna-size-picker');
+			var $price = $card.find('[data-luna-price]');
+			var prices = getPickerPrices($picker);
+
+			if (!prices || typeof prices[DEFAULT_SIZE_KEY] === 'undefined') return;
+
+			var normalPrice = prices[DEFAULT_SIZE_KEY];
+
+			$price.attr('data-selected-size', DEFAULT_SIZE_KEY);
+			$price.attr('data-selected-price', normalPrice);
+			$price.find('.luna-card__price-value').text(formatPrice(normalPrice));
+
+			$picker.find('.luna-picker__option').removeClass('is-active');
+			$picker.find('.luna-picker__option[data-size-key="' + DEFAULT_SIZE_KEY + '"]').addClass('is-active');
+
+			var list = $picker.find('.luna-picker__list').get(0);
+			var normalButton = $picker.find('.luna-picker__option[data-size-key="' + DEFAULT_SIZE_KEY + '"]').get(0);
+
+			if (list && normalButton) {
+				list.scrollTop =
+					normalButton.offsetTop -
+					(list.clientHeight / 2) +
+					(normalButton.clientHeight / 2);
+			}
+		});
+	}
+
 	$(document).ready(function () {
 		renderMenu();
 
 		/*
 			Important:
-			First initialize Owl Carousel.
-			Then mount the size picker.
-			This prevents cloned carousel cards from losing button behavior.
+			1. First render all pizza cards.
+			2. Then initialize Owl Carousel.
+			3. Then mount the size picker.
+			4. Then force the default size to Normale 30 cm.
 		*/
 		initCarousel();
 
 		setTimeout(function () {
 			mountSizePickers();
-		}, 50);
+			forceDefaultNormalSize();
+		}, 80);
+
+		setTimeout(function () {
+			forceDefaultNormalSize();
+		}, 250);
+
+		setTimeout(function () {
+			forceDefaultNormalSize();
+		}, 600);
 	});
 
 })(jQuery);
