@@ -1087,7 +1087,7 @@
 		display: none !important;
 	}
 
-	#luna-pizza-carousel.luna-pizza-scroll>.luna-card {
+	#luna-pizza-carousel.luna-pizza-scroll > .luna-card {
 		width: 100% !important;
 		max-width: none !important;
 		min-width: 0 !important;
