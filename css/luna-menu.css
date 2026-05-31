@@ -1178,3 +1178,142 @@
 		font-size: 23px !important;
 	}
 }
+
+/* ============================================================
+   PICERI LUNA — PIZZA CAROUSEL LIKE REVIEWS SLIDER
+   Paste at the END of css/luna-menu.css
+   ============================================================ */
+
+.luna-menu-section .menu-slider.owl-carousel {
+	display: block !important;
+	position: relative !important;
+	width: 100% !important;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.luna-menu-section .menu-slider.owl-carousel .owl-stage-outer {
+	overflow: hidden !important;
+	padding: 8px 0 36px;
+}
+
+.luna-menu-section .menu-slider.owl-carousel .owl-stage {
+	display: flex !important;
+	align-items: stretch !important;
+}
+
+.luna-menu-section .menu-slider.owl-carousel .owl-item {
+	display: flex !important;
+	align-items: stretch !important;
+	height: auto !important;
+	padding: 12px 0;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.luna-menu-section .menu-slider.owl-carousel .owl-item>.luna-card {
+	width: 100% !important;
+	height: 100% !important;
+	margin: 0 auto !important;
+}
+
+.luna-menu-section .menu-slider.owl-carousel .owl-item img {
+	-webkit-user-drag: none;
+	user-drag: none;
+}
+
+.luna-menu-section .menu-slider.owl-carousel.owl-drag .owl-item {
+	touch-action: pan-y !important;
+}
+
+.luna-menu-section .menu-slider.owl-carousel .owl-nav {
+	position: absolute !important;
+	top: -96px !important;
+	right: 0 !important;
+	display: flex !important;
+	flex-direction: row-reverse !important;
+	gap: 12px !important;
+	width: auto !important;
+	transform: none !important;
+	z-index: 20 !important;
+}
+
+.luna-menu-section .menu-slider.owl-carousel .owl-nav button {
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: 48px !important;
+	height: 48px !important;
+	margin: 0 !important;
+	border: 1px solid rgba(29, 29, 31, 0.08) !important;
+	border-radius: 999px !important;
+	background: rgba(255, 255, 255, 0.88) !important;
+	color: #1d1d1f !important;
+	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08) !important;
+	backdrop-filter: blur(14px);
+	-webkit-backdrop-filter: blur(14px);
+	transition:
+		transform 0.25s ease,
+		background 0.25s ease,
+		color 0.25s ease,
+		box-shadow 0.25s ease;
+}
+
+.luna-menu-section .menu-slider.owl-carousel .owl-nav button span {
+	display: block;
+	font-size: 34px;
+	line-height: 1;
+	transform: translateY(-2px);
+}
+
+.luna-menu-section .menu-slider.owl-carousel .owl-nav button:hover {
+	transform: translateY(-2px);
+	background: var(--luna-accent, #c41e3a) !important;
+	color: #ffffff !important;
+	box-shadow: 0 14px 30px rgba(196, 30, 58, 0.2) !important;
+}
+
+/* Mobile: same clean feeling as reviews, without arrows */
+@media (max-width: 767px) {
+	.luna-menu-section .menu-slider.owl-carousel .owl-stage-outer {
+		overflow: hidden !important;
+		padding: 6px 0 28px;
+	}
+
+	.luna-menu-section .menu-slider.owl-carousel .owl-nav {
+		display: none !important;
+	}
+
+	.luna-menu-section .menu-slider.owl-carousel .owl-item {
+		padding: 8px 0 18px !important;
+	}
+
+	.luna-menu-section .our-menu-content {
+		padding-left: 10px !important;
+		padding-right: 10px !important;
+		overflow: hidden !important;
+	}
+
+	.luna-card {
+		max-width: min(100%, 390px) !important;
+	}
+
+	.luna-card__surface {
+		min-height: 500px !important;
+		border-radius: 26px !important;
+	}
+
+	.luna-card:hover .luna-card__surface,
+	.luna-card:hover .luna-card__image {
+		transform: none !important;
+	}
+}
+
+@media (max-width: 420px) {
+	.luna-card {
+		max-width: min(100%, 360px) !important;
+	}
+
+	.luna-card__surface {
+		min-height: 490px !important;
+	}
+}

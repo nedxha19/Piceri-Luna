@@ -116,8 +116,9 @@
 		}
 
 		/*
-			Restore original Owl Carousel behavior.
-			This brings the pizza cards back to the previous carousel structure.
+			Use the same smooth Owl Carousel method as the reviews section.
+			The reviews slider works well because it stays as a real Owl Carousel,
+			with clean drag behavior and no custom native-scroll conversion.
 		*/
 		if ($slider.hasClass('owl-loaded')) {
 			$slider.trigger('destroy.owl.carousel');
@@ -138,54 +139,75 @@
 			loop: true,
 			nav: true,
 			dots: false,
+			autoplay: false,
+
 			items: 4,
 			margin: 24,
-			smartSpeed: 700,
-			autoplay: false,
+
+			/*
+				Smoother review-like feeling.
+				Higher speed = softer movement.
+			*/
+			smartSpeed: 850,
+			fluidSpeed: 850,
+			dragEndSpeed: 650,
+
+			/*
+				Important for mobile touch.
+			*/
 			mouseDrag: true,
 			touchDrag: true,
 			pullDrag: true,
 			freeDrag: false,
+
 			autoHeight: false,
+			autoWidth: false,
+			rewind: false,
+
 			navText: [
 				'<span aria-hidden="true">‹</span>',
 				'<span aria-hidden="true">›</span>'
 			],
+
 			responsive: {
 				0: {
 					items: 1,
-					nav: true,
-					dots: false,
-					margin: 16
+					margin: 16,
+					stagePadding: 0,
+					nav: false,
+					dots: false
 				},
-				600: {
+				480: {
 					items: 1,
-					nav: true,
-					dots: false,
-					margin: 18
+					margin: 18,
+					stagePadding: 0,
+					nav: false,
+					dots: false
 				},
 				768: {
 					items: 2,
+					margin: 22,
+					stagePadding: 0,
 					nav: true,
-					dots: false,
-					margin: 22
+					dots: false
 				},
 				992: {
 					items: 3,
+					margin: 22,
+					stagePadding: 0,
 					nav: true,
-					dots: false,
-					margin: 22
+					dots: false
 				},
 				1300: {
 					items: 4,
+					margin: 24,
+					stagePadding: 0,
 					nav: true,
-					dots: false,
-					margin: 24
+					dots: false
 				}
 			}
 		});
 	}
-
 	function mountSizePickers() {
 		if (typeof LunaSizePicker !== 'undefined' && typeof LunaSizePicker.mountAll === 'function') {
 			LunaSizePicker.mountAll('.luna-size-picker');
