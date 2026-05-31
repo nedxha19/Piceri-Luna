@@ -106,128 +106,149 @@
 
 		if (!$slider.length || !$slider.children().length) return;
 
-		if (typeof $.fn.owlCarousel === 'undefined') {
-			console.error('Owl Carousel is not loaded. Check js/owl.carousel.min.js.');
-			return;
-		}
+		var currentMode = null;
+		var resizeTimer = null;
 
-		if ($slider.hasClass('owl-loaded')) {
-			$slider.trigger('destroy.owl.carousel');
-			$slider.removeClass('owl-loaded owl-hidden owl-drag owl-grab');
-
-			$slider.find('.owl-stage-outer').children().unwrap();
-			$slider.find('.owl-stage').children().unwrap();
-			$slider.find('.owl-item').children().unwrap();
-
+		function cleanOwlMarkup() {
+			/*
+				Safely remove Owl wrappers if Owl was already initialized.
+				This restores direct children:
+				#luna-pizza-carousel > .luna-card
+			*/
 			$slider.find('.owl-nav, .owl-dots').remove();
+
+			if ($slider.find('.owl-stage-outer').length) {
+				$slider.find('.owl-stage-outer').children().unwrap();
+			}
+
+			if ($slider.find('.owl-stage').length) {
+				$slider.find('.owl-stage').children().unwrap();
+			}
+
+			if ($slider.find('.owl-item').length) {
+				$slider.find('.owl-item').children().unwrap();
+			}
+
+			$slider.children('.luna-card').removeAttr('style');
 		}
 
-		$slider
-			.removeClass('luna-pizza-scroll')
-			.addClass('owl-carousel menu-slider');
-
-		$slider.owlCarousel({
-			loop: true,
-			nav: true,
-			dots: false,
-			autoplay: false,
-
-			items: 4,
-			margin: 24,
-
-			/*
-			 * Smooth, Apple-like feel — identical tuning to the reviews slider
-			 * that users find natural. Higher smartSpeed = softer deceleration.
-			 */
-			smartSpeed: 600,
-			fluidSpeed: 600,
-			dragEndSpeed: 450,
-
-			/*
-			 * Touch configuration — the most important part.
-			 * pullDrag: true  → allows over-pull at boundaries (natural iOS feel)
-			 * freeDrag: false → snaps to item after release (no half-card states)
-			 * mouseDrag + touchDrag: both on for consistency
-			 */
-			mouseDrag: true,
-			touchDrag: true,
-			pullDrag: true,
-			freeDrag: false,
-
-			autoHeight: false,
-			autoWidth: false,
-			rewind: false,
-
-			navText: [
-				'<span aria-hidden="true">‹</span>',
-				'<span aria-hidden="true">›</span>'
-			],
-
-			responsive: {
-				/*
-				 * ── MOBILE (0–479px) ─────────────────────────────────────────
-				 * Key fixes vs old config:
-				 *  • stagePadding: 32 → peeks the next card edge, making the
-				 *    carousel visually "discoverable" — users see more content
-				 *    waiting and naturally swipe to reach it. This is the #1
-				 *    reason Apple/Airbnb/Uber carousels feel intuitive.
-				 *  • dots: true → progress indicator (like the reviews slider)
-				 *    gives users a map of where they are in 33 pizzas.
-				 *  • margin reduced → tighter gap looks cleaner at this width
-				 *    while stagePadding still reveals the next card.
-				 */
-				0: {
-					items: 1,
-					margin: 14,
-					stagePadding: 32,
-					nav: false,
-					dots: true
-				},
-				/*
-				 * ── MOBILE LARGE (480–767px) ─────────────────────────────────
-				 * Slightly wider padding to show more of the next card.
-				 */
-				480: {
-					items: 1,
-					margin: 16,
-					stagePadding: 48,
-					nav: false,
-					dots: true
-				},
-				/*
-				 * ── TABLET (768–991px) ────────────────────────────────────────
-				 * Two cards fit; a slim stagePadding teases the third.
-				 * Nav arrows return; dots stay off (arrows are sufficient).
-				 */
-				768: {
-					items: 2,
-					margin: 22,
-					stagePadding: 24,
-					nav: true,
-					dots: false
-				},
-				/*
-				 * ── DESKTOP SMALL (992–1299px) ────────────────────────────────
-				 */
-				992: {
-					items: 3,
-					margin: 22,
-					stagePadding: 0,
-					nav: true,
-					dots: false
-				},
-				/*
-				 * ── DESKTOP LARGE (1300px+) ───────────────────────────────────
-				 */
-				1300: {
-					items: 4,
-					margin: 24,
-					stagePadding: 0,
-					nav: true,
-					dots: false
-				}
+		function destroyOwlIfNeeded() {
+			if ($slider.hasClass('owl-loaded') && typeof $.fn.owlCarousel !== 'undefined') {
+				$slider.trigger('destroy.owl.carousel');
 			}
-		});
+
+			cleanOwlMarkup();
+
+			$slider.removeClass(
+				'owl-carousel owl-loaded owl-hidden owl-drag owl-grab owl-rtl owl-loading owl-refresh'
+			);
+		}
+
+		function setupMobileNativeScroll() {
+			destroyOwlIfNeeded();
+
+			$slider
+				.addClass('luna-pizza-scroll')
+				.attr({
+					tabindex: '0',
+					role: 'list',
+					'aria-label': 'Lista e picave'
+				});
+
+			$slider.children('.luna-card').attr('role', 'listitem');
+		}
+
+		function setupDesktopOwl() {
+			if (typeof $.fn.owlCarousel === 'undefined') {
+				console.error('Owl Carousel is not loaded. Check js/owl.carousel.min.js.');
+				return;
+			}
+
+			destroyOwlIfNeeded();
+
+			$slider
+				.removeClass('luna-pizza-scroll')
+				.addClass('owl-carousel menu-slider')
+				.removeAttr('tabindex role aria-label');
+
+			$slider.children('.luna-card').removeAttr('role');
+
+			$slider.owlCarousel({
+				loop: true,
+				nav: true,
+				dots: false,
+				autoplay: false,
+
+				items: 4,
+				margin: 24,
+
+				smartSpeed: 700,
+				fluidSpeed: 700,
+				dragEndSpeed: 500,
+
+				mouseDrag: true,
+				touchDrag: true,
+				pullDrag: true,
+				freeDrag: false,
+
+				autoHeight: false,
+				autoWidth: false,
+				rewind: false,
+
+				navText: [
+					'<span aria-hidden="true">‹</span>',
+					'<span aria-hidden="true">›</span>'
+				],
+
+				responsive: {
+					768: {
+						items: 2,
+						margin: 22,
+						stagePadding: 18,
+						nav: true,
+						dots: false
+					},
+					992: {
+						items: 3,
+						margin: 22,
+						stagePadding: 0,
+						nav: true,
+						dots: false
+					},
+					1300: {
+						items: 4,
+						margin: 24,
+						stagePadding: 0,
+						nav: true,
+						dots: false
+					}
+				}
+			});
+		}
+
+		function applyMode() {
+			var isMobile = window.matchMedia('(max-width: 767px)').matches;
+			var nextMode = isMobile ? 'mobile' : 'desktop';
+
+			if (currentMode === nextMode) return;
+
+			currentMode = nextMode;
+
+			if (isMobile) {
+				setupMobileNativeScroll();
+			} else {
+				setupDesktopOwl();
+			}
+		}
+
+		applyMode();
+
+		$(window)
+			.off('resize.lunaPizzaMode')
+			.on('resize.lunaPizzaMode', function () {
+				clearTimeout(resizeTimer);
+				resizeTimer = setTimeout(applyMode, 160);
+			});
 	}
 
 	function mountSizePickers() {
