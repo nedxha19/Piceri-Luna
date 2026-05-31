@@ -1,6 +1,10 @@
 /**
- * Piceri Luna — menu cards, size picker + working carousel
+ * Piceri Luna — menu cards, size picker + native pizza-card scrolling
  * Default opening size: Normale 30 cm
+ *
+ * Important:
+ * This version does NOT use Owl Carousel for pizza cards.
+ * It renders the pizza cards normally, then CSS handles smooth horizontal scrolling.
  */
 (function ($) {
 	'use strict';
@@ -110,99 +114,46 @@
 
 		if (!$slider.length || !$slider.children().length) return;
 
-		if (typeof $.fn.owlCarousel === 'undefined') {
-			console.error('Owl Carousel is not loaded. Check js/owl.carousel.min.js.');
-			return;
-		}
+		/*
+			Native pizza-card scrolling method.
 
-		if ($slider.hasClass('owl-loaded')) {
+			Reason:
+			Owl Carousel makes mobile dragging feel heavy and inconsistent
+			when cards contain buttons, images, links, and a vertical size picker.
+
+			This method keeps the dynamically generated pizza cards,
+			but removes Owl Carousel behavior and lets CSS create real
+			mobile horizontal scrolling with scroll-snap.
+		*/
+
+		if ($slider.hasClass('owl-loaded') && typeof $.fn.owlCarousel !== 'undefined') {
 			$slider.trigger('destroy.owl.carousel');
-			$slider.removeClass('owl-loaded owl-hidden owl-drag');
-
-			$slider.find('.owl-stage-outer').children().unwrap();
-			$slider.find('.owl-stage').children().unwrap();
-			$slider.find('.owl-item').children().unwrap();
-
-			$slider.find('.owl-nav, .owl-dots').remove();
 		}
 
-		$slider.owlCarousel({
-			loop: false,
-			nav: true,
-			dots: false,
-			items: 4,
-			margin: 24,
+		$slider
+			.removeClass('owl-carousel owl-loaded owl-hidden owl-drag owl-grab')
+			.addClass('luna-pizza-scroll');
 
-			/*
-				Smoother, more premium movement.
-				Feels less stiff on mobile.
-			*/
-			smartSpeed: 520,
-			fluidSpeed: 520,
-			dragEndSpeed: 360,
+		/*
+			Clean possible Owl Carousel wrappers if they already exist.
+			This makes the function safe even if another script initialized Owl before.
+		*/
+		$slider.find('.owl-stage-outer').children().unwrap();
+		$slider.find('.owl-stage').children().unwrap();
+		$slider.find('.owl-item').children().unwrap();
+		$slider.find('.owl-nav, .owl-dots').remove();
 
-			/*
-				Important for mobile.
-				Allows natural finger dragging.
-			*/
-			mouseDrag: true,
-			touchDrag: true,
-			pullDrag: true,
-			freeDrag: false,
-			autoplay: false,
-			rewind: false,
-			autoHeight: false,
-
-			navText: [
-				'<span aria-hidden="true">‹</span>',
-				'<span aria-hidden="true">›</span>'
-			],
-
-			responsive: {
-				0: {
-					items: 1,
-					margin: 14,
-					stagePadding: 26,
-					nav: false,
-					dots: false
-				},
-				380: {
-					items: 1,
-					margin: 16,
-					stagePadding: 32,
-					nav: false,
-					dots: false
-				},
-				576: {
-					items: 1,
-					margin: 18,
-					stagePadding: 46,
-					nav: false,
-					dots: false
-				},
-				768: {
-					items: 2,
-					margin: 20,
-					stagePadding: 16,
-					nav: true,
-					dots: false
-				},
-				992: {
-					items: 3,
-					margin: 22,
-					stagePadding: 8,
-					nav: true,
-					dots: false
-				},
-				1300: {
-					items: 4,
-					margin: 24,
-					stagePadding: 0,
-					nav: true,
-					dots: false
-				}
-			}
+		/*
+			Accessibility:
+			The horizontal pizza row can be focused with keyboard.
+		*/
+		$slider.attr({
+			tabindex: '0',
+			role: 'list',
+			'aria-label': 'Lista e picave'
 		});
+
+		$slider.children('.luna-card').attr('role', 'listitem');
 	}
 
 	function mountSizePickers() {
@@ -261,11 +212,11 @@
 		renderMenu();
 
 		/*
-			Important:
-			1. First render all pizza cards.
-			2. Then initialize Owl Carousel.
-			3. Then mount the size picker.
-			4. Then force the default size to Normale 30 cm.
+			Important order:
+			1. Render all pizza cards from luna-menu-data.js.
+			2. Convert the pizza area into a native horizontal scroll row.
+			3. Mount the vertical size picker.
+			4. Force default size to Normale 30 cm.
 		*/
 		initCarousel();
 
