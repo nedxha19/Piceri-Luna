@@ -2096,3 +2096,65 @@
 	margin-top: 0 !important;
 	padding-top: calc(80px + 56px) !important;
 }
+
+/* Two-location phone layout */
+.ln-cta-group,
+.luna-hero__phone-group,
+.luna-step__call-group,
+.luna-cta__phone-group,
+.ln-mobile__cta-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	align-items: center;
+}
+
+.ln-cta-group .ln-cta {
+	padding-left: 14px;
+	padding-right: 14px;
+}
+
+.ln-cta-group .ln-cta__label {
+	white-space: nowrap;
+	font-size: 13px;
+}
+
+.luna-hero__phone-group {
+	margin-top: 0;
+}
+
+.luna-step__call-group,
+.luna-cta__phone-group,
+.ln-mobile__cta-group {
+	flex-direction: column;
+	align-items: stretch;
+}
+
+.luna-step__call-group .luna-step__call,
+.luna-cta__phone-group .luna-cta__phone,
+.ln-mobile__cta-group .ln-mobile__cta {
+	width: 100%;
+	justify-content: center;
+	text-align: center;
+}
+
+.footer-menu strong {
+	display: inline-block;
+	margin-top: 6px;
+	color: #1d1d1f;
+	font-weight: 800;
+}
+
+@media (max-width: 1199px) {
+	.ln-cta-group {
+		display: none;
+	}
+}
+
+@media (max-width: 575px) {
+	.luna-hero__phone-group .luna-hero__btn-ghost {
+		width: 100%;
+		justify-content: center;
+		text-align: center;
+	}
+}

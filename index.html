@@ -7,10 +7,9 @@
 
 	<title>Piceri Luna Shkodër | Pizza në Shkodër, Menu & Porosi</title>
 
-	<link rel="icon" type="image/png" href="Piceri Luna/undefined-.webp">
 
 	<meta name="description"
-		content="Piceri Luna në Shkodër ofron pizza të freskëta, menu me çmime të qarta dhe porosi me telefon. Zgjidh picën tënde të preferuar në 30, 35 ose 45 cm.">
+		content="Piceri Luna në Shkodër ofron pizza të freskëta në dy vendndodhje: Luna 1 Tek perdet dhe Luna 2 Parrucë. Menu me çmime të qarta dhe porosi me telefon.">
 
 	<meta name="keywords"
 		content="pizza ne shkoder, piceri shkoder, Piceri Luna, best pizza in Shkoder, cheap pizza Shkoder, pizza delivery Shkoder, menu pica Shkoder">
@@ -24,40 +23,69 @@
 		content="Pizza të freskëta në Shkodër, menu me çmime të qarta dhe porosi me telefon. Zgjidh picën tënde në 30, 35 ose 45 cm.">
 	<meta property="og:url" content="https://piceri-luna.vercel.app/">
 	<meta property="og:site_name" content="Piceri Luna">
-	<meta property="og:image" content="https://piceri-luna.vercel.app/Piceri%20Luna/undefined-.webp">
+	<meta property="og:image"
+		content="https://piceri-luna.vercel.app/Piceri%20Luna/SaveClip.App_615700220_18322506685217890_950610819050237562_n.jpg">
 
 	<!-- Twitter / X -->
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:title" content="Piceri Luna Shkodër | Pizza në Shkodër, Menu & Porosi">
 	<meta name="twitter:description"
 		content="Pizza të freskëta në Shkodër, menu me çmime të qarta dhe porosi me telefon.">
-	<meta name="twitter:image" content="https://piceri-luna.vercel.app/Piceri%20Luna/YOUR_IMAGE_NAME.jpg">
+	<meta name="twitter:image"
+		content="https://piceri-luna.vercel.app/Piceri%20Luna/SaveClip.App_615700220_18322506685217890_950610819050237562_n.jpg">
 
 	<!-- Local Business Schema -->
 	<script type="application/ld+json">
-	{
-		"@context": "https://schema.org",
-		"@type": "Restaurant",
-		"name": "Piceri Luna",
-		"description": "Piceri Luna në Shkodër ofron pizza të freskëta, menu me çmime të qarta dhe porosi me telefon.",
-		"servesCuisine": ["Pizza", "Italian", "Fast Food"],
-		"priceRange": "ALL 450-1750",
-		"telephone": "+355672873000",
-		"url": "https://piceri-luna.vercel.app/",
-		"image": "https://piceri-luna.vercel.app/Piceri%20Luna/undefined-.webp",
-		"address": {
-			"@type": "PostalAddress",
-			"addressLocality": "Shkodër",
-			"addressCountry": "AL"
+	[
+		{
+			"@context": "https://schema.org",
+			"@type": "Restaurant",
+			"name": "Piceri Luna 1 - Tek perdet",
+			"description": "Piceri Luna 1 në Shkodër ofron pizza të freskëta, menu me çmime të qarta dhe porosi me telefon.",
+			"servesCuisine": ["Pizza", "Italian", "Fast Food"],
+			"priceRange": "ALL 450-1750",
+			"telephone": "+355692483300",
+			"url": "https://piceri-luna.vercel.app/",
+			"image": "https://piceri-luna.vercel.app/Piceri%20Luna/SaveClip.App_615700220_18322506685217890_950610819050237562_n.jpg",
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "Tek perdet",
+				"addressLocality": "Shkodër",
+				"addressCountry": "AL"
+			},
+			"areaServed": {
+				"@type": "City",
+				"name": "Shkodër"
+			},
+			"sameAs": [
+				"https://www.instagram.com/piceriluna/"
+			]
 		},
-		"areaServed": {
-			"@type": "City",
-			"name": "Shkodër"
-		},
-		"sameAs": [
-			"https://www.instagram.com/piceriluna/"
-		]
-	}
+		{
+			"@context": "https://schema.org",
+			"@type": "Restaurant",
+			"name": "Piceri Luna 2 - Parrucë",
+			"description": "Piceri Luna 2 në Parrucë, Shkodër ofron pizza të freskëta, menu me çmime të qarta dhe porosi me telefon.",
+			"servesCuisine": ["Pizza", "Italian", "Fast Food"],
+			"priceRange": "ALL 450-1750",
+			"telephone": "+355672873000",
+			"url": "https://piceri-luna.vercel.app/",
+			"image": "https://piceri-luna.vercel.app/Piceri%20Luna/SaveClip.App_615700220_18322506685217890_950610819050237562_n.jpg",
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "Parrucë",
+				"addressLocality": "Shkodër",
+				"addressCountry": "AL"
+			},
+			"areaServed": {
+				"@type": "City",
+				"name": "Shkodër"
+			},
+			"sameAs": [
+				"https://www.instagram.com/piceriluna/"
+			]
+		}
+	]
 	</script>
 
 	<!-- CSS -->
@@ -109,6 +137,64 @@
 		body {
 			scroll-behavior: smooth;
 		}
+
+		/* ── Two-location phone layout ───────────────────────────── */
+		.ln-cta-group,
+		.luna-hero__phone-group,
+		.luna-step__call-group,
+		.luna-cta__phone-group,
+		.ln-mobile__cta-group {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			align-items: center;
+		}
+
+		.ln-cta-group .ln-cta {
+			padding-left: 14px;
+			padding-right: 14px;
+		}
+
+		.ln-cta-group .ln-cta__label {
+			white-space: nowrap;
+			font-size: 13px;
+		}
+
+		.luna-step__call-group,
+		.luna-cta__phone-group,
+		.ln-mobile__cta-group {
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.luna-step__call-group .luna-step__call,
+		.luna-cta__phone-group .luna-cta__phone,
+		.ln-mobile__cta-group .ln-mobile__cta {
+			width: 100%;
+			justify-content: center;
+			text-align: center;
+		}
+
+		.footer-menu strong {
+			display: inline-block;
+			margin-top: 6px;
+			color: #1d1d1f;
+			font-weight: 800;
+		}
+
+		@media (max-width: 1199px) {
+			.ln-cta-group {
+				display: none;
+			}
+		}
+
+		@media (max-width: 575px) {
+			.luna-hero__phone-group .luna-hero__btn-ghost {
+				width: 100%;
+				justify-content: center;
+				text-align: center;
+			}
+		}
 	</style>
 </head>
 
@@ -153,18 +239,32 @@
 				<div class="ln-nav__indicator" aria-hidden="true"></div>
 			</nav>
 
-			<!-- CTA — desktop pill button -->
-			<a href="tel:+355672873000" class="ln-cta" aria-label="Telefono +355 67 287 3000">
-				<svg class="ln-cta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-					stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="18" height="18">
-					<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07
-					         19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1
-					         4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0
-					         1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1
-					         2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-				</svg>
-				<span class="ln-cta__label">+355 67 287 3000</span>
-			</a>
+			<!-- CTA — desktop pill buttons -->
+			<div class="ln-cta-group" aria-label="Telefonat e Piceri Luna">
+				<a href="tel:+355692483300" class="ln-cta" aria-label="Telefono Luna 1 Tek perdet +355 69 248 3300">
+					<svg class="ln-cta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+						stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="18" height="18">
+						<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07
+						         19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1
+						         4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0
+						         1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1
+						         2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+					</svg>
+					<span class="ln-cta__label">Luna 1 · +355 69 248 3300</span>
+				</a>
+
+				<a href="tel:+355672873000" class="ln-cta" aria-label="Telefono Luna 2 Parrucë +355 67 287 3000">
+					<svg class="ln-cta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+						stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="18" height="18">
+						<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07
+						         19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1
+						         4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0
+						         1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1
+						         2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+					</svg>
+					<span class="ln-cta__label">Luna 2 · +355 67 287 3000</span>
+				</a>
+			</div>
 
 			<!-- HAMBURGER (mobile only) -->
 			<button class="ln-burger" id="ln-burger" aria-expanded="false" aria-controls="ln-mobile-menu"
@@ -197,17 +297,31 @@
 				</ul>
 			</nav>
 
-			<a href="tel:+355672873000" class="ln-mobile__cta">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-					stroke-linejoin="round" aria-hidden="true" width="18" height="18">
-					<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07
-					         19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1
-					         4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0
-					         1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1
-					         2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-				</svg>
-				Telefono tani
-			</a>
+			<div class="ln-mobile__cta-group">
+				<a href="tel:+355692483300" class="ln-mobile__cta">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+						stroke-linejoin="round" aria-hidden="true" width="18" height="18">
+						<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07
+						         19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1
+						         4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0
+						         1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1
+						         2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+					</svg>
+					Luna 1 · Tek perdet · +355 69 248 3300
+				</a>
+
+				<a href="tel:+355672873000" class="ln-mobile__cta">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+						stroke-linejoin="round" aria-hidden="true" width="18" height="18">
+						<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07
+						         19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1
+						         4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0
+						         1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1
+						         2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+					</svg>
+					Luna 2 · Parrucë · +355 67 287 3000
+				</a>
+			</div>
 
 			<!-- decorative radial blob -->
 			<div class="ln-mobile__deco" aria-hidden="true"></div>
@@ -239,8 +353,14 @@
 							<div class="luna-hero__actions">
 								<a href="#luna-menu" class="btn-ct btn-large"><img src="images/cart-icon-white.png"
 										alt=""> Shiko Menunë</a>
-								<a href="tel:+355672873000" class="luna-hero__btn-ghost"><i class="fa fa-phone"
-										aria-hidden="true"></i> +355 67 287 3000</a>
+								<div class="luna-hero__phone-group">
+									<a href="tel:+355692483300" class="luna-hero__btn-ghost">
+										<i class="fa fa-phone" aria-hidden="true"></i> Luna 1 · +355 69 248 3300
+									</a>
+									<a href="tel:+355672873000" class="luna-hero__btn-ghost">
+										<i class="fa fa-phone" aria-hidden="true"></i> Luna 2 · +355 67 287 3000
+									</a>
+								</div>
 							</div>
 							<div class="luna-hero__chips">
 								<span class="luna-hero__chip">30 – 45 cm</span>
@@ -353,10 +473,18 @@
 								përgatitjes ose porosi të personalizuar.
 							</p>
 
-							<a href="tel:+355672873000" class="luna-step__call" aria-label="Telefono Piceri Luna">
-								<i class="fa fa-phone" aria-hidden="true"></i>
-								+355 67 287 3000
-							</a>
+							<div class="luna-step__call-group">
+								<a href="tel:+355692483300" class="luna-step__call"
+									aria-label="Telefono Luna 1 Tek perdet">
+									<i class="fa fa-phone" aria-hidden="true"></i>
+									Luna 1 · +355 69 248 3300
+								</a>
+								<a href="tel:+355672873000" class="luna-step__call"
+									aria-label="Telefono Luna 2 Parrucë">
+									<i class="fa fa-phone" aria-hidden="true"></i>
+									Luna 2 · +355 67 287 3000
+								</a>
+							</div>
 						</article>
 
 						<article class="luna-step luna-reveal luna-reveal--delay-2 wow fadeInUp">
@@ -532,8 +660,14 @@
 							në kohë në Shkodër.</p>
 					</div>
 					<div class="luna-cta__actions">
-						<a href="tel:+355672873000" class="luna-cta__phone"><i class="fa fa-phone"></i> +355 67 287
-							3000</a>
+						<div class="luna-cta__phone-group">
+							<a href="tel:+355692483300" class="luna-cta__phone">
+								<i class="fa fa-phone"></i> Luna 1 · Tek perdet · +355 69 248 3300
+							</a>
+							<a href="tel:+355672873000" class="luna-cta__phone">
+								<i class="fa fa-phone"></i> Luna 2 · Parrucë · +355 67 287 3000
+							</a>
+						</div>
 						<a href="#luna-menu" class="btn-ct btn-large"><img src="images/cart-icon-white.png" alt="">
 							Eksploro Menunë</a>
 					</div>
@@ -805,7 +939,6 @@
 						<li><a href="#luna-kryefaqja">Kryefaqja</a></li>
 						<li><a href="#luna-menu">Menuja</a></li>
 						<li><a href="#luna-hapat">Si Funksionon</a></li>
-						<li><a href="#luna-rreth-nesh">Rreth Nesh</a></li>
 						<li><a href="#luna-vlersimet">Vlersimet</a></li>
 						<li><a href="#luna-kontakt">Kontakt</a></li>
 					</ul>
@@ -823,6 +956,9 @@
 				<div class="col-xl-3 col-lg-6 col-md-6 footer-box wow fadeInUp">
 					<h6 class="footer-title text-uppercase">Kontakt</h6>
 					<ul class="footer-menu">
+						<li><strong>Luna 1 - Tek perdet</strong></li>
+						<li><a href="tel:+355692483300">+355 69 248 3300</a></li>
+						<li><strong>Luna 2 - Parrucë</strong></li>
 						<li><a href="tel:+355672873000">+355 67 287 3000</a></li>
 						<li><a href="#luna-hapat">Si të Porosisni</a></li>
 						<li><a href="#luna-menu">Shiko Menunë</a></li>
@@ -849,7 +985,9 @@
 			<div class="container">
 				<div class="text-center">
 					<p>&#169; 2026 Piceri Luna, Shkodër. Të gjitha të drejtat e rezervuara. &nbsp;|&nbsp;
-						<a href="tel:+355672873000">+355 67 287 3000</a>
+						Luna 1: <a href="tel:+355692483300">+355 69 248 3300</a>
+						&nbsp;|&nbsp;
+						Luna 2: <a href="tel:+355672873000">+355 67 287 3000</a>
 					</p>
 				</div>
 			</div>
@@ -959,10 +1097,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- End Of Cart Drawer -->
 
-
-	<!-- ── Scripts ──────────────────────────────────────────── -->
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/animation.js"></script>
@@ -972,8 +1107,6 @@
 	<script src="js/luna-size-picker.js"></script>
 	<script src="js/luna-menu.js"></script>
 	<script src="js/luna-home.js"></script>
-
-	<!-- NEW NAVBAR JS — must be last -->
 	<script src="js/luna-navbar.js"></script>
 
 </body>
