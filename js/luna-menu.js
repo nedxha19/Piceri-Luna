@@ -1,7 +1,4 @@
-/**
- * Piceri Luna — menu cards, size picker + working carousel
- * Default opening size: Normale 30 cm
- */
+
 (function ($) {
 	'use strict';
 
