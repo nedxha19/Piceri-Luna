@@ -1,176 +1,326 @@
 /* ==========================================================================
-   Piceri Luna — Menu cards (8px grid, computed wheel geometry)
-   ==========================================================================
-
-   Wheel math:
-   --luna-wheel-item     = 44px  (one row)
-   --luna-wheel-visible  = 3     (rows in viewport)
-   viewport height       = 44 × 3 = 132px
-   list padding (Y)      = 44px  (so row 0 and 3 can center)
-   scrollTop for index i = i × 44px
+   PICERI LUNA — PREMIUM PIZZA MENU
+   Replace the whole luna-menu.css with this file.
+   This keeps the scroll/wheel size selector and improves the entire menu UI.
    ========================================================================== */
 
 .our-menu.luna-menu-section {
-	--luna-space-1: 8px;
-	--luna-space-2: 16px;
-	--luna-space-3: 24px;
-	--luna-card-bg: #ffffff;
-	--luna-visual-bg: #f7f2ec;
+	--luna-menu-bg: #fffaf4;
+	--luna-card-bg: rgba(255, 255, 255, 0.92);
+	--luna-card-bg-hover: #ffffff;
+	--luna-visual-bg: linear-gradient(145deg, #f7efe6 0%, #fff8ef 100%);
 	--luna-text: #1d1d1f;
-	--luna-muted: #6e6e73;
+	--luna-muted: #75757d;
+	--luna-soft: #f5f1ec;
 	--luna-accent: #c41e3a;
-	--luna-line: rgba(0, 0, 0, 0.08);
-	--luna-radius: 20px;
-	--luna-pad: 20px;
-	--luna-wheel-item: 44px;
+	--luna-accent-dark: #9f182e;
+	--luna-gold: #fbb200;
+	--luna-line: rgba(29, 29, 31, 0.08);
+	--luna-line-strong: rgba(29, 29, 31, 0.13);
+	--luna-shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.06);
+	--luna-shadow-md: 0 18px 45px rgba(0, 0, 0, 0.10);
+	--luna-shadow-red: 0 14px 30px rgba(196, 30, 58, 0.20);
+
+	--luna-radius-xl: 30px;
+	--luna-radius-lg: 24px;
+	--luna-radius-md: 18px;
+	--luna-radius-pill: 999px;
+
+	--luna-pad: 22px;
+	--luna-gap: 18px;
+	--luna-card-width: 326px;
+
+	--luna-wheel-item: 46px;
 	--luna-wheel-visible: 3;
 	--luna-wheel-viewport: calc(var(--luna-wheel-item) * var(--luna-wheel-visible));
-	--luna-wheel-inset: 10px;
-	--luna-card-width: 300px;
-	--luna-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+
+	--luna-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Arial, sans-serif;
+
+	position: relative;
+	overflow: hidden;
 	font-family: var(--luna-font);
+	background:
+		radial-gradient(circle at 8% 12%, rgba(251, 178, 0, 0.12), transparent 28%),
+		radial-gradient(circle at 92% 20%, rgba(196, 30, 58, 0.09), transparent 26%),
+		linear-gradient(180deg, #ffffff 0%, var(--luna-menu-bg) 100%);
 }
 
-/* ---- Carousel: equal-height slides ---- */
+/* Better global spacing for the menu section */
+.page-home .luna-menu-section {
+	padding-top: clamp(72px, 8vw, 110px);
+	padding-bottom: clamp(72px, 8vw, 110px);
+}
+
+.page-home .luna-menu-section .container {
+	position: relative;
+	z-index: 2;
+}
+
+.page-home .luna-menu-section .luna-section-head {
+	max-width: 720px;
+	margin-bottom: 44px;
+}
+
+.page-home .luna-menu-section .luna-section-head__eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 14px;
+	color: var(--luna-accent);
+	font-size: 12px;
+	font-weight: 800;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+
+.page-home .luna-menu-section .luna-section-head__eyebrow::before {
+	content: "";
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--luna-accent);
+	box-shadow: 0 0 0 6px rgba(196, 30, 58, 0.10);
+}
+
+.page-home .luna-menu-section .luna-section-head__title {
+	max-width: 650px;
+	margin: 0;
+	color: var(--luna-text);
+	font-size: clamp(2.1rem, 5vw, 4.1rem);
+	font-weight: 850;
+	line-height: 0.98;
+	letter-spacing: -0.065em;
+}
+
+.page-home .luna-menu-section .luna-section-head__desc,
+.luna-menu-intro {
+	max-width: 560px;
+	margin-top: 20px;
+	color: var(--luna-muted);
+	font-size: clamp(15px, 1.6vw, 17px);
+	font-weight: 560;
+	line-height: 1.65;
+	letter-spacing: -0.015em;
+}
+
+/* Fix old template carousel offset */
+.page-home .luna-menu-section .our-menu-content,
+.luna-menu-section .our-menu-content {
+	margin-left: 0 !important;
+	padding-left: clamp(10px, 2vw, 18px);
+	padding-right: clamp(10px, 2vw, 18px);
+}
+
+/* Carousel equal-height slides */
 .luna-menu-section .menu-slider.owl-carousel .owl-stage {
 	display: flex;
 	align-items: stretch;
 }
 
+.luna-menu-section .menu-slider .owl-stage-outer {
+	overflow: visible;
+}
+
 .luna-menu-section .menu-slider .owl-item {
 	display: flex;
 	height: auto;
-	padding: var(--luna-space-1) 0;
+	padding: 10px 0 24px;
 }
 
-.luna-menu-section .menu-slider .owl-item > .luna-card {
+.luna-menu-section .menu-slider .owl-item>.luna-card {
 	width: 100%;
 	height: 100%;
 }
 
-.luna-menu-section .menu-slider .owl-item img.luna-card__image {
-	width: auto !important;
-	max-width: 88%;
-	max-height: 100%;
-	height: auto !important;
-	margin: 0 auto;
-}
-
-/* ---- Card shell ---- */
+/* Card shell */
 .luna-card {
 	box-sizing: border-box;
 	width: 100%;
 	max-width: var(--luna-card-width);
+	height: 100%;
 	margin: 0 auto;
 	padding: 0;
-	border: none;
+	border: 0;
 	background: transparent;
 }
 
 .luna-card__surface {
+	position: relative;
 	box-sizing: border-box;
 	display: grid;
-	grid-template-rows: auto auto auto;
+	grid-template-rows: auto auto 1fr;
 	height: 100%;
-	min-height: 460px;
-	background: var(--luna-card-bg);
-	border: 1px solid var(--luna-line);
-	border-radius: var(--luna-radius);
-	box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+	min-height: 535px;
 	overflow: hidden;
-	transition: transform 0.35s ease, box-shadow 0.35s ease;
+	border: 1px solid var(--luna-line);
+	border-radius: var(--luna-radius-xl);
+	background: var(--luna-card-bg);
+	box-shadow: var(--luna-shadow-sm);
+	backdrop-filter: blur(18px);
+	-webkit-backdrop-filter: blur(18px);
+	transform: translateY(0);
+	transition:
+		transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+		box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+		border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+		background 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.luna-card__surface::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background:
+		linear-gradient(135deg, rgba(255, 255, 255, 0.85), transparent 38%),
+		radial-gradient(circle at 50% 0%, rgba(251, 178, 0, 0.10), transparent 36%);
+	opacity: 0.85;
+	z-index: 0;
+}
+
+.luna-card__surface>* {
+	position: relative;
+	z-index: 1;
 }
 
 .luna-card:hover .luna-card__surface {
-	transform: translateY(-3px);
-	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+	transform: translateY(-8px);
+	border-color: rgba(196, 30, 58, 0.18);
+	background: var(--luna-card-bg-hover);
+	box-shadow: var(--luna-shadow-md);
 }
 
-/* ---- 1. Visual (fixed ratio frame) ---- */
+/* Image area */
 .luna-card__visual {
 	position: relative;
 	margin: 0;
-	padding: var(--luna-space-2) var(--luna-pad) var(--luna-space-1);
+	padding: 18px 18px 12px;
 	background: var(--luna-visual-bg);
 	border-bottom: 1px solid var(--luna-line);
 }
 
 .luna-card__image-box {
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	aspect-ratio: 1 / 1;
-	max-height: 200px;
+	aspect-ratio: 1 / 0.88;
+	max-height: 220px;
 	margin: 0 auto;
+	border-radius: 24px;
+	background:
+		radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.25) 55%, transparent 72%);
+	overflow: hidden;
+}
+
+.luna-card__image-box::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	bottom: 14px;
+	width: 58%;
+	height: 18px;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.12);
+	filter: blur(10px);
+	transform: translateX(-50%);
+	z-index: 0;
 }
 
 .luna-card__image-link {
+	position: relative;
+	z-index: 1;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
 	height: 100%;
+	text-decoration: none;
 }
 
-.luna-card__image {
+.luna-card__image,
+.luna-menu-section .menu-slider .owl-item img.luna-card__image {
 	display: block;
-	max-width: 82%;
-	max-height: 82%;
-	width: auto;
-	height: auto;
+	width: auto !important;
+	height: auto !important;
+	max-width: 84% !important;
+	max-height: 88% !important;
 	object-fit: contain;
-	filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.12));
+	margin: 0 auto;
+	filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.16));
+	transform: translateY(0) scale(1);
+	transition:
+		transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+		filter 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.luna-card:hover .luna-card__image {
+	transform: translateY(-5px) scale(1.045) rotate(-1deg);
+	filter: drop-shadow(0 24px 28px rgba(0, 0, 0, 0.18));
+}
+
+/* Badge */
 .luna-card__badge {
 	position: absolute;
-	top: var(--luna-space-2);
-	left: var(--luna-pad);
-	z-index: 2;
-	padding: 5px 10px;
+	top: 18px;
+	left: 18px;
+	z-index: 3;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-height: 34px;
+	padding: 0 13px;
+	border-radius: var(--luna-radius-pill);
+	background: linear-gradient(135deg, var(--luna-accent), var(--luna-accent-dark));
+	color: #ffffff;
+	box-shadow: var(--luna-shadow-red);
 	font-size: 10px;
-	font-weight: 600;
-	letter-spacing: 0.05em;
+	font-weight: 850;
+	line-height: 1;
+	letter-spacing: 0.055em;
 	text-transform: uppercase;
-	color: #fff;
-	background: var(--luna-accent);
-	border-radius: 100px;
 }
 
-/* ---- 2. Details (title, price, ingredients) ---- */
+.luna-card__badge::before {
+	content: "";
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: #ffffff;
+	opacity: 0.92;
+}
+
+/* Details */
 .luna-card__details {
-	padding: var(--luna-space-2) var(--luna-pad) var(--luna-space-1);
+	padding: 20px var(--luna-pad) 14px;
 }
 
 .luna-card__meta {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) auto;
-	grid-template-rows: auto auto;
-	column-gap: var(--luna-space-2);
-	row-gap: 2px;
 	align-items: start;
-	margin-bottom: var(--luna-space-1);
+	gap: 12px;
+	margin-bottom: 10px;
 }
 
 .luna-card__name {
-	grid-column: 1;
-	grid-row: 1 / 3;
-	align-self: center;
 	margin: 0;
-	font-size: 18px;
-	font-weight: 600;
-	line-height: 1.3;
-	letter-spacing: -0.02em;
+	font-size: 20px;
+	font-weight: 850;
+	line-height: 1.16;
+	letter-spacing: -0.045em;
+	color: var(--luna-text);
 }
 
 .luna-card__name a {
+	display: -webkit-box;
+	overflow: hidden;
 	color: var(--luna-text);
 	text-decoration: none;
-	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
-	overflow: hidden;
+	transition: color 0.25s ease;
 }
 
 .luna-card__name a:hover {
@@ -178,21 +328,19 @@
 }
 
 .luna-card__price {
-	grid-column: 2;
-	grid-row: 1 / 3;
-	align-self: center;
 	text-align: right;
 	white-space: nowrap;
+	padding-top: 1px;
 }
 
 .luna-card__price-value {
 	display: block;
-	font-size: 22px;
-	font-weight: 700;
-	line-height: 1;
 	color: var(--luna-accent);
+	font-size: 25px;
+	font-weight: 900;
+	line-height: 0.95;
+	letter-spacing: -0.055em;
 	font-variant-numeric: tabular-nums;
-	letter-spacing: -0.03em;
 }
 
 .luna-card__price-value--tick {
@@ -200,100 +348,140 @@
 }
 
 @keyframes lunaPriceTick {
-	0% { transform: scale(1); }
-	45% { transform: scale(1.06); }
-	100% { transform: scale(1); }
+	0% {
+		transform: scale(1);
+	}
+
+	45% {
+		transform: scale(1.075);
+	}
+
+	100% {
+		transform: scale(1);
+	}
 }
 
 .luna-card__price-unit {
 	display: block;
-	margin-top: 3px;
+	margin-top: 5px;
+	color: var(--luna-muted);
 	font-size: 10px;
-	font-weight: 600;
-	color: var(--luna-muted);
-	text-transform: uppercase;
-	letter-spacing: 0.06em;
-}
-
-.luna-card__ingredients {
-	margin: 0;
-	font-size: 13px;
-	line-height: 1.45;
-	color: var(--luna-muted);
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-	min-height: calc(13px * 1.45 * 2);
-}
-
-/* ---- 3. Size picker ---- */
-.luna-card__picker {
-	padding: 0 var(--luna-pad) var(--luna-space-3);
-	margin-top: auto;
-}
-
-.luna-card__picker-label {
-	margin: 0 0 var(--luna-space-1);
-	font-size: 11px;
-	font-weight: 600;
+	font-weight: 800;
+	line-height: 1;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
+}
+
+.luna-card__ingredients,
+.luna-card__desc,
+.menu-item-des {
+	margin: 0;
 	color: var(--luna-muted);
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.58;
+	letter-spacing: -0.01em;
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+/* Picker area */
+.luna-card__picker {
+	padding: 0 var(--luna-pad) var(--luna-pad);
+	align-self: end;
 }
 
 .luna-picker {
-	box-sizing: border-box;
-	padding: var(--luna-wheel-inset);
-	background: #f2f2f7;
-	border-radius: 14px;
-	border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.luna-picker__window {
 	position: relative;
-	overflow: hidden;
-	border-radius: 10px;
+	display: grid;
+	gap: 12px;
 }
 
-/* Selection band = exactly one row, vertically centered in viewport */
-.luna-picker__selection {
+.luna-picker__label {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin: 2px 0 0;
+	color: var(--luna-text);
+	font-size: 12px;
+	font-weight: 850;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+}
+
+.luna-picker__label::after {
+	content: "Scroll";
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 24px;
+	padding: 0 10px;
+	border-radius: var(--luna-radius-pill);
+	background: rgba(196, 30, 58, 0.08);
+	color: var(--luna-accent);
+	font-size: 10px;
+	font-weight: 850;
+	letter-spacing: 0.08em;
+}
+
+/* Wheel */
+.luna-picker__wheel {
+	position: relative;
+	height: var(--luna-wheel-viewport);
+	border: 1px solid var(--luna-line-strong);
+	border-radius: 22px;
+	background:
+		linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(245, 241, 236, 0.94)),
+		#f5f1ec;
+	overflow: hidden;
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.85),
+		inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+}
+
+.luna-picker__wheel::before {
+	content: "";
 	position: absolute;
-	z-index: 1;
-	left: 0;
-	right: 0;
+	left: 10px;
+	right: 10px;
 	top: 50%;
 	height: var(--luna-wheel-item);
+	border-radius: 16px;
+	background: #ffffff;
+	border: 1px solid rgba(196, 30, 58, 0.14);
+	box-shadow:
+		0 8px 20px rgba(0, 0, 0, 0.06),
+		0 0 0 4px rgba(196, 30, 58, 0.045);
 	transform: translateY(-50%);
-	background: #fff;
-	border-radius: 10px;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), inset 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+	z-index: 1;
 	pointer-events: none;
 }
 
 .luna-picker__shade {
 	position: absolute;
-	z-index: 2;
 	left: 0;
 	right: 0;
 	height: var(--luna-wheel-item);
+	z-index: 3;
 	pointer-events: none;
 }
 
 .luna-picker__shade--top {
 	top: 0;
-	background: linear-gradient(to bottom, #f2f2f7 55%, rgba(242, 242, 247, 0));
+	background: linear-gradient(to bottom, #f5f1ec 40%, rgba(245, 241, 236, 0));
 }
 
 .luna-picker__shade--bottom {
 	bottom: 0;
-	background: linear-gradient(to top, #f2f2f7 55%, rgba(242, 242, 247, 0));
+	background: linear-gradient(to top, #f5f1ec 40%, rgba(245, 241, 236, 0));
 }
 
-/* Scrollport = 3 visible rows */
 .luna-picker__list {
 	position: relative;
-	z-index: 3;
+	z-index: 2;
 	box-sizing: border-box;
 	height: var(--luna-wheel-viewport);
 	margin: 0;
@@ -317,15 +505,19 @@
 	width: 100%;
 	height: var(--luna-wheel-item);
 	min-height: var(--luna-wheel-item);
-	padding: 0 14px;
 	margin: 0;
-	border: none;
+	padding: 0 18px;
+	border: 0;
 	background: transparent;
+	color: var(--luna-text);
 	font-family: inherit;
 	cursor: pointer;
 	scroll-snap-align: center;
 	-webkit-tap-highlight-color: transparent;
-	will-change: transform, opacity;
+	transition:
+		transform 0.22s ease,
+		opacity 0.22s ease,
+		color 0.22s ease;
 }
 
 .luna-picker__option:focus {
@@ -333,83 +525,498 @@
 }
 
 .luna-picker__option:focus-visible {
-	outline: 2px solid var(--luna-accent);
-	outline-offset: -2px;
-	border-radius: 8px;
+	outline: 2px solid rgba(196, 30, 58, 0.45);
+	outline-offset: -5px;
+	border-radius: 16px;
 }
 
 .luna-picker__option-name {
 	font-size: 16px;
-	font-weight: 600;
+	font-weight: 760;
+	line-height: 1;
+	letter-spacing: -0.035em;
 	color: var(--luna-text);
-	letter-spacing: -0.02em;
 }
 
 .luna-picker__option-size {
-	font-size: 13px;
-	font-weight: 500;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 56px;
+	min-height: 26px;
+	padding: 0 9px;
+	border-radius: var(--luna-radius-pill);
+	background: rgba(0, 0, 0, 0.045);
 	color: var(--luna-muted);
+	font-size: 12px;
+	font-weight: 800;
 	font-variant-numeric: tabular-nums;
+	transition:
+		background 0.22s ease,
+		color 0.22s ease,
+		transform 0.22s ease;
 }
 
 .luna-picker__option.is-active .luna-picker__option-name {
 	color: var(--luna-accent);
+	font-weight: 900;
 }
 
 .luna-picker__option.is-active .luna-picker__option-size {
-	color: var(--luna-text);
-	font-weight: 600;
+	background: rgba(196, 30, 58, 0.10);
+	color: var(--luna-accent);
+	transform: scale(1.04);
 }
 
-/* ---- Section + nav ---- */
-/* Legacy intro — use .luna-section-head__desc on homepage */
-.luna-menu-intro {
-	max-width: 520px;
-	margin-top: 12px;
-	color: var(--luna-muted);
-	font-size: 15px;
-	line-height: 1.5;
-}
-
-.page-home .luna-menu-section .luna-section-head {
-	margin-bottom: 32px;
+/* Carousel arrows */
+.luna-menu-section .menu-slider .owl-nav {
+	position: absolute;
+	top: 50%;
+	right: -18px;
+	display: grid;
+	gap: 12px;
+	width: auto;
+	transform: translateY(-50%);
 }
 
 .luna-menu-section .menu-slider .owl-nav button {
-	background: var(--luna-card-bg) !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: 48px !important;
+	height: 48px !important;
+	margin: 0 !important;
 	border: 1px solid var(--luna-line) !important;
 	border-radius: 50% !important;
-	width: 44px !important;
-	height: 44px !important;
-	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+	background: rgba(255, 255, 255, 0.92) !important;
+	color: var(--luna-text) !important;
+	box-shadow: var(--luna-shadow-sm);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	transition:
+		transform 0.25s ease,
+		background 0.25s ease,
+		color 0.25s ease,
+		box-shadow 0.25s ease;
 }
 
-@media (max-width: 767px) {
+.luna-menu-section .menu-slider .owl-nav button:hover {
+	transform: translateY(-2px);
+	background: var(--luna-accent) !important;
+	color: #ffffff !important;
+	box-shadow: var(--luna-shadow-red);
+}
+
+/* Decorative old vector image should not disturb the layout */
+.page-home .luna-menu-section .our-menu-vacter,
+.luna-menu-section .our-menu-vacter {
+	right: 3%;
+	top: 2%;
+	opacity: 0.35;
+	pointer-events: none;
+	filter: saturate(0.9);
+}
+
+/* Tablet */
+@media (max-width: 1199px) {
 	.our-menu.luna-menu-section {
-		--luna-pad: 18px;
-		--luna-card-width: 100%;
+		--luna-card-width: 310px;
 	}
 
-	.luna-menu-section .our-menu-content {
-		margin-left: 0;
-		padding-left: 12px;
-		padding-right: 12px;
+	.luna-menu-section .menu-slider .owl-nav {
+		right: -8px;
+	}
+}
+
+@media (max-width: 991px) {
+	.page-home .luna-menu-section {
+		padding-top: 72px;
+		padding-bottom: 72px;
+	}
+
+	.page-home .luna-menu-section .luna-section-head {
+		margin-bottom: 34px;
+	}
+
+	.luna-menu-section .menu-slider .owl-stage-outer {
+		overflow: hidden;
+	}
+
+	.luna-menu-section .menu-slider .owl-nav {
+		position: static;
+		display: flex;
+		justify-content: center;
+		gap: 12px;
+		margin-top: 18px;
+		transform: none;
 	}
 
 	.luna-card__surface {
-		min-height: 440px;
-	}
-
-	.luna-card__image-box {
-		max-height: 180px;
+		min-height: 520px;
 	}
 }
 
+/* Mobile */
+@media (max-width: 767px) {
+	.our-menu.luna-menu-section {
+		--luna-pad: 18px;
+		--luna-card-width: min(100%, 390px);
+		--luna-wheel-item: 44px;
+	}
+
+	.page-home .luna-menu-section .luna-section-head {
+		text-align: left;
+		margin-bottom: 26px;
+	}
+
+	.page-home .luna-menu-section .luna-section-head__title {
+		font-size: clamp(2rem, 12vw, 3rem);
+		line-height: 1.02;
+	}
+
+	.page-home .luna-menu-section .luna-section-head__desc,
+	.luna-menu-intro {
+		font-size: 15px;
+		line-height: 1.58;
+	}
+
+	.luna-menu-section .our-menu-content {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	.luna-menu-section .menu-slider .owl-item {
+		padding-bottom: 16px;
+	}
+
+	.luna-card__surface {
+		min-height: 500px;
+		border-radius: 26px;
+	}
+
+	.luna-card__visual {
+		padding: 16px 16px 10px;
+	}
+
+	.luna-card__image-box {
+		max-height: 205px;
+		border-radius: 22px;
+	}
+
+	.luna-card__details {
+		padding-top: 18px;
+	}
+
+	.luna-card__name {
+		font-size: 19px;
+	}
+
+	.luna-card__price-value {
+		font-size: 24px;
+	}
+
+	.luna-picker__wheel {
+		border-radius: 20px;
+	}
+
+	.luna-picker__option {
+		padding-left: 16px;
+		padding-right: 16px;
+	}
+}
+
+/* Small mobile */
+@media (max-width: 420px) {
+	.our-menu.luna-menu-section {
+		--luna-pad: 16px;
+	}
+
+	.luna-card__surface {
+		min-height: 490px;
+	}
+
+	.luna-card__image-box {
+		max-height: 190px;
+	}
+
+	.luna-card__meta {
+		grid-template-columns: 1fr;
+		gap: 8px;
+	}
+
+	.luna-card__price {
+		text-align: left;
+	}
+
+	.luna-card__price-value,
+	.luna-card__price-unit {
+		display: inline-block;
+		vertical-align: baseline;
+	}
+
+	.luna-card__price-unit {
+		margin-left: 6px;
+	}
+
+	.luna-picker__label::after {
+		display: none;
+	}
+}
+
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
+
 	.luna-card__surface,
 	.luna-card__image,
-	.luna-card__price-value {
-		transition: none;
+	.luna-card__price-value,
+	.luna-picker__option,
+	.luna-picker__option-size,
+	.luna-menu-section .menu-slider .owl-nav button {
+		transition: none !important;
 		animation: none !important;
+	}
+}
+
+/* ============================================================
+   PICERI LUNA — WORKING MENU BUTTONS FIX
+   Put this at the END of luna-menu.css
+   Fixes carousel arrows + wheel size buttons without breaking JS.
+   ============================================================ */
+
+/* The carousel must be the positioning parent */
+.luna-menu-section .menu-slider {
+	position: relative !important;
+	overflow: visible !important;
+}
+
+/* Owl stage stays below the arrows */
+.luna-menu-section .menu-slider .owl-stage-outer {
+	position: relative;
+	z-index: 1;
+}
+
+/* Carousel arrows container */
+.luna-menu-section .menu-slider .owl-nav {
+	position: absolute !important;
+	top: -78px !important;
+	right: 18px !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: flex-end !important;
+	gap: 12px !important;
+	width: auto !important;
+	height: auto !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	transform: none !important;
+	z-index: 50 !important;
+	pointer-events: none !important;
+}
+
+/* Only the real buttons receive clicks */
+.luna-menu-section .menu-slider .owl-nav button.owl-prev,
+.luna-menu-section .menu-slider .owl-nav button.owl-next {
+	position: relative !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: 48px !important;
+	height: 48px !important;
+	min-width: 48px !important;
+	min-height: 48px !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 1px solid rgba(29, 29, 31, 0.1) !important;
+	border-radius: 50% !important;
+	background: rgba(255, 255, 255, 0.96) !important;
+	color: #1d1d1f !important;
+	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1) !important;
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+	cursor: pointer !important;
+	overflow: hidden !important;
+	z-index: 60 !important;
+	pointer-events: auto !important;
+	transition:
+		transform 0.25s ease,
+		background 0.25s ease,
+		color 0.25s ease,
+		border-color 0.25s ease,
+		box-shadow 0.25s ease;
+}
+
+.luna-menu-section .menu-slider .owl-nav button.owl-prev:hover,
+.luna-menu-section .menu-slider .owl-nav button.owl-next:hover {
+	transform: translateY(-3px);
+	background: #c41e3a !important;
+	color: #ffffff !important;
+	border-color: #c41e3a !important;
+	box-shadow: 0 16px 36px rgba(196, 30, 58, 0.3) !important;
+}
+
+.luna-menu-section .menu-slider .owl-nav button.owl-prev:active,
+.luna-menu-section .menu-slider .owl-nav button.owl-next:active {
+	transform: translateY(-1px) scale(0.96);
+}
+
+/* Text arrows */
+.luna-menu-section .menu-slider .owl-nav button span {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: 100% !important;
+	height: 100% !important;
+	font-size: 30px !important;
+	font-weight: 400 !important;
+	line-height: 1 !important;
+	transform: translateY(-2px);
+	pointer-events: none !important;
+}
+
+/* Font Awesome arrows, if the theme uses icons */
+.luna-menu-section .menu-slider .owl-nav button i {
+	font-size: 18px !important;
+	line-height: 1 !important;
+	pointer-events: none !important;
+}
+
+/* Disabled arrow */
+.luna-menu-section .menu-slider .owl-nav button.disabled {
+	opacity: 0.35 !important;
+	cursor: not-allowed !important;
+	box-shadow: none !important;
+}
+
+/* Do not block the wheel picker */
+.luna-picker__wheel,
+.luna-picker__list,
+.luna-picker__option {
+	pointer-events: auto !important;
+}
+
+/* Size selector buttons */
+.luna-picker__option {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 14px;
+	width: calc(100% - 18px);
+	height: var(--luna-wheel-item);
+	min-height: var(--luna-wheel-item);
+	margin: 0 auto;
+	padding: 0 16px;
+	border: 0;
+	border-radius: 16px;
+	background: transparent;
+	color: #1d1d1f;
+	font-family: inherit;
+	cursor: pointer;
+	scroll-snap-align: center;
+	-webkit-tap-highlight-color: transparent;
+	transition:
+		background 0.22s ease,
+		transform 0.22s ease,
+		color 0.22s ease,
+		box-shadow 0.22s ease;
+}
+
+.luna-picker__option:hover {
+	background: rgba(255, 255, 255, 0.62);
+}
+
+.luna-picker__option.is-active {
+	background: #ffffff;
+	box-shadow:
+		0 8px 22px rgba(0, 0, 0, 0.07),
+		0 0 0 1px rgba(196, 30, 58, 0.14);
+}
+
+.luna-picker__option-name {
+	display: flex;
+	align-items: center;
+	min-width: 0;
+	color: #1d1d1f;
+	font-size: 15px;
+	font-weight: 800;
+	line-height: 1;
+	letter-spacing: -0.035em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.luna-picker__option.is-active .luna-picker__option-name {
+	color: #c41e3a;
+	font-weight: 900;
+}
+
+.luna-picker__option-size {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	min-width: 62px;
+	height: 28px;
+	padding: 0 10px;
+	border-radius: 999px;
+	background: rgba(29, 29, 31, 0.06);
+	color: #6e6e73;
+	font-size: 12px;
+	font-weight: 850;
+	line-height: 1;
+	font-variant-numeric: tabular-nums;
+	transition:
+		background 0.22s ease,
+		color 0.22s ease,
+		transform 0.22s ease;
+}
+
+.luna-picker__option.is-active .luna-picker__option-size {
+	background: rgba(196, 30, 58, 0.1);
+	color: #c41e3a;
+	transform: scale(1.04);
+}
+
+/* Mobile: arrows below the slider and centered */
+@media (max-width: 991px) {
+	.luna-menu-section .menu-slider .owl-nav {
+		position: relative !important;
+		top: auto !important;
+		right: auto !important;
+		display: flex !important;
+		justify-content: center !important;
+		align-items: center !important;
+		gap: 12px !important;
+		margin-top: 20px !important;
+		z-index: 50 !important;
+		pointer-events: none !important;
+	}
+
+	.luna-menu-section .menu-slider .owl-nav button.owl-prev,
+	.luna-menu-section .menu-slider .owl-nav button.owl-next {
+		width: 46px !important;
+		height: 46px !important;
+		min-width: 46px !important;
+		min-height: 46px !important;
+		pointer-events: auto !important;
+	}
+}
+
+@media (max-width: 575px) {
+	.luna-picker__option {
+		width: calc(100% - 12px);
+		padding-left: 14px;
+		padding-right: 14px;
+	}
+
+	.luna-picker__option-name {
+		font-size: 14px;
+	}
+
+	.luna-picker__option-size {
+		min-width: 56px;
+		height: 26px;
+		font-size: 11px;
 	}
 }
