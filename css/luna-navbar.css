@@ -1,0 +1,582 @@
+/* ============================================================
+   PICERI LUNA — NAVBAR  |  luna-navbar.css
+   Add this <link> AFTER bootstrap.min.css and BEFORE style.css
+   ============================================================ */
+
+/* ─── Design tokens ──────────────────────────────────────────── */
+:root {
+    --ln-accent: #e63923;
+    /* Luna red */
+    --ln-accent-dark: #c02e1a;
+    --ln-accent-light: rgba(230, 57, 35, 0.12);
+
+    --ln-h: 80px;
+    /* header height  */
+    --ln-h-scrolled: 64px;
+    /* compacted height after scroll */
+
+    --ln-bg-solid: #fff;
+    --ln-bg-glass: rgba(255, 255, 255, 0.72);
+    --ln-blur: 18px;
+
+    --ln-text: #1a1a1a;
+    --ln-text-muted: #6b6b6b;
+    --ln-border: rgba(0, 0, 0, 0.08);
+
+    --ln-shadow-resting: 0 1px 0 var(--ln-border);
+    --ln-shadow-scroll: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 0 var(--ln-border);
+
+    --ln-radius: 10px;
+    --ln-radius-pill: 100px;
+
+    --ln-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --ln-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    --ln-font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --ln-z: 1000;
+}
+
+/* ─── Base reset for the header ─────────────────────────────── */
+.ln-header *,
+.ln-header *::before,
+.ln-header *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ─── Header shell ───────────────────────────────────────────── */
+header.ln-header,
+.ln-header {
+    /* hard reset — beat every Bootstrap/style.css rule */
+    all: unset;
+
+    display: block !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: var(--ln-h) !important;
+    z-index: var(--ln-z) !important;
+    font-family: var(--ln-font);
+    box-sizing: border-box;
+
+    /* smooth height shrink on scroll */
+    transition: height 0.35s var(--ln-ease);
+}
+
+header.ln-header.is-scrolled,
+.ln-header.is-scrolled {
+    height: var(--ln-h-scrolled) !important;
+}
+
+/* ─── Background layer (glass effect) ───────────────────────── */
+.ln-header__bg {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: var(--ln-bg-solid);
+    box-shadow: var(--ln-shadow-resting);
+    transition:
+        background 0.35s var(--ln-ease),
+        box-shadow 0.35s var(--ln-ease);
+    z-index: 0;
+}
+
+/* scrolled state — glass */
+.ln-header.is-scrolled .ln-header__bg {
+    background: var(--ln-bg-glass);
+    backdrop-filter: blur(var(--ln-blur));
+    -webkit-backdrop-filter: blur(var(--ln-blur));
+    box-shadow: var(--ln-shadow-scroll);
+}
+
+.ln-header.is-scrolled {
+    height: var(--ln-h-scrolled);
+}
+
+/* ─── Inner flex row ─────────────────────────────────────────── */
+.ln-header__inner {
+    position: relative !important;
+    z-index: 1;
+    display: flex !important;
+    align-items: center !important;
+    gap: clamp(16px, 3vw, 40px);
+    height: 100% !important;
+    width: 100% !important;
+    max-width: 1320px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: clamp(20px, 4vw, 56px) !important;
+    padding-right: clamp(20px, 4vw, 56px) !important;
+    box-sizing: border-box !important;
+}
+
+/* ─── Logo ───────────────────────────────────────────────────── */
+.ln-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+    outline-offset: 4px;
+    border-radius: var(--ln-radius);
+}
+
+.ln-logo__img {
+    display: block;
+    height: clamp(36px, 5vw, 48px);
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.25s var(--ln-spring), opacity 0.2s;
+}
+
+.ln-logo:hover .ln-logo__img {
+    transform: scale(1.04);
+}
+
+.ln-logo:active .ln-logo__img {
+    transform: scale(0.97);
+}
+
+/* ─── Desktop nav ────────────────────────────────────────────── */
+.ln-nav {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.ln-nav__list {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    list-style: none;
+}
+
+.ln-nav__link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--ln-text-muted);
+    text-decoration: none;
+    border-radius: var(--ln-radius);
+    transition:
+        color 0.2s var(--ln-ease),
+        background 0.2s var(--ln-ease);
+    white-space: nowrap;
+}
+
+.ln-nav__link:hover {
+    color: var(--ln-text);
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.ln-nav__link.is-active {
+    color: var(--ln-accent);
+}
+
+/* animated underline indicator */
+.ln-nav__indicator {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    height: 2px;
+    background: var(--ln-accent);
+    border-radius: 2px 2px 0 0;
+    transition:
+        left 0.3s var(--ln-ease),
+        width 0.3s var(--ln-ease),
+        opacity 0.2s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ln-nav__indicator.is-visible {
+    opacity: 1;
+}
+
+/* ─── CTA button ─────────────────────────────────────────────── */
+.ln-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    margin-left: auto;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: #fff;
+    background: var(--ln-accent);
+    text-decoration: none;
+    border-radius: var(--ln-radius-pill);
+    border: 2px solid transparent;
+    white-space: nowrap;
+    transition:
+        background 0.2s var(--ln-ease),
+        transform 0.18s var(--ln-spring),
+        box-shadow 0.2s var(--ln-ease);
+    box-shadow: 0 2px 12px rgba(230, 57, 35, 0.30);
+}
+
+.ln-cta:hover {
+    background: var(--ln-accent-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(230, 57, 35, 0.35);
+}
+
+.ln-cta:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 8px rgba(230, 57, 35, 0.25);
+}
+
+.ln-cta__icon {
+    flex-shrink: 0;
+}
+
+/* ─── Hamburger ──────────────────────────────────────────────── */
+.ln-burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    background: transparent;
+    border: 1.5px solid var(--ln-border);
+    border-radius: var(--ln-radius);
+    cursor: pointer;
+    padding: 0;
+    margin-left: auto;
+    transition: background 0.2s, border-color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ln-burger:hover {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+.ln-burger__bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--ln-text);
+    border-radius: 2px;
+    transform-origin: center;
+    transition:
+        transform 0.3s var(--ln-ease),
+        opacity 0.2s var(--ln-ease),
+        width 0.2s var(--ln-ease);
+}
+
+/* open state */
+.ln-burger[aria-expanded="true"] .ln-burger__bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.ln-burger[aria-expanded="true"] .ln-burger__bar:nth-child(2) {
+    opacity: 0;
+    width: 0;
+}
+
+.ln-burger[aria-expanded="true"] .ln-burger__bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ─── Mobile menu panel ──────────────────────────────────────── */
+.ln-mobile {
+    position: fixed;
+    inset-block: 0;
+    right: 0;
+    width: min(320px, 85vw);
+    background: var(--ln-bg-solid);
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.12);
+    z-index: calc(var(--ln-z) + 1);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: calc(var(--ln-h) + 16px) 24px 40px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    /* slide-in animation */
+    transform: translateX(100%);
+    visibility: hidden;
+    transition:
+        transform 0.35s var(--ln-ease),
+        visibility 0s 0.35s;
+}
+
+/* hidden attribute sets display:none — override so CSS can animate */
+.ln-mobile[hidden] {
+    display: flex !important;
+    /* keep flex, use visibility/transform instead */
+}
+
+.ln-mobile.is-open {
+    transform: translateX(0);
+    visibility: visible;
+    transition:
+        transform 0.35s var(--ln-ease),
+        visibility 0s 0s;
+}
+
+/* staggered link reveal */
+.ln-mobile__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ln-mobile__list li {
+    opacity: 0;
+    transform: translateX(20px);
+    transition:
+        opacity 0.3s var(--ln-ease),
+        transform 0.3s var(--ln-ease);
+}
+
+.ln-mobile.is-open .ln-mobile__list li {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* stagger delays */
+.ln-mobile.is-open .ln-mobile__list li:nth-child(1) {
+    transition-delay: 0.05s;
+}
+
+.ln-mobile.is-open .ln-mobile__list li:nth-child(2) {
+    transition-delay: 0.10s;
+}
+
+.ln-mobile.is-open .ln-mobile__list li:nth-child(3) {
+    transition-delay: 0.15s;
+}
+
+.ln-mobile.is-open .ln-mobile__list li:nth-child(4) {
+    transition-delay: 0.20s;
+}
+
+.ln-mobile.is-open .ln-mobile__list li:nth-child(5) {
+    transition-delay: 0.25s;
+}
+
+.ln-mobile__link {
+    display: block;
+    padding: 13px 16px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ln-text);
+    text-decoration: none;
+    border-radius: var(--ln-radius);
+    transition: background 0.18s, color 0.18s;
+}
+
+.ln-mobile__link:hover,
+.ln-mobile__link.is-active {
+    background: var(--ln-accent-light);
+    color: var(--ln-accent);
+}
+
+.ln-mobile__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--ln-accent);
+    text-decoration: none;
+    border-radius: var(--ln-radius-pill);
+    text-align: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(230, 57, 35, 0.30);
+    transition: background 0.2s, transform 0.18s;
+
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+        background 0.2s,
+        transform 0.2s var(--ln-ease),
+        opacity 0.3s var(--ln-ease);
+}
+
+.ln-mobile.is-open .ln-mobile__cta {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.30s;
+}
+
+.ln-mobile__cta:hover {
+    background: var(--ln-accent-dark);
+    transform: translateY(-1px);
+}
+
+/* decorative blob */
+.ln-mobile__deco {
+    position: absolute;
+    bottom: -60px;
+    right: -60px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--ln-accent-light) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* ─── Backdrop ───────────────────────────────────────────────── */
+.ln-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.40);
+    z-index: var(--ln-z);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.35s var(--ln-ease),
+        visibility 0s 0.35s;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ln-backdrop.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transition:
+        opacity 0.35s var(--ln-ease),
+        visibility 0s 0s;
+}
+
+/* ─── Page offset (so hero doesn't go under header) ─────────── */
+body {
+    padding-top: var(--ln-h) !important;
+    transition: padding-top 0.35s var(--ln-ease);
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+
+    .ln-nav,
+    .ln-cta__label {
+        display: none;
+    }
+
+    .ln-cta {
+        /* show icon-only on tablet */
+        padding: 10px 12px;
+        gap: 0;
+    }
+
+    .ln-burger {
+        display: inline-flex;
+    }
+}
+
+@media (max-width: 600px) {
+    .ln-cta {
+        display: none;
+    }
+
+    /* let the mobile menu hold the CTA */
+    .ln-burger {
+        display: inline-flex;
+    }
+}
+
+/* ─── No-JS fallback: show nav inline ───────────────────────── */
+.no-js .ln-burger {
+    display: none;
+}
+
+.no-js .ln-nav {
+    display: flex;
+}
+
+.no-js .ln-mobile {
+    display: none !important;
+}
+
+.no-js .ln-backdrop {
+    display: none;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+
+    .ln-header,
+    .ln-header__bg,
+    .ln-logo__img,
+    .ln-nav__link,
+    .ln-nav__indicator,
+    .ln-cta,
+    .ln-burger__bar,
+    .ln-mobile,
+    .ln-mobile__list li,
+    .ln-mobile__link,
+    .ln-mobile__cta,
+    .ln-backdrop {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* ─── Mobile close button inside sidebar ───────────────────── */
+.ln-mobile__close {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    width: 44px;
+    height: 44px;
+    border: 1.5px solid var(--ln-border);
+    border-radius: 14px;
+    background: #fff;
+    cursor: pointer;
+    z-index: calc(var(--ln-z) + 3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        background 0.2s var(--ln-ease),
+        border-color 0.2s var(--ln-ease),
+        transform 0.2s var(--ln-spring),
+        box-shadow 0.2s var(--ln-ease);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.ln-mobile__close:hover {
+    background: var(--ln-accent-light);
+    border-color: rgba(230, 57, 35, 0.35);
+    transform: scale(1.04);
+}
+
+.ln-mobile__close span {
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: var(--ln-accent);
+    border-radius: 100px;
+}
+
+.ln-mobile__close span:first-child {
+    transform: rotate(45deg);
+}
+
+.ln-mobile__close span:last-child {
+    transform: rotate(-45deg);
+}

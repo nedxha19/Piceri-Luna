@@ -13,10 +13,53 @@
 	<link type="image/x-icon" href="images/favicon.png" rel="icon">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+	<!-- NEW NAVBAR CSS — must come right after bootstrap, before style.css -->
+	<link rel="stylesheet" type="text/css" href="css/luna-navbar.css">
+
 	<link rel="stylesheet" type="text/css" href="css/owl.carousel.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/luna-menu.css">
 	<link rel="stylesheet" type="text/css" href="css/luna-home.css">
+
+	<!-- Inline override: neutralise any old header rules still in style.css / luna-home.css -->
+	<style>
+		/* ── Force the new header to be full-width and correct height ── */
+		header.ln-header {
+			position: fixed !important;
+			top: 0 !important;
+			left: 0 !important;
+			right: 0 !important;
+			width: 100% !important;
+			max-width: 100% !important;
+			height: 80px !important;
+			min-height: 80px !important;
+			padding: 0 !important;
+			margin: 0 !important;
+			box-sizing: border-box !important;
+			z-index: 1000 !important;
+		}
+
+		/* ── Kill old header styles that would conflict ─────────────── */
+		.header-vacter,
+		.header-inner,
+		.header-logo,
+		.main-menu,
+		.menu-toggle,
+		.sidemenu-header,
+		.sidemenu-logo,
+		.sidemenu-close,
+		.icon-menu,
+		.luna-nav {
+			all: unset;
+			display: none !important;
+		}
+
+		/* ── Smooth scroll + body offset ───────────────────────────── */
+		body {
+			scroll-behavior: smooth;
+		}
+	</style>
 </head>
 
 <body class="page-home">
@@ -31,54 +74,103 @@
 	<!-- Preloader End -->
 
 
-	<!-- Header Start -->
-	<header>
-		<div class="header-vacter">
-			<img src="images/header-img.png" alt="Vacter Image">
-		</div>
-		<div class="container-big">
-			<div class="header-inner">
-				<div class="row align-items-center">
-					<div class="col-xl-3 col-lg-3 col-md-3 col-5">
-						<div class="header-logo">
-							<a href="#luna-kryefaqja"><img src="Piceri Luna/Les bons moments - Francine.webp"
-									alt="Piceri Luna Logo"></a>
-						</div>
-					</div>
-					<div class="col-xl-9 col-lg-9 col-md-9 col-7">
-						<div class="main-menu">
-							<div class="menu-toggle">
-								<span></span>
-							</div>
-							<div class="menu">
-								<div class="sidemenu-header">
-									<div class="sidemenu-logo">
-										<img src="Piceri Luna/Les bons moments - Francine.webp" alt="Piceri Luna Logo">
-									</div>
-									<div class="sidemenu-close">
-										<span></span>
-									</div>
-								</div>
-								<ul class="luna-nav">
-									<li class="active"><a href="#luna-kryefaqja" class="luna-nav__link">Kryefaqja</a></li>
-									<li><a href="#luna-menu" class="luna-nav__link">Menu</a></li>
-									<li><a href="#luna-rreth-nesh" class="luna-nav__link">Rreth Nesh</a></li>
-									<li><a href="#luna-vlersimet" class="luna-nav__link">Vlersimet</a></li>
-									<li><a href="#luna-kontakt" class="luna-nav__link">Kontakt</a></li>
-								</ul>
-							</div>
-							<div class="icon-menu">
-								<ul>
-									
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+	<!-- ============================================================
+	     NEW HEADER — replaces the entire old <header>…</header>
+	     ============================================================ -->
+	<header class="ln-header" id="ln-header" role="banner">
+
+		<!-- background layer: solid white → glass on scroll -->
+		<div class="ln-header__bg" aria-hidden="true"></div>
+
+		<div class="ln-header__inner">
+
+			<!-- LOGO -->
+			<a href="#luna-kryefaqja" class="ln-logo" aria-label="Piceri Luna – kryefaqja">
+				<img src="Piceri Luna/Les bons moments - Francine.webp" alt="Piceri Luna" class="ln-logo__img"
+					width="110" height="48" loading="eager">
+			</a>
+
+			<!-- DESKTOP NAV -->
+			<nav class="ln-nav" aria-label="Navigimi kryesor">
+				<ul class="ln-nav__list" role="list">
+					<li><a href="#luna-kryefaqja" class="ln-nav__link" data-ln-nav>Kryefaqja</a></li>
+					<li><a href="#luna-menu" class="ln-nav__link" data-ln-nav>Menu</a></li>
+					<li><a href="#luna-rreth-nesh" class="ln-nav__link" data-ln-nav>Rreth Nesh</a></li>
+					<li><a href="#luna-vlersimet" class="ln-nav__link" data-ln-nav>Vlersimet</a></li>
+					<li><a href="#luna-kontakt" class="ln-nav__link" data-ln-nav>Kontakt</a></li>
+				</ul>
+				<!-- sliding underline indicator -->
+				<div class="ln-nav__indicator" aria-hidden="true"></div>
+			</nav>
+
+			<!-- CTA — desktop pill button -->
+			<a href="tel:+355672873000" class="ln-cta" aria-label="Telefono +355 67 287 3000">
+				<svg class="ln-cta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+					stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="18" height="18">
+					<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07
+					         19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1
+					         4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0
+					         1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1
+					         2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+				</svg>
+				<span class="ln-cta__label">+355 67 287 3000</span>
+			</a>
+
+			<!-- HAMBURGER (mobile only) -->
+			<button class="ln-burger" id="ln-burger" aria-expanded="false" aria-controls="ln-mobile-menu"
+				aria-label="Hap menunë">
+				<span class="ln-burger__bar"></span>
+				<span class="ln-burger__bar"></span>
+				<span class="ln-burger__bar"></span>
+			</button>
+
+		</div><!-- /.ln-header__inner -->
+
+		
+		<!-- MOBILE MENU PANEL -->
+		<div class="ln-mobile" id="ln-mobile-menu" role="dialog" aria-modal="true" aria-label="Menuja e navigimit"
+			hidden>
+
+			<!-- CLOSE BUTTON INSIDE MOBILE SIDEBAR -->
+			<button class="ln-mobile__close" id="ln-mobile-close" type="button" aria-label="Mbyll menunë">
+				<span></span>
+				<span></span>
+			</button>
+
+			<nav aria-label="Navigimi mobil">
+
+				<nav aria-label="Navigimi mobil">
+					<ul class="ln-mobile__list" role="list">
+						<li><a href="#luna-kryefaqja" class="ln-mobile__link" data-ln-nav>Kryefaqja</a></li>
+						<li><a href="#luna-menu" class="ln-mobile__link" data-ln-nav>Menu</a></li>
+						<li><a href="#luna-rreth-nesh" class="ln-mobile__link" data-ln-nav>Rreth Nesh</a></li>
+						<li><a href="#luna-vlersimet" class="ln-mobile__link" data-ln-nav>Vlersimet</a></li>
+						<li><a href="#luna-kontakt" class="ln-mobile__link" data-ln-nav>Kontakt</a></li>
+					</ul>
+				</nav>
+
+				<a href="tel:+355672873000" class="ln-mobile__cta">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+						stroke-linejoin="round" aria-hidden="true" width="18" height="18">
+						<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07
+					         19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1
+					         4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0
+					         1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1
+					         2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+					</svg>
+					Telefono tani
+				</a>
+
+				<!-- decorative radial blob -->
+				<div class="ln-mobile__deco" aria-hidden="true"></div>
+
+		</div><!-- /.ln-mobile -->
+
+		<!-- mobile backdrop / scrim -->
+		<div class="ln-backdrop" id="ln-backdrop" aria-hidden="true"></div>
+
 	</header>
-	<!-- Header End -->
+	<!-- End New Header -->
 
 
 	<!-- Start Of Main Div -->
@@ -94,10 +186,13 @@
 						<div class="luna-hero__content wow fadeInLeft">
 							<span class="luna-hero__eyebrow">Piceri Luna · Shkodër</span>
 							<h1 class="luna-hero__title">Shija e vërtetë e picës, e pjekur me <span>dashuri</span></h1>
-							<p class="luna-hero__desc">Brumë i fermentuar natyrshëm, përbërës të freskët çdo ditë dhe 33 receta autentike — nga Margarita te Capolavoro, në katër madhësi.</p>
+							<p class="luna-hero__desc">Brumë i fermentuar natyrshëm, përbërës të freskët çdo ditë dhe 33
+								receta autentike — nga Margarita te Capolavoro, në katër madhësi.</p>
 							<div class="luna-hero__actions">
-								<a href="#luna-menu" class="btn-ct btn-large"><img src="images/cart-icon-white.png" alt=""> Shiko Menunë</a>
-								<a href="tel:+355672873000" class="luna-hero__btn-ghost"><i class="fa fa-phone" aria-hidden="true"></i> +355 67 287 3000</a>
+								<a href="#luna-menu" class="btn-ct btn-large"><img src="images/cart-icon-white.png"
+										alt=""> Shiko Menunë</a>
+								<a href="tel:+355672873000" class="luna-hero__btn-ghost"><i class="fa fa-phone"
+										aria-hidden="true"></i> +355 67 287 3000</a>
 							</div>
 							<div class="luna-hero__chips">
 								<span class="luna-hero__chip">22 – 45 cm</span>
@@ -110,10 +205,12 @@
 						<div class="luna-hero__visual wow fadeInRight">
 							<div class="luna-hero__gallery">
 								<div class="luna-hero__img-main">
-									<img src="Piceri Luna/SaveClip.App_615700220_18322506685217890_950610819050237562_n.jpg" alt="Pica Luna e freskët">
+									<img src="Piceri Luna/SaveClip.App_615700220_18322506685217890_950610819050237562_n.jpg"
+										alt="Pica Luna e freskët">
 								</div>
 								<div class="luna-hero__img-secondary">
-									<img src="Piceri Luna/SaveClip.App_685106631_18337195360217890_4773829630763388330_n.jpg" alt="Pica Luna">
+									<img src="Piceri Luna/SaveClip.App_685106631_18337195360217890_4773829630763388330_n.jpg"
+										alt="Pica Luna">
 								</div>
 								<div class="luna-hero__float-card">
 									<strong>33+</strong>
@@ -167,7 +264,9 @@
 							<span class="luna-section-head__eyebrow">Historia Jonë</span>
 							<h2 class="luna-section-head__title">Traditë Shkodrane, Shije Moderne</h2>
 						</div>
-						<p class="our-story-desc">Në Piceri Luna, çdo picë fillon me brumë të përgatitur me kujdes dhe përbërës që zgjedhim çdo ditë. Nga familja juaj te darka me miqtë — kemi një recetë për çdo moment.</p>
+						<p class="our-story-desc">Në Piceri Luna, çdo picë fillon me brumë të përgatitur me kujdes dhe
+							përbërës që zgjedhim çdo ditë. Nga familja juaj te darka me miqtë — kemi një recetë për çdo
+							moment.</p>
 						<ul class="luna-story__list">
 							<li>Brumë i fermentuar dhe pjekje në furrë tradicionale</li>
 							<li>33 receta — nga klasikat te specialitetet e shtëpisë</li>
@@ -190,17 +289,20 @@
 					<div class="luna-step luna-reveal is-active wow fadeInUp">
 						<div class="luna-step__num">1</div>
 						<h3 class="luna-step__title">Zgjidh picën</h3>
-						<p class="luna-step__text">Shfleto menunë me 33 lloje dhe zgjidh madhësinë me rrotulluesin interaktiv — çmimi përditësohet menjëherë.</p>
+						<p class="luna-step__text">Shfleto menunë me 33 lloje dhe zgjidh madhësinë me rrotulluesin
+							interaktiv — çmimi përditësohet menjëherë.</p>
 					</div>
 					<div class="luna-step luna-reveal luna-reveal--delay-1 wow fadeInUp">
 						<div class="luna-step__num">2</div>
 						<h3 class="luna-step__title">Na telefono</h3>
-						<p class="luna-step__text">Thirr në <a href="tel:+355672873000">+355 67 287 3000</a> ose vizito picerinë tonë në Shkodër për porosi të personalizuara.</p>
+						<p class="luna-step__text">Thirr në <a href="tel:+355672873000">+355 67 287 3000</a> ose vizito
+							picerinë tonë në Shkodër për porosi të personalizuara.</p>
 					</div>
 					<div class="luna-step luna-reveal luna-reveal--delay-2 wow fadeInUp">
 						<div class="luna-step__num">3</div>
 						<h3 class="luna-step__title">Shijo të ngrohtë</h3>
-						<p class="luna-step__text">Pica juaj përgatitet me kujdes dhe mbërrin e freskët — për t'u shijuar në shtëpi apo në ambientin tonë.</p>
+						<p class="luna-step__text">Pica juaj përgatitet me kujdes dhe mbërrin e freskët — për t'u
+							shijuar në shtëpi apo në ambientin tonë.</p>
 					</div>
 				</div>
 			</div>
@@ -232,8 +334,6 @@
 		<!-- End Of Our Menu -->
 
 
-
-
 		<!-- Start Of Our Strength -->
 		<section id="luna-pikat" class="our-strength luna-strength luna-section position-r bg-yellow overflow-h">
 			<div class="strength-vacter wow fadeInRight animation-delay-5">
@@ -252,9 +352,7 @@
 						<div class="strength-content">
 							<h4 class="strength-title">Menu e Larmishme</h4>
 							<p>Pica Margarita, Proshutë, Tonata dhe Calzone — zgjedhje të shijshme për çdo shije dhe
-								moshë.
-
-							</p>
+								moshë.</p>
 						</div>
 					</div>
 					<div class="col-xl-3 col-lg-6 col-md-6 strength-box wow fadeInUp">
@@ -264,8 +362,7 @@
 						<div class="strength-content">
 							<h4 class="strength-title">Përbërës të Freskët</h4>
 							<p>Perime nga prodhues lokalë, djathë i freskët dhe brumë i përgatitur çdo ditë, pa
-								konservantë.
-							</p>
+								konservantë.</p>
 						</div>
 					</div>
 					<div class="col-xl-3 col-lg-6 col-md-6 strength-box wow fadeInUp">
@@ -275,8 +372,7 @@
 						<div class="strength-content">
 							<h4 class="strength-title">Shija Më e Mirë</h4>
 							<p>Furra jonë e pjek koren të artë nga jashtë dhe të butë nga brenda — kjo është shija e
-								Lunas.
-							</p>
+								Lunas.</p>
 						</div>
 					</div>
 					<div class="col-xl-3 col-lg-6 col-md-6 strength-box wow fadeInUp">
@@ -301,11 +397,14 @@
 				<div class="luna-cta__inner luna-reveal wow fadeInUp">
 					<div>
 						<h2 class="luna-cta__title">Gati për picën e radhës?</h2>
-						<p class="luna-cta__text">Porosit tani — telefonatë e shpejtë, përgatitje me kujdes dhe dërgim në kohë në Shkodër.</p>
+						<p class="luna-cta__text">Porosit tani — telefonatë e shpejtë, përgatitje me kujdes dhe dërgim
+							në kohë në Shkodër.</p>
 					</div>
 					<div class="luna-cta__actions">
-						<a href="tel:+355672873000" class="luna-cta__phone"><i class="fa fa-phone"></i> +355 67 287 3000</a>
-						<a href="#luna-menu" class="btn-ct btn-large"><img src="images/cart-icon-white.png" alt=""> Eksploro Menunë</a>
+						<a href="tel:+355672873000" class="luna-cta__phone"><i class="fa fa-phone"></i> +355 67 287
+							3000</a>
+						<a href="#luna-menu" class="btn-ct btn-large"><img src="images/cart-icon-white.png" alt="">
+							Eksploro Menunë</a>
 					</div>
 				</div>
 			</div>
@@ -332,8 +431,7 @@
 							<div class="client-name">Arta M.</div>
 							<div class="client-desc">
 								<p>"Pica më e mirë në Shkodër, pa diskutim! Brumi është i butë, përbërësit janë të
-									freskët dhe shërbimi është super i shpejtë.
-									"</p>
+									freskët dhe shërbimi është super i shpejtë."</p>
 							</div>
 							<div class="testimonial-rating">
 								<ul>
@@ -377,8 +475,7 @@
 							<div class="client-name">Alvin K.</div>
 							<div class="client-desc">
 								<p>"Erdha me familjen dhe të gjithë u kënaqëm. Atmosfera ishte e ngrohtë, stafi i
-									sjellshëm dhe pica e pjekur në mënyrën e duhur — do të kthehemi përsëri!
-									"</p>
+									sjellshëm dhe pica e pjekur në mënyrën e duhur — do të kthehemi përsëri!"</p>
 							</div>
 							<div class="testimonial-rating">
 								<ul>
@@ -399,8 +496,7 @@
 							<div class="client-name">Elton D.</div>
 							<div class="client-desc">
 								<p>"Dërgimi ishte i shpejtë dhe pica mbërriti e ngrohtë. Tonata Luna është absolutisht e
-									jashtëzakonshme — e porosis çdo javë!
-									"</p>
+									jashtëzakonshme — e porosis çdo javë!"</p>
 							</div>
 							<div class="testimonial-rating">
 								<ul>
@@ -421,8 +517,7 @@
 							<div class="client-name">Michaela H.</div>
 							<div class="client-desc">
 								<p>"Kam provuar shumë piceri në Shqipëri, por Luna ka diçka të veçantë — shijen e
-									shtëpisë. Sallami Pikant i tyre është e pakrahasueshme.
-									"</p>
+									shtëpisë. Sallami Pikant i tyre është e pakrahasueshme."</p>
 							</div>
 							<div class="testimonial-rating">
 								<ul>
@@ -437,14 +532,13 @@
 					</div>
 					<div class="testimonial-box">
 						<div class="client-image">
-							<img src="Piceri Luna/lala-azizli-J9UsvmPFOP0-unsplash.jpg" alt="Drita S.">
+							<img src="Piceri Luna/lala-azizli-J9UsvmPFOP0-unsplash.jpg" alt="Anxhelo S.">
 						</div>
 						<div class="client-info">
 							<div class="client-name">Anxhelo S.</div>
 							<div class="client-desc">
 								<p>"Çdo herë që vij në Shkodër, Piceri Luna është ndalesa ime e parë. Pica me proshutë
-									të tymosur dhe krem të bardhë është një kryevepër e vërtetë.
-									"</p>
+									të tymosur dhe krem të bardhë është një kryevepër e vërtetë."</p>
 							</div>
 							<div class="testimonial-rating">
 								<ul>
@@ -459,15 +553,14 @@
 					</div>
 					<div class="testimonial-box">
 						<div class="client-image">
-							<img src="Piceri Luna/pexels-mikhail-nilov-6740533.jpg" alt="Arben N.">
+							<img src="Piceri Luna/pexels-mikhail-nilov-6740533.jpg" alt="Kwame N.">
 						</div>
 						<div class="client-info">
 							<div class="client-name">Kwame N.</div>
 							<div class="client-desc">
 								<p>"Te Luna nuk shkon vetëm për të ngrënë një picë, por për të shijuar një moment të
 									mirë. Është nga ato vende që të mbetet në mendje dhe ku kthehesh përsëri pa u
-									menduar gjatë.
-									"</p>
+									menduar gjatë."</p>
 							</div>
 							<div class="testimonial-rating">
 								<ul>
@@ -482,14 +575,13 @@
 					</div>
 					<div class="testimonial-box">
 						<div class="client-image">
-							<img src="Piceri Luna/pexels-julia-m-cameron-8841429.jpg" alt="Fjolla R.">
+							<img src="Piceri Luna/pexels-julia-m-cameron-8841429.jpg" alt="Thomas R.">
 						</div>
 						<div class="client-info">
 							<div class="client-name">Thomas R.</div>
 							<div class="client-desc">
 								<p>"Opsioni vegetarian është i shkëlqyer — nuk prisja të ishte kaq i shijshëm. Më duket
-									se përdorin vetëm perime të freskëta, jo të ngrira.
-									"</p>
+									se përdorin vetëm perime të freskëta, jo të ngrira."</p>
 							</div>
 							<div class="testimonial-rating">
 								<ul>
@@ -515,27 +607,37 @@
 					<h2 class="luna-section-head__title">@piceriluna në Instagram</h2>
 				</div>
 				<div class="luna-instagram__grid">
-					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener" class="luna-instagram__item luna-reveal wow fadeInUp">
-						<img src="Piceri Luna/SaveClip.App_615700220_18322506685217890_950610819050237562_n.jpg" alt="Instagram Luna">
+					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
+						class="luna-instagram__item luna-reveal wow fadeInUp">
+						<img src="Piceri Luna/SaveClip.App_615700220_18322506685217890_950610819050237562_n.jpg"
+							alt="Instagram Luna">
 						<i class="fa fa-instagram" aria-hidden="true"></i>
 					</a>
-					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener" class="luna-instagram__item luna-reveal wow fadeInUp">
-						<img src="Piceri Luna/SaveClip.App_685106631_18337195360217890_4773829630763388330_n.jpg" alt="Instagram Luna">
+					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
+						class="luna-instagram__item luna-reveal wow fadeInUp">
+						<img src="Piceri Luna/SaveClip.App_685106631_18337195360217890_4773829630763388330_n.jpg"
+							alt="Instagram Luna">
 						<i class="fa fa-instagram" aria-hidden="true"></i>
 					</a>
-					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener" class="luna-instagram__item luna-reveal wow fadeInUp">
-						<img src="Piceri Luna/SaveClip.App_674475553_18335659585217890_6017470251438360809_n.jpg" alt="Instagram Luna">
+					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
+						class="luna-instagram__item luna-reveal wow fadeInUp">
+						<img src="Piceri Luna/SaveClip.App_674475553_18335659585217890_6017470251438360809_n.jpg"
+							alt="Instagram Luna">
 						<i class="fa fa-instagram" aria-hidden="true"></i>
 					</a>
-					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener" class="luna-instagram__item luna-reveal wow fadeInUp">
-						<img src="Piceri Luna/SaveClip.App_574261717_18313631869217890_5692913761550948887_n.jpg" alt="Instagram Luna">
+					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
+						class="luna-instagram__item luna-reveal wow fadeInUp">
+						<img src="Piceri Luna/SaveClip.App_574261717_18313631869217890_5692913761550948887_n.jpg"
+							alt="Instagram Luna">
 						<i class="fa fa-instagram" aria-hidden="true"></i>
 					</a>
-					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener" class="luna-instagram__item luna-reveal wow fadeInUp">
+					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
+						class="luna-instagram__item luna-reveal wow fadeInUp">
 						<img src="Piceri Luna/lala-azizli-J9UsvmPFOP0-unsplash.jpg" alt="Instagram Luna">
 						<i class="fa fa-instagram" aria-hidden="true"></i>
 					</a>
-					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener" class="luna-instagram__item luna-reveal wow fadeInUp">
+					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
+						class="luna-instagram__item luna-reveal wow fadeInUp">
 						<img src="Piceri Luna/Bukuriavet.jpg" alt="Instagram Luna">
 						<i class="fa fa-instagram" aria-hidden="true"></i>
 					</a>
@@ -589,13 +691,15 @@
 					<div class="col-xl-3 col-lg-6 col-md-6 footer-box wow fadeInUp">
 						<h6 class="footer-title text-uppercase">Rrjetet Sociale</h6>
 						<ul class="footer-social">
-							<li><a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+							<li><a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
+									class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
 						</ul>
 						<div class="footer-offers-text">
 							<p>Ndiqni @piceriluna për oferta dhe foto të reja çdo ditë.</p>
 						</div>
 						<div class="footer-sign-up">
-							<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener" class="btn-ct btn-small">Ndiq në Instagram</a>
+							<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
+								class="btn-ct btn-small">Ndiq në Instagram</a>
 						</div>
 					</div>
 				</div>
@@ -605,7 +709,8 @@
 			<div class="container">
 				<div class="text-center">
 					<p>&#169; 2026 Piceri Luna, Shkodër. Të gjitha të drejtat e rezervuara. &nbsp;|&nbsp;
-						<a href="tel:+355672873000">+355 67 287 3000</a></p>
+						<a href="tel:+355672873000">+355 67 287 3000</a>
+					</p>
 				</div>
 			</div>
 		</div>
@@ -647,9 +752,7 @@
 									<a href="shop-detail.html">Pica Proshutë</a>
 									<a class="item-remove" href="#"><img src="images/delete.png" alt="Hiq"></a>
 								</div>
-								<div class="item-price">
-									<span>900 ALL</span>
-								</div>
+								<div class="item-price"><span>900 ALL</span></div>
 								<div class="quantity-editer">
 									<div class="quantity">
 										<button type="button" class="sub minus">-</button>
@@ -668,9 +771,7 @@
 									<a href="shop-detail.html">Quattro Stagioni</a>
 									<a class="item-remove" href="#"><img src="images/delete.png" alt="Hiq"></a>
 								</div>
-								<div class="item-price">
-									<span>1,000 ALL</span>
-								</div>
+								<div class="item-price"><span>1,000 ALL</span></div>
 								<div class="quantity-editer">
 									<div class="quantity">
 										<button type="button" class="sub minus">-</button>
@@ -689,9 +790,7 @@
 									<a class="item-title" href="shop-detail.html">Pica Diavola</a>
 									<a class="item-remove" href="#"><img src="images/delete.png" alt="Hiq"></a>
 								</div>
-								<div class="item-price">
-									<span>950 ALL</span>
-								</div>
+								<div class="item-price"><span>950 ALL</span></div>
 								<div class="quantity-editer">
 									<div class="quantity">
 										<button type="button" class="sub minus">-</button>
@@ -723,7 +822,7 @@
 	<!-- End Of Cart Drawer -->
 
 
-	<!-- Start Of Js -->
+	<!-- ── Scripts ──────────────────────────────────────────── -->
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/animation.js"></script>
@@ -733,6 +832,10 @@
 	<script src="js/luna-size-picker.js"></script>
 	<script src="js/luna-menu.js"></script>
 	<script src="js/luna-home.js"></script>
+
+	<!-- NEW NAVBAR JS — must be last -->
+	<script src="js/luna-navbar.js"></script>
+
 </body>
 
 </html>
