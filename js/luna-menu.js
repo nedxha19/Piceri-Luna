@@ -117,7 +117,7 @@
 
 		if ($slider.hasClass('owl-loaded')) {
 			$slider.trigger('destroy.owl.carousel');
-			$slider.removeClass('owl-loaded owl-hidden');
+			$slider.removeClass('owl-loaded owl-hidden owl-drag');
 
 			$slider.find('.owl-stage-outer').children().unwrap();
 			$slider.find('.owl-stage').children().unwrap();
@@ -127,46 +127,79 @@
 		}
 
 		$slider.owlCarousel({
-			loop: true,
+			loop: false,
 			nav: true,
 			dots: false,
 			items: 4,
 			margin: 24,
-			smartSpeed: 700,
+
+			/*
+				Smoother, more premium movement.
+				Feels less stiff on mobile.
+			*/
+			smartSpeed: 520,
+			fluidSpeed: 520,
+			dragEndSpeed: 360,
+
+			/*
+				Important for mobile.
+				Allows natural finger dragging.
+			*/
+			mouseDrag: true,
+			touchDrag: true,
+			pullDrag: true,
+			freeDrag: false,
+			autoplay: false,
+			rewind: false,
+			autoHeight: false,
+
 			navText: [
 				'<span aria-hidden="true">‹</span>',
 				'<span aria-hidden="true">›</span>'
 			],
+
 			responsive: {
 				0: {
 					items: 1,
-					nav: true,
-					dots: false,
-					margin: 16
+					margin: 14,
+					stagePadding: 26,
+					nav: false,
+					dots: false
 				},
-				600: {
+				380: {
 					items: 1,
-					nav: true,
-					dots: false,
-					margin: 18
+					margin: 16,
+					stagePadding: 32,
+					nav: false,
+					dots: false
+				},
+				576: {
+					items: 1,
+					margin: 18,
+					stagePadding: 46,
+					nav: false,
+					dots: false
 				},
 				768: {
 					items: 2,
+					margin: 20,
+					stagePadding: 16,
 					nav: true,
-					dots: false,
-					margin: 22
+					dots: false
 				},
 				992: {
 					items: 3,
+					margin: 22,
+					stagePadding: 8,
 					nav: true,
-					dots: false,
-					margin: 22
+					dots: false
 				},
 				1300: {
 					items: 4,
+					margin: 24,
+					stagePadding: 0,
 					nav: true,
-					dots: false,
-					margin: 24
+					dots: false
 				}
 			}
 		});
