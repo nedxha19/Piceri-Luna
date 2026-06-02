@@ -1457,40 +1457,91 @@
 	display: flex;
 	align-items: center;
 	gap: 10px;
+	z-index: 10;
 }
 
 .luna-testimonials__slider .owl-nav button.owl-prev,
 .luna-testimonials__slider .owl-nav button.owl-next {
+	position: relative !important;
 	display: inline-flex !important;
 	align-items: center !important;
 	justify-content: center !important;
-	width: 48px !important;
-	height: 48px !important;
+	width: 52px !important;
+	height: 52px !important;
+	min-width: 52px !important;
 	border-radius: 999px !important;
-	background: rgba(255, 255, 255, 0.86) !important;
-	border: 1px solid rgba(29, 29, 31, 0.10) !important;
+	background: rgba(255, 255, 255, 0.96) !important;
+	border: 1.5px solid rgba(29, 29, 31, 0.11) !important;
 	color: #1d1d1f !important;
-	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08) !important;
-	transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+	box-shadow:
+		0 2px 6px rgba(0, 0, 0, 0.06),
+		0 8px 22px rgba(0, 0, 0, 0.08) !important;
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	cursor: pointer !important;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	overflow: hidden;
+	transition:
+		transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+		background 0.22s ease,
+		color 0.22s ease,
+		border-color 0.22s ease,
+		box-shadow 0.22s ease !important;
+}
+
+/* Kill the old PNG-arrow ::before overlays from style.css */
+.luna-testimonials__slider .owl-nav button.owl-prev::before,
+.luna-testimonials__slider .owl-nav button.owl-next::before {
+	display: none !important;
 }
 
 .luna-testimonials__slider .owl-nav button.owl-prev:hover,
 .luna-testimonials__slider .owl-nav button.owl-next:hover {
-	transform: translateY(-3px);
-	background: var(--luna-red, #c41e3a) !important;
+	transform: translateY(-4px) scale(1.06) !important;
+	background: #c41e3a !important;
 	color: #ffffff !important;
-	box-shadow: 0 16px 36px rgba(196, 30, 58, 0.28) !important;
+	border-color: #c41e3a !important;
+	box-shadow:
+		0 4px 12px rgba(196, 30, 58, 0.22),
+		0 14px 36px rgba(196, 30, 58, 0.32) !important;
+}
+
+.luna-testimonials__slider .owl-nav button.owl-prev:active,
+.luna-testimonials__slider .owl-nav button.owl-next:active {
+	transform: scale(0.93) !important;
+	transition-duration: 0.1s !important;
+}
+
+.luna-testimonials__slider .owl-nav button.disabled {
+	opacity: 0.32 !important;
+	cursor: not-allowed !important;
+	pointer-events: none !important;
 }
 
 .luna-testimonials__slider .owl-nav button span {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	height: 100%;
-	font-size: 28px;
-	line-height: 1;
-	transform: translateY(-2px);
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: 100% !important;
+	height: 100% !important;
+	pointer-events: none;
+	font-size: 0 !important;
+}
+
+.luna-testimonials__slider .owl-nav button span svg {
+	display: block;
+	flex-shrink: 0;
+	stroke: currentColor;
+	transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.luna-testimonials__slider .owl-nav button.owl-prev:hover span svg {
+	transform: translateX(-2px);
+}
+
+.luna-testimonials__slider .owl-nav button.owl-next:hover span svg {
+	transform: translateX(2px);
 }
 
 .luna-testimonials__slider .owl-dots {

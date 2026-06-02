@@ -177,32 +177,45 @@ $(function() {
 
         // ***** Testimonials Slider Start ***** //
         if ($(".testimonials-slider").length > 0){
+            var svgPrev = '<span aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></span>';
+            var svgNext = '<span aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span>';
+
             $('.testimonials-slider').owlCarousel({
-                loop:true,
+                loop: true,
                 nav: true,
                 dots: false,
                 items: 4,
-                margin: 40,
-                // autoplay:true,
-                smartSpeed: 900,
-                autoplayTimeout:5000,
-                autoplaySpeed: 1000,
+                margin: 28,
+                smartSpeed: 700,
+                autoplayTimeout: 5000,
+                autoplaySpeed: 900,
+                mouseDrag: true,
+                touchDrag: true,
+                pullDrag: true,
+                freeDrag: false,
+                navText: [svgPrev, svgNext],
                 responsive: {
                     0: {
                         items: 1,
                         nav: false,
                         dots: true,
-                    },
-                    1300: {
-                        items: 4,
-                    },
-                    1000: {
-                        items: 3,
+                        margin: 16,
                     },
                     700: {
                         items: 2,
                         nav: false,
                         dots: true,
+                        margin: 20,
+                    },
+                    1000: {
+                        items: 3,
+                        nav: true,
+                        dots: false,
+                    },
+                    1300: {
+                        items: 4,
+                        nav: true,
+                        dots: false,
                     },
                 }
             });
