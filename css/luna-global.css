@@ -166,7 +166,7 @@ body.page-home {
 }
 
 /* ── Scroll-margin for sticky nav ──────────────────────────── */
-:is(#luna-kryefaqja, #luna-menu, #luna-hapat,
+:is(#luna-kryefaqja, #luna-menu, #luna-oret,
     #luna-pikat, #luna-vlersimet, #luna-instagram, #luna-kontakt) {
   scroll-margin-top: calc(var(--hh) + 14px);
 }
@@ -758,7 +758,9 @@ body.page-home {
   gap: var(--s4) !important;
 }
 
-.luna-cta__title {
+.luna-cta__title,
+.page-home .luna-cta .luna-cta__title,
+.page-home .luna-cta h2 {
   font-family: var(--font) !important;
   font-size: clamp(1.75rem, 3.5vw, 2.8rem) !important;
   font-weight: 800 !important;
@@ -1429,6 +1431,211 @@ footer#luna-kontakt .footer.ptb-100 { display: none !important; }
 }
 
 /* ═══════════════════════════════════════════════════════════
+   OPENING HOURS — #luna-oret
+   ═══════════════════════════════════════════════════════════ */
+.luna-oret {
+  background:
+    radial-gradient(ellipse 60% 50% at 10% 80%, var(--gold-a10), transparent 55%),
+    radial-gradient(ellipse 55% 45% at 90% 15%, var(--red-a06), transparent 50%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.luna-oret__bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+
+.luna-oret__orb { position: absolute; border-radius: 50%; filter: blur(80px); }
+.luna-oret__orb--one { width: 380px; height: 380px; top: -120px; left: -100px; background: rgba(196,30,58,0.08); }
+.luna-oret__orb--two { width: 400px; height: 400px; bottom: -150px; right: -120px; background: rgba(196,30,58,0.06); }
+
+.luna-oret__header { margin-bottom: clamp(36px, 4.5vw, 56px); }
+
+.luna-oret__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(20px, 3vw, 32px);
+}
+
+.luna-oret__card {
+  padding: clamp(28px, 3.5vw, 40px);
+  background: var(--bg);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--line);
+  box-shadow: var(--sh-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--base) var(--ease), box-shadow var(--base) var(--ease);
+}
+
+.luna-oret__card::before {
+  content: '';
+  position: absolute;
+  top: 0; inset-inline: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--red), var(--gold-d));
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+}
+
+.luna-oret__card:hover { transform: translateY(-6px); box-shadow: var(--sh-md); }
+
+.luna-oret__card-head { display: flex; align-items: center; gap: 14px; }
+
+.luna-oret__pin {
+  display: flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px; min-width: 48px;
+  border-radius: var(--r-sm);
+  background: var(--red-a06); color: var(--red); font-size: 20px;
+  border: 1px solid var(--red-a10);
+}
+
+.luna-oret__card-title-group { flex: 1; min-width: 0; }
+
+.luna-oret__card-title {
+  font-family: var(--font); font-size: 1.25rem; font-weight: 800;
+  color: var(--ink); margin: 0 0 3px; letter-spacing: -0.03em;
+}
+
+.luna-oret__card-address { font-size: 13px; color: var(--muted); margin: 0; font-weight: 500; }
+
+.luna-oret__badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 12px; font-size: 12px; font-weight: 700;
+  border-radius: var(--r-pill);
+  background: rgba(34,197,94,0.12); color: #15803d;
+  white-space: nowrap; flex-shrink: 0;
+  transition: background var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+
+.luna-oret__badge--closed { background: var(--red-a06) !important; color: var(--red) !important; }
+
+.luna-oret__schedule { width: 100%; border-collapse: collapse; }
+.luna-oret__row { border-bottom: 1px solid var(--line); }
+.luna-oret__row:last-child { border-bottom: none; }
+
+.luna-oret__day,
+.luna-oret__time { padding: 11px 0; font-size: 14px; font-family: var(--font); }
+
+.luna-oret__day { color: var(--ink-2); font-weight: 500; width: 60%; }
+.luna-oret__time { color: var(--ink); font-weight: 700; text-align: right; }
+
+.luna-oret__actions {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-top: auto; padding-top: var(--s2);
+}
+
+.luna-oret__phone {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 18px; font-family: var(--font); font-size: 13px; font-weight: 700;
+  color: var(--ink); background: var(--bg-warm);
+  border: 1px solid var(--line-md); border-radius: var(--r-pill);
+  transition: all var(--fast) var(--ease); flex: 1; justify-content: center;
+}
+
+.luna-oret__phone:hover { background: var(--red); color: #fff; border-color: var(--red); }
+.luna-oret__phone .fa { color: var(--red); transition: color var(--fast) var(--ease); }
+.luna-oret__phone:hover .fa { color: #fff; }
+
+.luna-oret__wa-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 11px 18px; font-family: var(--font); font-size: 13px; font-weight: 700;
+  color: #fff; background: #25d366; border: 1px solid transparent;
+  border-radius: var(--r-pill); transition: all var(--fast) var(--ease); justify-content: center;
+}
+
+.luna-oret__wa-btn:hover { background: #1ebe5d; color: #fff; transform: translateY(-2px); }
+
+.luna-oret__map-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 11px 16px; font-family: var(--font); font-size: 13px; font-weight: 700;
+  color: var(--muted); background: var(--bg);
+  border: 1px solid var(--line-md); border-radius: var(--r-pill);
+  transition: all var(--fast) var(--ease); justify-content: center;
+}
+
+.luna-oret__map-btn:hover { border-color: var(--red); color: var(--red); transform: translateY(-2px); }
+
+@media (max-width: 767px) {
+  .luna-oret__grid { grid-template-columns: 1fr !important; }
+  .luna-oret__actions { flex-direction: column; }
+  .luna-oret__phone { flex: none; width: 100%; }
+  .luna-oret__wa-btn, .luna-oret__map-btn { width: 100%; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WHATSAPP FLOATING BUTTON
+   ═══════════════════════════════════════════════════════════ */
+.luna-wa-float {
+  position: fixed;
+  bottom: 28px; right: 28px; z-index: 9998;
+  display: flex; align-items: center; gap: 9px;
+  padding: 14px 22px;
+  background: #25d366; color: #fff;
+  font-family: var(--font); font-size: 14px; font-weight: 700;
+  border-radius: var(--r-pill);
+  box-shadow: 0 8px 28px rgba(37,211,102,0.38);
+  text-decoration: none;
+  transition:
+    transform var(--fast) var(--spring),
+    box-shadow var(--fast) var(--ease),
+    background var(--fast) var(--ease);
+  animation: luna-wa-bounce 4s ease-in-out 3s infinite;
+}
+
+.luna-wa-float:hover {
+  background: #128c7e; color: #fff;
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 14px 40px rgba(37,211,102,0.48);
+  animation: none;
+}
+
+.luna-wa-float:active { transform: scale(0.97); }
+
+.luna-wa-float svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+@keyframes luna-wa-bounce {
+  0%, 55%, 100% { transform: translateY(0); }
+  30%           { transform: translateY(-8px); }
+}
+
+@media (max-width: 575px) {
+  .luna-wa-float { bottom: 20px; right: 16px; padding: 13px 15px; }
+  .luna-wa-float__label { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TEXT LOGO WORDMARK
+   ═══════════════════════════════════════════════════════════ */
+.ln-logo__wordmark {
+  display: flex; flex-direction: column; line-height: 1; gap: 1px;
+}
+
+.ln-logo__sub {
+  font-family: var(--font); font-size: 9px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+}
+
+.ln-logo__main {
+  font-family: var(--font); font-size: 26px; font-weight: 900;
+  letter-spacing: -0.05em; color: var(--red); line-height: 1;
+}
+
+.luna-footer__logo--text .ln-logo__sub { color: rgba(255,255,255,0.38); }
+.luna-footer__logo--text .ln-logo__main { font-size: 22px; }
+
+/* ═══════════════════════════════════════════════════════════
+   AVATAR INITIALS — replaces stock-photo testimonials
+   ═══════════════════════════════════════════════════════════ */
+.luna-av {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 100%;
+  font-family: var(--font); font-size: 22px; font-weight: 900;
+  letter-spacing: -0.04em; user-select: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
    PRINT
    ═══════════════════════════════════════════════════════════ */
 @media print {
@@ -1436,13 +1643,14 @@ footer#luna-kontakt .footer.ptb-100 { display: none !important; }
   .luna-cta,
   .luna-instagram,
   .luna-footer__socials,
-  .luna-footer__bottom { display: none !important; }
+  .luna-footer__bottom,
+  .luna-wa-float { display: none !important; }
 
   body { padding-top: 0 !important; font-size: 12pt; }
 
   .luna-hero,
   .luna-trust,
-  .luna-steps,
+  .luna-oret,
   .luna-strength,
   .luna-testimonials { page-break-inside: avoid; }
 

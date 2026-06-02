@@ -60,6 +60,20 @@
 				"@type": "City",
 				"name": "Shkodër"
 			},
+			"openingHoursSpecification": [
+				{
+					"@type": "OpeningHoursSpecification",
+					"dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+					"opens": "10:00",
+					"closes": "23:00"
+				},
+				{
+					"@type": "OpeningHoursSpecification",
+					"dayOfWeek": "Sunday",
+					"opens": "10:00",
+					"closes": "22:00"
+				}
+			],
 			"sameAs": [
 				"https://www.instagram.com/piceriluna/"
 			]
@@ -84,6 +98,26 @@
 				"@type": "City",
 				"name": "Shkodër"
 			},
+			"openingHoursSpecification": [
+				{
+					"@type": "OpeningHoursSpecification",
+					"dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday"],
+					"opens": "10:00",
+					"closes": "02:00"
+				},
+				{
+					"@type": "OpeningHoursSpecification",
+					"dayOfWeek": ["Friday","Saturday"],
+					"opens": "08:30",
+					"closes": "03:00"
+				},
+				{
+					"@type": "OpeningHoursSpecification",
+					"dayOfWeek": "Sunday",
+					"opens": "10:00",
+					"closes": "02:00"
+				}
+			],
 			"sameAs": [
 				"https://www.instagram.com/piceriluna/"
 			]
@@ -141,8 +175,10 @@
 
 			<!-- LOGO -->
 			<a href="#luna-kryefaqja" class="ln-logo" aria-label="Piceri Luna – kryefaqja">
-				<img src="Piceri Luna/Les bons moments - Francine.webp" alt="Piceri Luna" class="ln-logo__img"
-					width="110" height="48" loading="eager">
+				<span class="ln-logo__wordmark">
+					<span class="ln-logo__sub">Piceri</span>
+					<span class="ln-logo__main">Luna</span>
+				</span>
 			</a>
 
 			<!-- DESKTOP NAV -->
@@ -150,8 +186,8 @@
 				<ul class="ln-nav__list" role="list">
 					<li><a href="#luna-kryefaqja" class="ln-nav__link" data-ln-nav>Kryefaqja</a></li>
 					<li><a href="#luna-menu" class="ln-nav__link" data-ln-nav>Menu</a></li>
-					<li><a href="#luna-hapat" class="ln-nav__link" data-ln-nav>Si Funksionon</a></li>
-					<li><a href="#luna-vlersimet" class="ln-nav__link" data-ln-nav>Vlersimet</a></li>
+					<li><a href="#luna-oret" class="ln-nav__link" data-ln-nav>Oraret</a></li>
+					<li><a href="#luna-vlersimet" class="ln-nav__link" data-ln-nav>Vlerësimet</a></li>
 					<li><a href="#luna-kontakt" class="ln-nav__link" data-ln-nav>Kontakt</a></li>
 				</ul>
 				<!-- sliding underline indicator -->
@@ -210,8 +246,8 @@
 				<ul class="ln-mobile__list" role="list">
 					<li><a href="#luna-kryefaqja" class="ln-mobile__link" data-ln-nav>Kryefaqja</a></li>
 					<li><a href="#luna-menu" class="ln-mobile__link" data-ln-nav>Menu</a></li>
-					<li><a href="#luna-hapat" class="ln-mobile__link" data-ln-nav>Si Funksionon</a></li>
-					<li><a href="#luna-vlersimet" class="ln-mobile__link" data-ln-nav>Vlersimet</a></li>
+					<li><a href="#luna-oret" class="ln-mobile__link" data-ln-nav>Oraret</a></li>
+					<li><a href="#luna-vlersimet" class="ln-mobile__link" data-ln-nav>Vlerësimet</a></li>
 					<li><a href="#luna-kontakt" class="ln-mobile__link" data-ln-nav>Kontakt</a></li>
 				</ul>
 			</nav>
@@ -315,15 +351,15 @@
 		<section class="luna-trust" aria-label="Statistika">
 			<div class="luna-trust__grid">
 				<div class="luna-trust__item luna-reveal">
-					<span class="luna-trust__value" data-luna-count="33" data-luna-suffix="+">0</span>
+					<span class="luna-trust__value" data-luna-count="33" data-luna-suffix="+">33+</span>
 					<span class="luna-trust__label">Lloje pica në menu</span>
 				</div>
 				<div class="luna-trust__item luna-reveal luna-reveal--delay-1">
-					<span class="luna-trust__value" data-luna-count="3">0</span>
+					<span class="luna-trust__value" data-luna-count="3">3</span>
 					<span class="luna-trust__label">Madhësi (30–45 cm)</span>
 				</div>
 				<div class="luna-trust__item luna-reveal luna-reveal--delay-2">
-					<span class="luna-trust__value" data-luna-count="100" data-luna-suffix="%">0</span>
+					<span class="luna-trust__value" data-luna-count="100" data-luna-suffix="%">100%</span>
 					<span class="luna-trust__label">Përbërës të freskët</span>
 				</div>
 				<div class="luna-trust__item luna-reveal luna-reveal--delay-3">
@@ -334,99 +370,126 @@
 		</section>
 
 
-		<!-- How it works / Si Funksionon -->
-		<section id="luna-hapat" class="luna-steps luna-section" aria-labelledby="luna-steps-title">
-			<div class="luna-steps__bg" aria-hidden="true">
-				<span class="luna-steps__orb luna-steps__orb--one"></span>
-				<span class="luna-steps__orb luna-steps__orb--two"></span>
+		<!-- Opening Hours & Locations -->
+		<section id="luna-oret" class="luna-oret luna-section" aria-labelledby="luna-oret-title">
+			<div class="luna-oret__bg" aria-hidden="true">
+				<span class="luna-oret__orb luna-oret__orb--one"></span>
+				<span class="luna-oret__orb luna-oret__orb--two"></span>
 			</div>
 
 			<div class="container">
-				<div class="luna-steps__header">
-					<div class="luna-section-head luna-section-head--center wow fadeInUp">
-						<span class="luna-section-head__eyebrow">Si Funksionon</span>
-						<h2 id="luna-steps-title" class="luna-section-head__title">
-							Porosit picën tënde në vetëm 3 hapa
+				<div class="luna-oret__header wow fadeInUp">
+					<div class="luna-section-head luna-section-head--center">
+						<span class="luna-section-head__eyebrow">Oraret &amp; Vendndodhjet</span>
+						<h2 id="luna-oret-title" class="luna-section-head__title">
+							Kur &amp; Ku Jemi të Hapur
 						</h2>
 						<p class="luna-section-head__desc">
-							Nga zgjedhja e madhësisë deri te telefonata finale — proces i qartë, i shpejtë dhe i
-							përshtatshëm për çdo pajisje.
+							Dy degë në Shkodër, hapur çdo ditë. Porosinë tuaj e pranojmë me telefon ose WhatsApp.
 						</p>
 					</div>
 				</div>
 
-				<div class="luna-steps__shell">
-					<div class="luna-steps__line" aria-hidden="true"></div>
+				<div class="luna-oret__grid">
 
-					<div class="luna-steps__grid">
-						<article class="luna-step luna-reveal is-active wow fadeInUp">
-							<div class="luna-step__top">
-								<div class="luna-step__num">01</div>
-								<div class="luna-step__icon" aria-hidden="true">
-									<i class="fa fa-cutlery"></i>
-								</div>
+					<!-- Luna 1 -->
+					<article class="luna-oret__card luna-reveal wow fadeInUp">
+						<div class="luna-oret__card-head">
+							<div class="luna-oret__pin" aria-hidden="true">
+								<i class="fa fa-map-marker"></i>
 							</div>
-
-							<h3 class="luna-step__title">Zgjidh picën</h3>
-							<p class="luna-step__text">
-								Shfleto menunë me 33 lloje pica, zgjidh madhësinë 30, 35 ose 45 cm dhe kontrollo
-								çmimin direkt në kartë.
-							</p>
-
-							<div class="luna-step__meta" aria-label="Detaje të menusë">
-								<span>33+ lloje</span>
-								<span>30–45 cm</span>
+							<div class="luna-oret__card-title-group">
+								<h3 class="luna-oret__card-title">Luna 1</h3>
+								<p class="luna-oret__card-address">Tek Perdet, Shkodër</p>
 							</div>
-						</article>
+							<span class="luna-oret__badge" id="luna-badge-1">● Hapur</span>
+						</div>
 
-						<article class="luna-step luna-reveal luna-reveal--delay-1 wow fadeInUp">
-							<div class="luna-step__top">
-								<div class="luna-step__num">02</div>
-								<div class="luna-step__icon" aria-hidden="true">
-									<i class="fa fa-phone"></i>
-								</div>
+						<table class="luna-oret__schedule" aria-label="Oraret e Luna 1">
+							<tbody>
+								<tr class="luna-oret__row">
+									<td class="luna-oret__day">E Hënë – E Shtunë</td>
+									<td class="luna-oret__time">10:00 – 23:00</td>
+								</tr>
+								<tr class="luna-oret__row">
+									<td class="luna-oret__day">E Diel</td>
+									<td class="luna-oret__time">10:00 – 22:00</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<div class="luna-oret__actions">
+							<a href="tel:+355692483300" class="luna-oret__phone"
+								aria-label="Telefono Luna 1 Tek Perdet">
+								<i class="fa fa-phone" aria-hidden="true"></i>
+								+355 69 248 3300
+							</a>
+							<a href="https://wa.me/355692483300?text=Pershendetje!%20Dua%20te%20bej%20nje%20porosi."
+								target="_blank" rel="noopener" class="luna-oret__wa-btn"
+								aria-label="Porosit në WhatsApp — Luna 1">
+								<i class="fa fa-whatsapp" aria-hidden="true"></i>
+								WhatsApp
+							</a>
+							<a href="https://www.google.com/maps/search/?api=1&query=Piceri+Luna+Tek+Perdet+Shkoder"
+								target="_blank" rel="noopener" class="luna-oret__map-btn"
+								aria-label="Gjej Luna 1 në Google Maps">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+								Harta
+							</a>
+						</div>
+					</article>
+
+					<!-- Luna 2 -->
+					<article class="luna-oret__card luna-reveal luna-reveal--delay-1 wow fadeInUp">
+						<div class="luna-oret__card-head">
+							<div class="luna-oret__pin" aria-hidden="true">
+								<i class="fa fa-map-marker"></i>
 							</div>
-
-							<h3 class="luna-step__title">Na telefono</h3>
-							<p class="luna-step__text">
-								Na kontakto për porosinë tënde. Mund të pyesësh për përbërësit, madhësinë, kohën e
-								përgatitjes ose porosi të personalizuar.
-							</p>
-
-							<div class="luna-step__call-group">
-								<a href="tel:+355692483300" class="luna-step__call"
-									aria-label="Telefono Luna 1 Tek perdet">
-									<i class="fa fa-phone" aria-hidden="true"></i>
-									Luna 1 · +355 69 248 3300
-								</a>
-								<a href="tel:+355672873000" class="luna-step__call"
-									aria-label="Telefono Luna 2 Parrucë">
-									<i class="fa fa-phone" aria-hidden="true"></i>
-									Luna 2 · +355 67 287 3000
-								</a>
+							<div class="luna-oret__card-title-group">
+								<h3 class="luna-oret__card-title">Luna 2</h3>
+								<p class="luna-oret__card-address">Parrucë, Shkodër</p>
 							</div>
-						</article>
+							<span class="luna-oret__badge" id="luna-badge-2">● Hapur</span>
+						</div>
 
-						<article class="luna-step luna-reveal luna-reveal--delay-2 wow fadeInUp">
-							<div class="luna-step__top">
-								<div class="luna-step__num">03</div>
-								<div class="luna-step__icon" aria-hidden="true">
-									<i class="fa fa-smile-o"></i>
-								</div>
-							</div>
+						<table class="luna-oret__schedule" aria-label="Oraret e Luna 2">
+							<tbody>
+								<tr class="luna-oret__row">
+									<td class="luna-oret__day">E Hënë – E Enjte</td>
+									<td class="luna-oret__time">10:00 – 02:00</td>
+								</tr>
+								<tr class="luna-oret__row">
+									<td class="luna-oret__day">E Premte – E Shtunë</td>
+									<td class="luna-oret__time">08:30 – 03:00</td>
+								</tr>
+								<tr class="luna-oret__row">
+									<td class="luna-oret__day">E Diel</td>
+									<td class="luna-oret__time">10:00 – 02:00</td>
+								</tr>
+							</tbody>
+						</table>
 
-							<h3 class="luna-step__title">Shijo të ngrohtë</h3>
-							<p class="luna-step__text">
-								Pica përgatitet me kujdes, piqet në furrë dhe vjen gati për t’u shijuar në shtëpi ose në
-								ambientin tonë.
-							</p>
+						<div class="luna-oret__actions">
+							<a href="tel:+355672873000" class="luna-oret__phone"
+								aria-label="Telefono Luna 2 Parrucë">
+								<i class="fa fa-phone" aria-hidden="true"></i>
+								+355 67 287 3000
+							</a>
+							<a href="https://wa.me/355672873000?text=Pershendetje!%20Dua%20te%20bej%20nje%20porosi."
+								target="_blank" rel="noopener" class="luna-oret__wa-btn"
+								aria-label="Porosit në WhatsApp — Luna 2">
+								<i class="fa fa-whatsapp" aria-hidden="true"></i>
+								WhatsApp
+							</a>
+							<a href="https://www.google.com/maps/search/?api=1&query=Piceri+Luna+Parruce+Shkoder"
+								target="_blank" rel="noopener" class="luna-oret__map-btn"
+								aria-label="Gjej Luna 2 në Google Maps">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+								Harta
+							</a>
+						</div>
+					</article>
 
-							<div class="luna-step__meta" aria-label="Cilësia e porosisë">
-								<span>E freskët</span>
-								<span>E ngrohtë</span>
-							</div>
-						</article>
-					</div>
 				</div>
 			</div>
 		</section>
@@ -457,117 +520,6 @@
 		<!-- End Of Our Menu -->
 
 
-		<!-- Start Of Our Strength -->
-		<section id="luna-pikat" class="our-strength luna-strength luna-section" aria-labelledby="luna-strength-title">
-			<div class="luna-strength__bg" aria-hidden="true">
-				<span class="luna-strength__orb luna-strength__orb--one"></span>
-				<span class="luna-strength__orb luna-strength__orb--two"></span>
-			</div>
-
-			<div class="container">
-				<div class="luna-strength__layout">
-
-					<div class="luna-strength__intro wow fadeInUp">
-						<span class="luna-strength__eyebrow">Pikat tona të forta</span>
-
-						<h2 id="luna-strength-title" class="luna-strength__title">
-							Pse klientët zgjedhin Piceri Luna?
-						</h2>
-
-						<p class="luna-strength__desc">
-							Te Piceri Luna çdo detaj ka rëndësi: brumi përgatitet me kujdes, përbërësit zgjidhen të
-							freskët
-							dhe çdo picë piqet për të ardhur në tavolinë e ngrohtë, aromatike dhe me shije të vërtetë.
-						</p>
-
-						<div class="luna-strength__mini-stats" aria-label="Avantazhet kryesore të Piceri Luna">
-							<div class="luna-strength__stat">
-								<strong>33+</strong>
-								<span>Lloje picash</span>
-							</div>
-
-							<div class="luna-strength__stat">
-								<strong>3</strong>
-								<span>Madhësi</span>
-							</div>
-
-							<div class="luna-strength__stat">
-								<strong>100%</strong>
-								<span>Përgatitje me kujdes</span>
-							</div>
-						</div>
-					</div>
-
-					<div class="luna-strength__cards">
-						<article class="luna-strength-card wow fadeInUp">
-							<div class="luna-strength-card__icon" aria-hidden="true">
-								<i class="fa fa-list-ul"></i>
-							</div>
-
-							<div class="luna-strength-card__content">
-								<span class="luna-strength-card__number">01</span>
-								<h3 class="luna-strength-card__title">Menu e larmishme</h3>
-								<p class="luna-strength-card__text">
-									Nga picat klasike deri te kombinimet më të pasura, menuja jonë është ndërtuar për
-									çdo shije,
-									çdo moshë dhe çdo moment.
-								</p>
-							</div>
-						</article>
-
-						<article class="luna-strength-card wow fadeInUp">
-							<div class="luna-strength-card__icon" aria-hidden="true">
-								<i class="fa fa-leaf"></i>
-							</div>
-
-							<div class="luna-strength-card__content">
-								<span class="luna-strength-card__number">02</span>
-								<h3 class="luna-strength-card__title">Përbërës të freskët</h3>
-								<p class="luna-strength-card__text">
-									Përdorim përbërës të zgjedhur me kujdes, djathë cilësor, perime të freskëta dhe
-									brumë të
-									përgatitur çdo ditë.
-								</p>
-							</div>
-						</article>
-
-						<article class="luna-strength-card luna-strength-card--featured wow fadeInUp">
-							<div class="luna-strength-card__icon" aria-hidden="true">
-								<i class="fa fa-fire"></i>
-							</div>
-
-							<div class="luna-strength-card__content">
-								<span class="luna-strength-card__number">03</span>
-								<h3 class="luna-strength-card__title">Shije që mbahet mend</h3>
-								<p class="luna-strength-card__text">
-									Pjekja, aroma dhe balanca e përbërësve krijojnë atë shijen karakteristike që
-									klientët e
-									lidhin menjëherë me Piceri Luna.
-								</p>
-							</div>
-						</article>
-
-						<article class="luna-strength-card wow fadeInUp">
-							<div class="luna-strength-card__icon" aria-hidden="true">
-								<i class="fa fa-clock-o"></i>
-							</div>
-
-							<div class="luna-strength-card__content">
-								<span class="luna-strength-card__number">04</span>
-								<h3 class="luna-strength-card__title">Porosi e shpejtë</h3>
-								<p class="luna-strength-card__text">
-									Procesi është i thjeshtë: zgjedh picën, telefonon dhe ne kujdesemi që porosia të
-									përgatitet
-									me ritëm, rregull dhe cilësi.
-								</p>
-							</div>
-						</article>
-					</div>
-
-				</div>
-			</div>
-		</section>
-		<!-- End Of Our Strength -->
 
 		<!-- CTA -->
 		<section class="luna-cta">
@@ -746,7 +698,7 @@
 						<div class="luna-testimonial-card__quote" aria-hidden="true">“</div>
 						<div class="luna-testimonial-card__head">
 							<div class="client-image luna-testimonial-card__avatar">
-								<img src="Piceri Luna/pexels-omransoliman97-15991676.jpg" alt="Michaela H.">
+								<span class="luna-av" style="background:#7c3aed;color:#fff" aria-label="Michaela H.">M</span>
 							</div>
 							<div class="luna-testimonial-card__person">
 								<div class="client-name">Michaela H.</div>
@@ -769,7 +721,7 @@
 						<div class="luna-testimonial-card__quote" aria-hidden="true">“</div>
 						<div class="luna-testimonial-card__head">
 							<div class="client-image luna-testimonial-card__avatar">
-								<img src="Piceri Luna/lala-azizli-J9UsvmPFOP0-unsplash.jpg" alt="Anxhelo S.">
+								<span class="luna-av" style="background:#059669;color:#fff" aria-label="Anxhelo S.">A</span>
 							</div>
 							<div class="luna-testimonial-card__person">
 								<div class="client-name">Anxhelo S.</div>
@@ -870,8 +822,10 @@
 					<!-- Brand column -->
 					<div class="luna-footer__brand wow fadeInUp">
 						<a href="#luna-kryefaqja" class="luna-footer__logo-link" aria-label="Piceri Luna – kryefaqja">
-							<img src="Piceri Luna/Les bons moments - Francine.webp" alt="Piceri Luna"
-								class="luna-footer__logo">
+							<span class="ln-logo__wordmark luna-footer__logo--text">
+								<span class="ln-logo__sub">Piceri</span>
+								<span class="ln-logo__main">Luna</span>
+							</span>
 						</a>
 						<p class="luna-footer__tagline">Shija e vërtetë e picës, e pjekur me dashuri në Shkodër.</p>
 						<div class="luna-footer__socials">
@@ -893,8 +847,8 @@
 						<ul class="luna-footer__list">
 							<li><a href="#luna-kryefaqja">Kryefaqja</a></li>
 							<li><a href="#luna-menu">Menuja</a></li>
-							<li><a href="#luna-hapat">Si Funksionon</a></li>
-							<li><a href="#luna-vlersimet">Vlersimet</a></li>
+							<li><a href="#luna-oret">Oraret</a></li>
+							<li><a href="#luna-vlersimet">Vlerësimet</a></li>
 							<li><a href="#luna-kontakt">Kontakt</a></li>
 						</ul>
 					</div>
@@ -919,7 +873,8 @@
 							<li><a href="tel:+355692483300">+355 69 248 3300</a></li>
 							<li><span class="luna-footer__loc">Luna 2 · Parrucë</span></li>
 							<li><a href="tel:+355672873000">+355 67 287 3000</a></li>
-							<li style="margin-top:10px"><a href="#luna-hapat">Si të Porosisni</a></li>
+							<li><a href="mailto:piceriluna.shk@gmail.com">piceriluna.shk@gmail.com</a></li>
+							<li style="margin-top:10px"><a href="#luna-oret">Oraret</a></li>
 							<li><a href="#luna-menu">Shiko Menunë</a></li>
 						</ul>
 					</div>
@@ -956,93 +911,55 @@
 	<!-- End Of Search Popup -->
 
 
-	<!-- Start Of Cart Drawer -->
-	<div class="cart-drawer">
-		<div class="bg-overlay"></div>
-		<div class="drawer-content">
-			<div class="w-100">
-				<div class="cart-header">
-					<h6 class="title text-uppercase">SHPORTA JUAJ</h6>
-					<button class="close"></button>
-				</div>
-				<div class="cart-list">
-					<div class="cart-list-inner">
-						<div class="cart-item">
-							<div class="item-image">
-								<a href="shop-detail.html"><img src="images/pizza-1.png" alt="Pica Proshutë"></a>
-							</div>
-							<div class="item-detl">
-								<div class="item-name">
-									<a href="shop-detail.html">Pica Proshutë</a>
-									<a class="item-remove" href="#"><img src="images/delete.png" alt="Hiq"></a>
-								</div>
-								<div class="item-price"><span>900 ALL</span></div>
-								<div class="quantity-editer">
-									<div class="quantity">
-										<button type="button" class="sub minus">-</button>
-										<input class="count" name="quantity" type="number" value="1" min="1" max="10">
-										<button type="button" class="add plus">+</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="cart-item">
-							<div class="item-image">
-								<a href="shop-detail.html"><img src="images/pizza-2.png" alt="Quattro Stagioni"></a>
-							</div>
-							<div class="item-detl">
-								<div class="item-name">
-									<a href="shop-detail.html">Quattro Stagioni</a>
-									<a class="item-remove" href="#"><img src="images/delete.png" alt="Hiq"></a>
-								</div>
-								<div class="item-price"><span>1,000 ALL</span></div>
-								<div class="quantity-editer">
-									<div class="quantity">
-										<button type="button" class="sub minus">-</button>
-										<input class="count" name="quantity" type="number" value="1" min="1" max="10">
-										<button type="button" class="add plus">+</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="cart-item">
-							<div class="item-image">
-								<a href="shop-detail.html"><img src="images/pizza-3.png" alt="Pica Diavola"></a>
-							</div>
-							<div class="item-detl">
-								<div class="item-name">
-									<a class="item-title" href="shop-detail.html">Pica Diavola</a>
-									<a class="item-remove" href="#"><img src="images/delete.png" alt="Hiq"></a>
-								</div>
-								<div class="item-price"><span>950 ALL</span></div>
-								<div class="quantity-editer">
-									<div class="quantity">
-										<button type="button" class="sub minus">-</button>
-										<input class="count" name="quantity" type="number" value="1" min="1" max="10">
-										<button type="button" class="add plus">+</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="cart-footer">
-				<div class="sub-total">
-					<strong>Nëntotali:</strong> <span class="sprice">2,850 ALL</span>
-				</div>
-				<div class="cart-footer-des">
-					<p>Taksat dhe kostoja e dërgimit llogariten në arkë</p>
-				</div>
-				<div class="cart-button">
-					<ul>
-						<li><a href="cart.html" class="btn-ct btn-small">Shiko Shportën</a></li>
-						<li><a href="checkout.html" class="btn-ct btn-small subtotal">Paguaj</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+	<!-- WhatsApp Floating Button -->
+	<a href="https://wa.me/355692483300?text=Pershendetje!%20Dua%20te%20bej%20nje%20porosi%20nga%20Piceri%20Luna."
+		class="luna-wa-float" target="_blank" rel="noopener"
+		aria-label="Porosit në WhatsApp — Piceri Luna">
+		<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+			<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+			<path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.827L0 24l6.335-1.652A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.007-1.37l-.36-.213-3.72.97 1.001-3.625-.234-.373A9.818 9.818 0 1 1 12 21.818z"/>
+		</svg>
+		<span class="luna-wa-float__label">Porosit tani</span>
+	</a>
+
+	<!-- Open/closed badge — live check based on opening hours -->
+	<script>
+	(function () {
+		var now  = new Date();
+		var day  = now.getDay();                       /* 0=Sun … 6=Sat */
+		var h    = now.getHours();
+		var mins = h * 60 + now.getMinutes();
+
+		/* ── Luna 1: E Hënë–E Shtunë 10:00–23:00 | E Diel 10:00–22:00 ── */
+		var l1Open  = 10 * 60;
+		var l1Close = (day === 0) ? 22 * 60 : 23 * 60;
+		var l1 = (mins >= l1Open && mins < l1Close);
+
+		/* ── Luna 2: E Hënë–E Enjte & E Diel 10:00–02:00
+		              E Premte–E Shtunë 08:30–03:00          ── */
+		var l2;
+		if (h < 4) {
+			/* Pas mesnate — kontrollo nëse është akoma hapur nga dita e djeshme */
+			var yday   = (day + 6) % 7;               /* dita e djeshme */
+			var cutoff = (yday === 5 || yday === 6) ? 3 * 60 : 2 * 60;
+			l2 = mins < cutoff;
+		} else {
+			/* Orët normale: E Premte/E Shtunë hapet 08:30, të tjerat 10:00 */
+			var l2Open = (day === 5 || day === 6) ? 8 * 60 + 30 : 10 * 60;
+			l2 = mins >= l2Open;                       /* mbyllet pas mesnate */
+		}
+
+		function setBadge(id, isOpen) {
+			var el = document.getElementById(id);
+			if (!el) return;
+			el.textContent = isOpen ? '● Hapur' : '● Mbyllur';
+			if (!isOpen) el.classList.add('luna-oret__badge--closed');
+		}
+
+		setBadge('luna-badge-1', l1);
+		setBadge('luna-badge-2', l2);
+	}());
+	</script>
 
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
