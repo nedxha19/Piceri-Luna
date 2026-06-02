@@ -1064,13 +1064,14 @@
 	}
 
 	/*
-		Native mobile scroll row.
-		No Owl wrappers, no JS drag handler, no preventDefault conflict.
+		Native mobile scroll row — flex-based so card widths are always explicit
+		and can never collapse (unlike grid minmax(0,…) which allows zero-width).
 	*/
 	#luna-pizza-carousel.luna-pizza-scroll {
-		display: grid !important;
-		grid-auto-flow: column !important;
-		grid-auto-columns: minmax(0, 84vw) !important;
+		display: flex !important;
+		flex-direction: row !important;
+		flex-wrap: nowrap !important;
+		align-items: stretch !important;
 		gap: 16px !important;
 
 		width: 100vw !important;
@@ -1105,15 +1106,17 @@
 		display: none !important;
 	}
 
+	/* Each card gets a fixed flex-basis — it can never shrink to a sliver */
 	#luna-pizza-carousel.luna-pizza-scroll > .luna-card {
-		width: 100% !important;
-		max-width: none !important;
-		min-width: 0 !important;
+		flex: 0 0 84vw !important;
+		width: 84vw !important;
+		min-width: 84vw !important;
+		max-width: 84vw !important;
 		height: auto !important;
 		margin: 0 !important;
 		padding: 0 !important;
 
-		scroll-snap-align: center !important;
+		scroll-snap-align: start !important;
 		scroll-snap-stop: always !important;
 
 		transform: translateZ(0);
@@ -1287,12 +1290,18 @@
 
 @media (max-width: 420px) {
 	#luna-pizza-carousel.luna-pizza-scroll {
-		grid-auto-columns: minmax(0, 86vw) !important;
 		gap: 14px !important;
 		padding-left: 16px !important;
 		padding-right: 16px !important;
 		scroll-padding-left: 16px !important;
 		scroll-padding-right: 16px !important;
+	}
+
+	#luna-pizza-carousel.luna-pizza-scroll > .luna-card {
+		flex: 0 0 86vw !important;
+		width: 86vw !important;
+		min-width: 86vw !important;
+		max-width: 86vw !important;
 	}
 
 	#luna-pizza-carousel.luna-pizza-scroll .luna-card__surface {
