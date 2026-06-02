@@ -1218,6 +1218,10 @@
 
 		scroll-snap-align: none !important;
 		touch-action: manipulation !important;
+
+		/* Safety: neutralise any inline transform/opacity set by JS wheel mode */
+		transform: none !important;
+		opacity: 1 !important;
 	}
 
 	#luna-pizza-carousel.luna-pizza-scroll .luna-picker__option-name {

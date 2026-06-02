@@ -3,6 +3,10 @@
 
 	var DEFAULT_SIZE_KEY = 'normale';
 
+	function isMobile() {
+		return window.innerWidth <= 767;
+	}
+
 	function escapeHtml(str) {
 		var div = document.createElement('div');
 		div.textContent = str || '';
@@ -101,27 +105,31 @@
 		$carousel.html(html);
 	}
 
-	function initCarousel() {
-		var $slider = $('#luna-pizza-carousel');
+	function destroyOwl($slider) {
+		if ($slider.hasClass('owl-loaded')) {
+			$slider.trigger('destroy.owl.carousel');
+			$slider.removeClass('owl-loaded owl-hidden owl-drag owl-grab');
+			$slider.find('.owl-stage-outer').children().unwrap();
+			$slider.find('.owl-stage').children().unwrap();
+			$slider.find('.owl-item').children().unwrap();
+			$slider.find('.owl-nav, .owl-dots').remove();
+		}
+	}
 
-		if (!$slider.length || !$slider.children().length) return;
+	function initNativeScroll($slider) {
+		destroyOwl($slider);
+		$slider
+			.removeClass('owl-carousel menu-slider')
+			.addClass('luna-pizza-scroll');
+	}
 
+	function initOwlCarousel($slider) {
 		if (typeof $.fn.owlCarousel === 'undefined') {
 			console.error('Owl Carousel is not loaded. Check js/owl.carousel.min.js.');
 			return;
 		}
 
-		if ($slider.hasClass('owl-loaded')) {
-			$slider.trigger('destroy.owl.carousel');
-			$slider.removeClass('owl-loaded owl-hidden owl-drag owl-grab');
-
-			$slider.find('.owl-stage-outer').children().unwrap();
-			$slider.find('.owl-stage').children().unwrap();
-			$slider.find('.owl-item').children().unwrap();
-
-			$slider.find('.owl-nav, .owl-dots').remove();
-		}
-
+		destroyOwl($slider);
 		$slider
 			.removeClass('luna-pizza-scroll')
 			.addClass('owl-carousel menu-slider');
@@ -135,20 +143,10 @@
 			items: 4,
 			margin: 24,
 
-			/*
-			 * Smooth, Apple-like feel — identical tuning to the reviews slider
-			 * that users find natural. Higher smartSpeed = softer deceleration.
-			 */
 			smartSpeed: 600,
 			fluidSpeed: 600,
 			dragEndSpeed: 450,
 
-			/*
-			 * Touch configuration — the most important part.
-			 * pullDrag: true  → allows over-pull at boundaries (natural iOS feel)
-			 * freeDrag: false → snaps to item after release (no half-card states)
-			 * mouseDrag + touchDrag: both on for consistency
-			 */
 			mouseDrag: true,
 			touchDrag: true,
 			pullDrag: true,
@@ -164,18 +162,6 @@
 			],
 
 			responsive: {
-				/*
-				 * ── MOBILE (0–479px) ─────────────────────────────────────────
-				 * Key fixes vs old config:
-				 *  • stagePadding: 32 → peeks the next card edge, making the
-				 *    carousel visually "discoverable" — users see more content
-				 *    waiting and naturally swipe to reach it. This is the #1
-				 *    reason Apple/Airbnb/Uber carousels feel intuitive.
-				 *  • dots: true → progress indicator (like the reviews slider)
-				 *    gives users a map of where they are in 33 pizzas.
-				 *  • margin reduced → tighter gap looks cleaner at this width
-				 *    while stagePadding still reveals the next card.
-				 */
 				0: {
 					items: 1,
 					margin: 14,
@@ -183,10 +169,6 @@
 					nav: false,
 					dots: true
 				},
-				/*
-				 * ── MOBILE LARGE (480–767px) ─────────────────────────────────
-				 * Slightly wider padding to show more of the next card.
-				 */
 				480: {
 					items: 1,
 					margin: 16,
@@ -194,11 +176,6 @@
 					nav: false,
 					dots: true
 				},
-				/*
-				 * ── TABLET (768–991px) ────────────────────────────────────────
-				 * Two cards fit; a slim stagePadding teases the third.
-				 * Nav arrows return; dots stay off (arrows are sufficient).
-				 */
 				768: {
 					items: 2,
 					margin: 22,
@@ -206,9 +183,6 @@
 					nav: true,
 					dots: false
 				},
-				/*
-				 * ── DESKTOP SMALL (992–1299px) ────────────────────────────────
-				 */
 				992: {
 					items: 3,
 					margin: 22,
@@ -216,9 +190,6 @@
 					nav: true,
 					dots: false
 				},
-				/*
-				 * ── DESKTOP LARGE (1300px+) ───────────────────────────────────
-				 */
 				1300: {
 					items: 4,
 					margin: 24,
@@ -228,6 +199,18 @@
 				}
 			}
 		});
+	}
+
+	function initCarousel() {
+		var $slider = $('#luna-pizza-carousel');
+
+		if (!$slider.length || !$slider.children().length) return;
+
+		if (isMobile()) {
+			initNativeScroll($slider);
+		} else {
+			initOwlCarousel($slider);
+		}
 	}
 
 	function mountSizePickers() {
@@ -306,6 +289,28 @@
 		setTimeout(function () {
 			forceDefaultNormalSize();
 		}, 600);
+
+		/*
+		 * Switch between native scroll (mobile) and Owl Carousel (desktop)
+		 * when the viewport crosses the 767px breakpoint.
+		 */
+		var resizeTimer;
+		$(window).on('resize', function () {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(function () {
+				var $slider = $('#luna-pizza-carousel');
+				if (!$slider.length || !$slider.children().length) return;
+
+				var nowMobile = isMobile();
+				var isNative = $slider.hasClass('luna-pizza-scroll');
+
+				if (nowMobile && !isNative) {
+					initNativeScroll($slider);
+				} else if (!nowMobile && isNative) {
+					initOwlCarousel($slider);
+				}
+			}, 200);
+		});
 	});
 
 })(jQuery);
