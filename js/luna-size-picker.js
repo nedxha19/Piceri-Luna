@@ -106,17 +106,11 @@
 		if (!h) return;
 
 		index = Math.max(0, Math.min(this.options.length - 1, index));
+		this.list.scrollTo({
+			top: index * h,
+			behavior: smooth ? 'smooth' : 'auto'
+		});
 		this.selectedIndex = index;
-
-		/* Only attempt scrollTo when the list actually scrolls (wheel mode). */
-		var canScroll = this.list.scrollHeight > this.list.clientHeight + 2;
-		if (canScroll) {
-			this.list.scrollTo({
-				top: index * h,
-				behavior: smooth ? 'smooth' : 'auto'
-			});
-		}
-
 		this._updateVisuals();
 		this._updatePrice();
 	};
@@ -124,27 +118,14 @@
 	LunaSizePicker.prototype._updateVisuals = function () {
 		var scrollTop = this.list.scrollTop;
 		var h = this.itemHeight || 1;
-		/*
-		 * When the list is in grid/button mode (overflow: visible, no scroll height)
-		 * scrollTop is always 0 and distance-based math is wrong.
-		 * Fall back to selectedIndex for the active state and clear inline styles.
-		 */
-		var canScroll = this.list.scrollHeight > this.list.clientHeight + 2;
-		var selectedIndex = this.selectedIndex;
 
 		this.options.forEach(function (opt, i) {
-			if (canScroll) {
-				var dist = Math.abs(scrollTop - i * h) / h;
-				var scale = Math.max(0.84, 1 - dist * 0.1);
-				var opacity = Math.max(0.32, 1 - dist * 0.36);
-				opt.style.transform = 'scale(' + scale + ')';
-				opt.style.opacity = String(opacity);
-				opt.classList.toggle('is-active', dist < 0.35);
-			} else {
-				opt.style.transform = '';
-				opt.style.opacity = '';
-				opt.classList.toggle('is-active', i === selectedIndex);
-			}
+			var dist = Math.abs(scrollTop - i * h) / h;
+			var scale = Math.max(0.84, 1 - dist * 0.1);
+			var opacity = Math.max(0.32, 1 - dist * 0.36);
+			opt.style.transform = 'scale(' + scale + ')';
+			opt.style.opacity = String(opacity);
+			opt.classList.toggle('is-active', dist < 0.35);
 		});
 	};
 
