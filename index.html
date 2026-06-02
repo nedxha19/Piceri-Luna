@@ -26,6 +26,9 @@
 	<meta property="og:image"
 		content="https://piceri-luna.vercel.app/Piceri%20Luna/SaveClip.App_615700220_18322506685217890_950610819050237562_n.jpg">
 
+	<!-- Theme color for mobile browsers -->
+	<meta name="theme-color" content="#c41e3a">
+
 	<!-- Twitter / X -->
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:title" content="Piceri Luna Shkodër | Pizza në Shkodër, Menu & Porosi">
@@ -99,26 +102,10 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/luna-menu.css">
 	<link rel="stylesheet" type="text/css" href="css/luna-home.css">
+	<link rel="stylesheet" type="text/css" href="css/luna-global.css">
 
-	<!-- Inline override: neutralise any old header rules still in style.css / luna-home.css -->
+	<!-- Minimal inline overrides: kill old header elements only -->
 	<style>
-		/* ── Force the new header to be full-width and correct height ── */
-		header.ln-header {
-			position: fixed !important;
-			top: 0 !important;
-			left: 0 !important;
-			right: 0 !important;
-			width: 100% !important;
-			max-width: 100% !important;
-			height: 80px !important;
-			min-height: 80px !important;
-			padding: 0 !important;
-			margin: 0 !important;
-			box-sizing: border-box !important;
-			z-index: 1000 !important;
-		}
-
-		/* ── Kill old header styles that would conflict ─────────────── */
 		.header-vacter,
 		.header-inner,
 		.header-logo,
@@ -132,82 +119,14 @@
 			all: unset;
 			display: none !important;
 		}
-
-		/* ── Smooth scroll + body offset ───────────────────────────── */
-		body {
-			scroll-behavior: smooth;
-		}
-
-		/* ── Two-location phone layout ───────────────────────────── */
-		.ln-cta-group,
-		.luna-hero__phone-group,
-		.luna-step__call-group,
-		.luna-cta__phone-group,
-		.ln-mobile__cta-group {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 10px;
-			align-items: center;
-		}
-
-		.ln-cta-group .ln-cta {
-			padding-left: 14px;
-			padding-right: 14px;
-		}
-
-		.ln-cta-group .ln-cta__label {
-			white-space: nowrap;
-			font-size: 13px;
-		}
-
-		.luna-step__call-group,
-		.luna-cta__phone-group,
-		.ln-mobile__cta-group {
-			flex-direction: column;
-			align-items: stretch;
-		}
-
-		.luna-step__call-group .luna-step__call,
-		.luna-cta__phone-group .luna-cta__phone,
-		.ln-mobile__cta-group .ln-mobile__cta {
-			width: 100%;
-			justify-content: center;
-			text-align: center;
-		}
-
-		.footer-menu strong {
-			display: inline-block;
-			margin-top: 6px;
-			color: #1d1d1f;
-			font-weight: 800;
-		}
-
-		@media (max-width: 1199px) {
-			.ln-cta-group {
-				display: none;
-			}
-		}
-
-		@media (max-width: 575px) {
-			.luna-hero__phone-group .luna-hero__btn-ghost {
-				width: 100%;
-				justify-content: center;
-				text-align: center;
-			}
-		}
 	</style>
 </head>
 
 <body class="page-home">
 
+	<!-- Skip navigation — web.dev accessibility -->
+	<a href="#main-content" class="luna-skip-link">Kalo te përmbajtja kryesore</a>
 
-	<!-- Preloader Start -->
-	<div id="preloader" class="preloader">
-		<div class="preloader-box">
-			<img src="images/preloader.svg" alt="preloader">
-		</div>
-	</div>
-	<!-- Preloader End -->
 
 
 	<!-- ============================================================
@@ -336,7 +255,7 @@
 
 
 	<!-- Start Of Main Div -->
-	<main class="main">
+	<main class="main" id="main-content">
 
 		<!-- Hero -->
 		<section id="luna-kryefaqja" class="luna-hero luna-section left-padding overflow-h">
@@ -374,11 +293,12 @@
 							<div class="luna-hero__gallery">
 								<div class="luna-hero__img-main">
 									<img src="Piceri Luna/SaveClip.App_615700220_18322506685217890_950610819050237562_n.jpg"
-										alt="Pica Luna e freskët">
+										alt="Pica e freskët nga Piceri Luna, Shkodër" width="480" height="480"
+										loading="eager">
 								</div>
 								<div class="luna-hero__img-secondary">
 									<img src="Piceri Luna/SaveClip.App_685106631_18337195360217890_4773829630763388330_n.jpg"
-										alt="Pica Luna">
+										alt="Pica Luna — shije autentike" width="220" height="220" loading="lazy">
 								</div>
 								<div class="luna-hero__float-card">
 									<strong>33+</strong>
@@ -881,40 +801,57 @@
 				</div>
 				<div class="luna-instagram__grid">
 					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
-						class="luna-instagram__item luna-reveal wow fadeInUp">
+						class="luna-instagram__item luna-reveal wow fadeInUp"
+						aria-label="Shiko foton në Instagram @piceriluna">
 						<img src="Piceri Luna/SaveClip.App_615700220_18322506685217890_950610819050237562_n.jpg"
-							alt="Instagram Luna">
+							alt="Pica e freskët nga Piceri Luna" loading="lazy">
 						<i class="fa fa-instagram" aria-hidden="true"></i>
 					</a>
 					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
-						class="luna-instagram__item luna-reveal wow fadeInUp">
+						class="luna-instagram__item luna-reveal wow fadeInUp"
+						aria-label="Shiko foton në Instagram @piceriluna">
 						<img src="Piceri Luna/SaveClip.App_685106631_18337195360217890_4773829630763388330_n.jpg"
-							alt="Instagram Luna">
+							alt="Piceri Luna — pjekje tradicionale" loading="lazy">
 						<i class="fa fa-instagram" aria-hidden="true"></i>
 					</a>
 					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
-						class="luna-instagram__item luna-reveal wow fadeInUp">
+						class="luna-instagram__item luna-reveal wow fadeInUp"
+						aria-label="Shiko foton në Instagram @piceriluna">
 						<img src="Piceri Luna/SaveClip.App_674475553_18335659585217890_6017470251438360809_n.jpg"
-							alt="Instagram Luna">
+							alt="Piceri Luna — ambient i ngrohtë" loading="lazy">
 						<i class="fa fa-instagram" aria-hidden="true"></i>
 					</a>
 					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
-						class="luna-instagram__item luna-reveal wow fadeInUp">
+						class="luna-instagram__item luna-reveal wow fadeInUp"
+						aria-label="Shiko foton në Instagram @piceriluna">
 						<img src="Piceri Luna/SaveClip.App_574261717_18313631869217890_5692913761550948887_n.jpg"
-							alt="Instagram Luna">
+							alt="Piceri Luna — përbërës të freskët" loading="lazy">
 						<i class="fa fa-instagram" aria-hidden="true"></i>
 					</a>
 					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
-						class="luna-instagram__item luna-reveal wow fadeInUp">
-						<img src="Piceri Luna/lala-azizli-J9UsvmPFOP0-unsplash.jpg" alt="Instagram Luna">
+						class="luna-instagram__item luna-reveal wow fadeInUp"
+						aria-label="Shiko foton në Instagram @piceriluna">
+						<img src="Piceri Luna/lala-azizli-J9UsvmPFOP0-unsplash.jpg" alt="Piceri Luna — shije italiane"
+							loading="lazy">
 						<i class="fa fa-instagram" aria-hidden="true"></i>
 					</a>
 					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
-						class="luna-instagram__item luna-reveal wow fadeInUp">
-						<img src="Piceri Luna/Bukuriavet.jpg" alt="Instagram Luna">
+						class="luna-instagram__item luna-reveal wow fadeInUp"
+						aria-label="Shiko foton në Instagram @piceriluna">
+						<img src="Piceri Luna/Bukuriavet.jpg" alt="Piceri Luna — çdo ditë pica e re" loading="lazy">
 						<i class="fa fa-instagram" aria-hidden="true"></i>
 					</a>
 				</div>
+
+				<!-- Instagram follow CTA -->
+				<div class="luna-instagram__cta wow fadeInUp">
+					<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
+						class="luna-instagram__follow-btn" aria-label="Ndiq Piceri Luna në Instagram">
+						<i class="fa fa-instagram" aria-hidden="true"></i>
+						Ndiq @piceriluna në Instagram
+					</a>
+				</div>
+
 			</div>
 		</section>
 
@@ -923,75 +860,84 @@
 
 
 	<!-- Start Of Footer -->
-	<footer id="luna-kontakt">
-		<div class="footer ptb-100 bg-yellow position-r overflow-h">
-			<div class="footer-pattern-1 wow fadeInLeft animation-delay-5">
-				<img src="Piceri Luna/Les bons moments - Francine.webp" alt="Piceri Luna">
-			</div>
+	<footer id="luna-kontakt" class="luna-footer">
 
-
-		</div>
-		<div class="container">
-			<div class="row">
-				<div class="col-xl-3 col-lg-6 col-md-6 footer-box wow fadeInUp">
-					<h6 class="footer-title text-uppercase">Linqe</h6>
-					<ul class="footer-menu">
-						<li><a href="#luna-kryefaqja">Kryefaqja</a></li>
-						<li><a href="#luna-menu">Menuja</a></li>
-						<li><a href="#luna-hapat">Si Funksionon</a></li>
-						<li><a href="#luna-vlersimet">Vlersimet</a></li>
-						<li><a href="#luna-kontakt">Kontakt</a></li>
-					</ul>
-				</div>
-				<div class="col-xl-3 col-lg-6 col-md-6 footer-box wow fadeInUp">
-					<h6 class="footer-title text-uppercase">Të Preferuarat</h6>
-					<ul class="footer-menu">
-						<li><a href="#luna-menu">Margarita</a></li>
-						<li><a href="#luna-menu">Diavolo</a></li>
-						<li><a href="#luna-menu">Capolavoro</a></li>
-						<li><a href="#luna-menu">Tonata</a></li>
-						<li><a href="#luna-menu">Kalzone</a></li>
-					</ul>
-				</div>
-				<div class="col-xl-3 col-lg-6 col-md-6 footer-box wow fadeInUp">
-					<h6 class="footer-title text-uppercase">Kontakt</h6>
-					<ul class="footer-menu">
-						<li><strong>Luna 1 - Tek perdet</strong></li>
-						<li><a href="tel:+355692483300">+355 69 248 3300</a></li>
-						<li><strong>Luna 2 - Parrucë</strong></li>
-						<li><a href="tel:+355672873000">+355 67 287 3000</a></li>
-						<li><a href="#luna-hapat">Si të Porosisni</a></li>
-						<li><a href="#luna-menu">Shiko Menunë</a></li>
-					</ul>
-				</div>
-				<div class="col-xl-3 col-lg-6 col-md-6 footer-box wow fadeInUp">
-					<h6 class="footer-title text-uppercase">Rrjetet Sociale</h6>
-					<ul class="footer-social">
-						<li><a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
-								class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-					</ul>
-					<div class="footer-offers-text">
-						<p>Ndiqni @piceriluna për oferta dhe foto të reja çdo ditë.</p>
-					</div>
-					<div class="footer-sign-up">
-						<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
-							class="btn-ct btn-small">Ndiq në Instagram</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-		<div class="copyright">
+		<!-- Main content grid -->
+		<div class="luna-footer__main">
 			<div class="container">
-				<div class="text-center">
-					<p>&#169; 2026 Piceri Luna, Shkodër. Të gjitha të drejtat e rezervuara. &nbsp;|&nbsp;
-						Luna 1: <a href="tel:+355692483300">+355 69 248 3300</a>
-						&nbsp;|&nbsp;
-						Luna 2: <a href="tel:+355672873000">+355 67 287 3000</a>
-					</p>
-				</div>
+				<div class="luna-footer__grid">
+
+					<!-- Brand column -->
+					<div class="luna-footer__brand wow fadeInUp">
+						<a href="#luna-kryefaqja" class="luna-footer__logo-link" aria-label="Piceri Luna – kryefaqja">
+							<img src="Piceri Luna/Les bons moments - Francine.webp" alt="Piceri Luna"
+								class="luna-footer__logo">
+						</a>
+						<p class="luna-footer__tagline">Shija e vërtetë e picës, e pjekur me dashuri në Shkodër.</p>
+						<div class="luna-footer__socials">
+							<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
+								class="luna-footer__social-link" aria-label="Instagram @piceriluna">
+								<i class="fa fa-instagram" aria-hidden="true"></i>
+							</a>
+						</div>
+						<a href="https://www.instagram.com/piceriluna/" target="_blank" rel="noopener"
+							class="luna-footer__insta-btn">
+							<i class="fa fa-instagram" aria-hidden="true"></i>
+							Ndiq @piceriluna
+						</a>
+					</div>
+
+					<!-- Navigation links -->
+					<div class="luna-footer__col wow fadeInUp">
+						<h6 class="luna-footer__col-title">Linqe</h6>
+						<ul class="luna-footer__list">
+							<li><a href="#luna-kryefaqja">Kryefaqja</a></li>
+							<li><a href="#luna-menu">Menuja</a></li>
+							<li><a href="#luna-hapat">Si Funksionon</a></li>
+							<li><a href="#luna-vlersimet">Vlersimet</a></li>
+							<li><a href="#luna-kontakt">Kontakt</a></li>
+						</ul>
+					</div>
+
+					<!-- Favorites -->
+					<div class="luna-footer__col wow fadeInUp">
+						<h6 class="luna-footer__col-title">Të Preferuarat</h6>
+						<ul class="luna-footer__list">
+							<li><a href="#luna-menu">Margarita</a></li>
+							<li><a href="#luna-menu">Diavolo</a></li>
+							<li><a href="#luna-menu">Capolavoro</a></li>
+							<li><a href="#luna-menu">Tonata</a></li>
+							<li><a href="#luna-menu">Kalzone</a></li>
+						</ul>
+					</div>
+
+					<!-- Contact -->
+					<div class="luna-footer__col wow fadeInUp">
+						<h6 class="luna-footer__col-title">Kontakt</h6>
+						<ul class="luna-footer__list">
+							<li><span class="luna-footer__loc">Luna 1 · Tek perdet</span></li>
+							<li><a href="tel:+355692483300">+355 69 248 3300</a></li>
+							<li><span class="luna-footer__loc">Luna 2 · Parrucë</span></li>
+							<li><a href="tel:+355672873000">+355 67 287 3000</a></li>
+							<li style="margin-top:10px"><a href="#luna-hapat">Si të Porosisni</a></li>
+							<li><a href="#luna-menu">Shiko Menunë</a></li>
+						</ul>
+					</div>
+
+				</div><!-- /.luna-footer__grid -->
+			</div><!-- /.container -->
+		</div><!-- /.luna-footer__main -->
+
+		<!-- Copyright bar -->
+		<div class="luna-footer__bottom">
+			<div class="container">
+				<p>&#169; 2026 Piceri Luna, Shkodër. Të gjitha të drejtat e rezervuara.
+					&nbsp;|&nbsp; Luna 1: <a href="tel:+355692483300">+355 69 248 3300</a>
+					&nbsp;|&nbsp; Luna 2: <a href="tel:+355672873000">+355 67 287 3000</a>
+				</p>
 			</div>
 		</div>
+
 	</footer>
 	<!-- End Of Footer -->
 

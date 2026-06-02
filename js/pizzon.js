@@ -1,7 +1,17 @@
 
 // ***** Preloader ***** //
 $(window).on("load", function() {
-    $('#preloader').delay(2500).fadeOut(500);
+    $('#preloader').delay(2500).fadeOut(500, function() {
+        // Failsafe: force hidden after animation regardless of CSS overrides
+        $(this).hide().css({ visibility: 'hidden', pointerEvents: 'none' });
+    });
+    // Hard fallback: if load event is slow, force hide after 6s
+    setTimeout(function() {
+        var $pre = $('#preloader');
+        if ($pre.is(':visible')) {
+            $pre.hide().css({ visibility: 'hidden', pointerEvents: 'none' });
+        }
+    }, 6000);
 });
 
 var w = 0;
@@ -238,8 +248,9 @@ $(function() {
     // ***** Slider Round ***** //
     function bannerround(){
         var bannerround = jQuery('.slider-round').width();
-        console.log(bannerround);
-        jQuery('.slider-round').css('height', bannerround);
+        if (bannerround) {
+            jQuery('.slider-round').css('height', bannerround);
+        }
     }
     
 });
