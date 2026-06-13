@@ -1,0 +1,533 @@
+/* ============================================================
+   PICERI LUNA — Motion System v2026
+   Physics-based springs · Spatial ambient · Eye-comfortable
+   Load AFTER luna-global.css
+   ============================================================ */
+
+/* ── Extended easing vocabulary ──────────────────────────── */
+:root {
+  --e-snappy:  cubic-bezier(0.22, 1, 0.36, 1);   /* fast start → smooth land */
+  --e-bounce:  cubic-bezier(0.175, 0.885, 0.32, 1.275); /* soft overshoot */
+  --e-out3:    cubic-bezier(0, 0, 0.3, 1);        /* sharp deceleration */
+
+  /* Stagger timing unit (60 ms is comfortable, non-rushed) */
+  --stagger: 60ms;
+}
+
+/* ── GPU promotion — pre-allocate compositor layers ─────── */
+.luna-hero__orb--1,
+.luna-hero__orb--2,
+.luna-steps__orb--one,
+.luna-steps__orb--two,
+.luna-testimonials__orb--one,
+.luna-testimonials__orb--two,
+.luna-strength__orb--one,
+.luna-strength__orb--two,
+.luna-oret__orb--one,
+.luna-oret__orb--two,
+.luna-cta__orb {
+  will-change: transform;
+}
+
+.luna-hero__img-secondary,
+.luna-hero__float-card,
+.luna-wa-float {
+  will-change: transform;
+}
+
+.la { will-change: opacity, transform; }
+
+/* ═══════════════════════════════════════════════════════════
+   KEYFRAME LIBRARY
+   All keyframes animate only opacity, transform, or filter
+   (compositor-compositable properties — zero layout cost)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Ambient orb drift A (clockwise, 14–22 s) ────────────── */
+@keyframes luna-orb-a {
+  0%   { transform: translate(   0,     0)  scale(1);    }
+  20%  { transform: translate( 14px, -10px) scale(1.03); }
+  45%  { transform: translate(  5px,  18px) scale(0.97); }
+  70%  { transform: translate(-11px,   7px) scale(1.02); }
+  100% { transform: translate(   0,     0)  scale(1);    }
+}
+
+/* ── Ambient orb drift B (counter-drift, 16–22 s) ────────── */
+@keyframes luna-orb-b {
+  0%   { transform: translate(   0,     0)  scale(1);    }
+  30%  { transform: translate(-13px,  15px) scale(1.04); }
+  62%  { transform: translate( 19px,  -5px) scale(0.96); }
+  100% { transform: translate(   0,     0)  scale(1);    }
+}
+
+/* ── Hero entrance — above-fold cascade ─────────────────── */
+/*
+ * Easing: cubic-bezier(0.22, 1, 0.36, 1) = ultra-decelerate.
+ * Element rockets off start position and glides into rest.
+ * blur(5px) → blur(0) adds cinematic depth snap-to-focus.
+ */
+@keyframes luna-hero-in {
+  0% {
+    opacity: 0;
+    transform: translateY(26px) scale(0.96);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* ── Card hover shimmer — diagonal shine sweep ───────────── */
+@keyframes luna-shimmer {
+  0%   { transform: translateX(-130%) skewX(-12deg); opacity: 0;    }
+  8%   {                                              opacity: 0.55; }
+  92%  {                                              opacity: 0.55; }
+  100% { transform: translateX(130%)  skewX(-12deg); opacity: 0;    }
+}
+
+/* ── Click ripple ────────────────────────────────────────── */
+@keyframes luna-ripple {
+  0%   { transform: scale(0);  opacity: 0.36; }
+  80%  {                        opacity: 0.08; }
+  100% { transform: scale(28); opacity: 0;    }
+}
+
+/* ── Scroll-progress gradient animation ─────────────────── */
+@keyframes luna-gradient-x {
+  0%,  100% { background-position:   0% 50%; }
+  50%        { background-position: 100% 50%; }
+}
+
+/* ── Improved WA bounce (overrides luna-global.css) ─────── */
+/*
+ * 4-point bounce: rise → small bounce → settle.
+ * More organic than a simple 3-point bounce.
+ */
+@keyframes luna-wa-bounce {
+  0%,  55%, 100% { transform: translateY(0);    }
+  26%             { transform: translateY(-10px); }
+  40%             { transform: translateY(-5px);  }
+}
+
+/* ── Improved pulse-dot (overrides luna-global.css) ─────── */
+/*
+ * 3-point pulse with a slight pause at rest gives a
+ * "heartbeat" rhythm that is less visually fatiguing.
+ */
+@keyframes pulse-dot {
+  0%, 70%, 100% { transform: scale(1);    opacity: 1;    }
+  40%            { transform: scale(0.58); opacity: 0.42; }
+}
+
+/* ── Underline draw (for footer links) ───────────────────── */
+/* driven by transition, no keyframe needed */
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLL PROGRESS BAR
+   ═══════════════════════════════════════════════════════════ */
+#luna-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 9999;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(
+    90deg,
+    var(--red)       0%,
+    #e8545e         40%,
+    var(--red-dark)  100%
+  );
+  background-size: 200% 100%;
+  animation: luna-gradient-x 3s ease-in-out infinite;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLL REVEAL — .la SYSTEM
+
+   Usage:
+     <div class="la la--up la--d2"> → fades up, 120 ms delay
+
+   Variants: (default=up) --up --down --left --right --scale --fade
+   Delays:   --d1 (60ms) through --d8 (480ms)
+   JS adds "is-visible" class via IntersectionObserver
+   ═══════════════════════════════════════════════════════════ */
+.la {
+  opacity: 0;
+  transition-property: opacity, transform, filter;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-duration: 660ms;
+}
+
+.la,
+.la--up    { transform: translateY(22px) scale(0.97); filter: blur(2px); }
+.la--down  { transform: translateY(-22px) scale(0.97); filter: blur(2px); }
+.la--left  { transform: translateX(26px);              filter: blur(2px); }
+.la--right { transform: translateX(-26px);             filter: blur(2px); }
+.la--scale { transform: scale(0.88);                   filter: blur(4px); }
+.la--fade  { transform: none;                          filter: blur(4px); }
+.la--up-sm { transform: translateY(12px);              filter: blur(1px); }
+
+.la.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+/* Stagger delays — 60 ms increments */
+.la--d1 { transition-delay:  60ms; }
+.la--d2 { transition-delay: 120ms; }
+.la--d3 { transition-delay: 180ms; }
+.la--d4 { transition-delay: 240ms; }
+.la--d5 { transition-delay: 300ms; }
+.la--d6 { transition-delay: 360ms; }
+.la--d7 { transition-delay: 420ms; }
+.la--d8 { transition-delay: 480ms; }
+
+/* ═══════════════════════════════════════════════════════════
+   HERO ENTRANCE CASCADE
+
+   Above-fold content — IntersectionObserver fires but may have
+   sub-frame flash. CSS animation with fill-mode:both is
+   the most robust approach: element holds the 0% state
+   before its delay fires, then animates to 100%.
+
+   Cascade order: eyebrow → title → desc → actions → chips
+   Visual side (gallery) enters from same family at 140 ms.
+
+   Math: each delay is ~75-80 ms apart. At 60 fps that's
+   ~4-5 frames — just enough separation to read as cascade
+   without feeling sluggish.
+   ═══════════════════════════════════════════════════════════ */
+.luna-hero__eyebrow {
+  animation: luna-hero-in 700ms cubic-bezier(0.22, 1, 0.36, 1)  80ms both;
+}
+
+.luna-hero__title {
+  animation: luna-hero-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 155ms both;
+}
+
+.luna-hero__desc {
+  animation: luna-hero-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 245ms both;
+}
+
+.luna-hero__actions {
+  animation: luna-hero-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 320ms both;
+}
+
+.luna-hero__chips {
+  animation: luna-hero-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 400ms both;
+}
+
+.luna-hero__gallery {
+  animation: luna-hero-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 140ms both;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   AMBIENT ORB ANIMATIONS
+
+   Different durations + offsets prevent visual synchrony
+   (all orbs moving together looks mechanical, not natural).
+   Easing: ease-in-out = cubic-bezier(0.42,0,0.58,1)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Hero */
+.luna-hero__orb--1 { animation: luna-orb-a 14s ease-in-out         infinite; }
+.luna-hero__orb--2 { animation: luna-orb-b 18s ease-in-out 1.8s    infinite; }
+
+/* Steps section */
+.luna-steps__orb--one { animation: luna-orb-a 16s ease-in-out 0.7s  infinite; }
+.luna-steps__orb--two { animation: luna-orb-b 20s ease-in-out 3.2s  infinite; }
+
+/* Testimonials */
+.luna-testimonials__orb--one { animation: luna-orb-a 18s ease-in-out 1.4s  infinite; }
+.luna-testimonials__orb--two { animation: luna-orb-b 15s ease-in-out        infinite; }
+
+/* Why Luna (strength) */
+.luna-strength__orb--one { animation: luna-orb-b 17s ease-in-out 2.1s  infinite; }
+.luna-strength__orb--two { animation: luna-orb-a 22s ease-in-out 4.3s  infinite; }
+
+/* Opening hours */
+.luna-oret__orb--one { animation: luna-orb-a 15s ease-in-out 0.4s  infinite; }
+.luna-oret__orb--two { animation: luna-orb-b 19s ease-in-out 2.6s  infinite; }
+
+/* CTA dark band */
+.luna-cta__orb { animation: luna-orb-a 22s ease-in-out 1.2s infinite; }
+
+/* ═══════════════════════════════════════════════════════════
+   CARD HOVER SHIMMER
+
+   A diagonal shine strip sweeps across on hover.
+   Only applied to cards where ::after is not already used.
+   overflow:hidden on the cards clips the strip cleanly.
+   ═══════════════════════════════════════════════════════════ */
+
+/* Trust stat cards (.luna-trust__item uses ::before for accent bar only) */
+.luna-trust__item::after,
+.luna-oret__card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent           25%,
+    rgba(255,255,255,0.48) 50%,
+    transparent           75%
+  );
+  transform: translateX(-140%) skewX(-12deg);
+  pointer-events: none;
+  z-index: 4;
+  /* Transition: slow start + fast middle simulates a real light reflection */
+  transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.luna-trust__item:hover::after,
+.luna-oret__card:hover::after {
+  transform: translateX(255%) skewX(-12deg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BUTTON RIPPLE ELEMENT
+   Created by JS on click, removed after animation ends.
+   ═══════════════════════════════════════════════════════════ */
+.luna-ripple {
+  position: absolute;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  margin-left: -4px;
+  background: rgba(255, 255, 255, 0.40);
+  transform: scale(0);
+  animation: luna-ripple 580ms cubic-bezier(0, 0, 0.2, 1) forwards;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   IMPROVED HOVER MICRO-INTERACTIONS
+
+   Key principle: use cubic-bezier(0.22,1,0.36,1) (snappy
+   deceleration) for lift/scale-up transitions — it feels
+   fast-responsive and settles without overshoot.
+   ═══════════════════════════════════════════════════════════ */
+
+/* Trust stat cards */
+.luna-trust__item {
+  transition:
+    transform  340ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 340ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.luna-trust__item:hover {
+  transform: translateY(-8px) !important;
+}
+
+/* Opening hours cards */
+.luna-oret__card {
+  transition:
+    transform  340ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 340ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* Testimonial cards */
+.luna-testimonial-card {
+  transition:
+    transform     360ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow    360ms ease,
+    border-color  280ms ease !important;
+}
+
+/* Step cards */
+.luna-step {
+  transition:
+    transform     360ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow    360ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color  280ms ease,
+    background    280ms ease !important;
+}
+
+/* Strength cards */
+.luna-strength-card {
+  transition:
+    transform     360ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow    360ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color  280ms ease,
+    background    280ms ease !important;
+}
+
+/* Instagram grid items */
+.luna-instagram__item {
+  transition:
+    transform  380ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 380ms ease !important;
+}
+
+/* ── Footer nav links — underline draw instead of padding shift ── */
+/*
+ * padding-left shift causes layout reflow on every frame.
+ * scaleX(0→1) on a pseudo-element is GPU-composited: zero reflow.
+ */
+.luna-footer__list li a {
+  position: relative;
+  display: inline-block;
+  transition: color 180ms ease !important;
+  padding-left: 0 !important;
+}
+
+.luna-footer__list li a::before {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.48);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.luna-footer__list li a:hover {
+  color: rgba(255, 255, 255, 0.92) !important;
+  padding-left: 0 !important;
+}
+
+.luna-footer__list li a:hover::before {
+  transform: scaleX(1);
+}
+
+/* ── Nav indicator — tighter spring ─────────────────────── */
+.ln-nav__indicator {
+  transition:
+    left    260ms cubic-bezier(0.4, 0, 0.2, 1),
+    width   260ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 180ms ease !important;
+}
+
+/* ── Testimonials slider dots ────────────────────────────── */
+.luna-testimonials__slider .owl-dot {
+  transition:
+    width      300ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 280ms ease !important;
+}
+
+/* ── Eyebrow pulse dots — improved rhythm ────────────────── */
+.luna-section-head__eyebrow::before,
+.luna-hero__eyebrow::before {
+  animation: pulse-dot 2.6s ease-in-out infinite !important;
+}
+
+/* ── WA float button ─────────────────────────────────────── */
+.luna-wa-float {
+  animation: luna-wa-bounce 5s ease-in-out 4s infinite !important;
+}
+
+.luna-wa-float:hover {
+  animation: none !important;
+}
+
+/* ─── Magnetic button vars (set by JS on mousemove) ──────── */
+/*
+ * JS reads these and applies translate directly via inline style.
+ * On mouseleave it clears inline style, restoring CSS transitions.
+ */
+.btn-ct.btn-large,
+.ln-cta {
+  /* JS will override transform directly; this transition
+     applies on mouseleave (spring snap-back) */
+  transition:
+    background  var(--base, 320ms) var(--ease, cubic-bezier(0.4,0,0.2,1)),
+    box-shadow  var(--base, 320ms) var(--ease, cubic-bezier(0.4,0,0.2,1)),
+    transform   var(--fast, 180ms) var(--spring, cubic-bezier(0.34,1.56,0.64,1)),
+    border-color var(--base, 320ms) var(--ease, cubic-bezier(0.4,0,0.2,1)),
+    color       var(--base, 320ms) var(--ease, cubic-bezier(0.4,0,0.2,1)) !important;
+}
+
+/* Magnetic snap-back class — JS adds/removes this */
+.luna-mag-snap {
+  transition: transform 480ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   REDUCED MOTION — all overrides
+   Must be at the END to win specificity battles.
+   ═══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+
+  /* Kill ambient orbs */
+  .luna-hero__orb--1,
+  .luna-hero__orb--2,
+  .luna-steps__orb--one,
+  .luna-steps__orb--two,
+  .luna-testimonials__orb--one,
+  .luna-testimonials__orb--two,
+  .luna-strength__orb--one,
+  .luna-strength__orb--two,
+  .luna-oret__orb--one,
+  .luna-oret__orb--two,
+  .luna-cta__orb {
+    animation: none !important;
+  }
+
+  /* Kill hero cascade — show instantly */
+  .luna-hero__eyebrow,
+  .luna-hero__title,
+  .luna-hero__desc,
+  .luna-hero__actions,
+  .luna-hero__chips,
+  .luna-hero__gallery {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  /* Kill scroll reveal */
+  .la {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  /* Kill card shimmer */
+  .luna-trust__item::after,
+  .luna-oret__card::after {
+    display: none !important;
+  }
+
+  /* Kill WA bounce */
+  .luna-wa-float {
+    animation: none !important;
+  }
+
+  /* Kill all micro-interaction transitions */
+  .luna-trust__item,
+  .luna-oret__card,
+  .luna-testimonial-card,
+  .luna-step,
+  .luna-strength-card,
+  .luna-instagram__item,
+  .luna-footer__list li a,
+  .luna-footer__list li a::before,
+  .ln-nav__indicator,
+  .luna-testimonials__slider .owl-dot {
+    transition: none !important;
+  }
+
+  /* Kill pulse dots */
+  .luna-section-head__eyebrow::before,
+  .luna-hero__eyebrow::before {
+    animation: none !important;
+  }
+}

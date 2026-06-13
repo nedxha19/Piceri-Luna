@@ -137,6 +137,8 @@
 	<link rel="stylesheet" type="text/css" href="css/luna-menu.css">
 	<link rel="stylesheet" type="text/css" href="css/luna-home.css">
 	<link rel="stylesheet" type="text/css" href="css/luna-global.css">
+	<!-- Animation system — must come AFTER luna-global.css -->
+	<link rel="stylesheet" type="text/css" href="css/luna-animations.css">
 
 	<!-- Minimal inline overrides: kill old header elements only -->
 	<style>
@@ -157,6 +159,9 @@
 </head>
 
 <body class="page-home">
+
+	<!-- Scroll progress bar — driven by luna-animations.js -->
+	<div id="luna-scroll-progress" aria-hidden="true"></div>
 
 	<!-- Skip navigation — web.dev accessibility -->
 	<a href="#main-content" class="luna-skip-link">Kalo te përmbajtja kryesore</a>
@@ -300,7 +305,7 @@
 			<div class="container-big">
 				<div class="row align-items-center g-4 g-xl-5">
 					<div class="col-lg-6">
-						<div class="luna-hero__content wow fadeInLeft">
+						<div class="luna-hero__content">
 							<span class="luna-hero__eyebrow">Piceri Luna · Shkodër</span>
 							<h1 class="luna-hero__title">Shija e vërtetë e picës, e pjekur me <span>dashuri</span></h1>
 							<p class="luna-hero__desc">Brumë i fermentuar natyrshëm, përbërës të freskët çdo ditë dhe 33
@@ -325,7 +330,7 @@
 						</div>
 					</div>
 					<div class="col-lg-6">
-						<div class="luna-hero__visual wow fadeInRight">
+						<div class="luna-hero__visual">
 							<div class="luna-hero__gallery">
 								<div class="luna-hero__img-main">
 									<img src="Piceri Luna/SaveClip.App_615700220_18322506685217890_950610819050237562_n.jpg"
@@ -971,6 +976,8 @@
 	<script src="js/luna-menu.js"></script>
 	<script src="js/luna-home.js"></script>
 	<script src="js/luna-navbar.js"></script>
+	<!-- Animation system — must load last -->
+	<script src="js/luna-animations.js"></script>
 
 </body>
 
