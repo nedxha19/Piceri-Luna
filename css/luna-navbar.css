@@ -4,17 +4,10 @@
    ============================================================ */
 
 /* ─── Design tokens ──────────────────────────────────────────── */
+/* --ln-accent, --ln-accent-dark, --ln-accent-light, --ln-h, --ln-font
+   are all set in luna-global.css (which loads after this file).
+   Only navbar-specific tokens live here. */
 :root {
-    --ln-accent: #e63923;
-    /* Luna red */
-    --ln-accent-dark: #c02e1a;
-    --ln-accent-light: rgba(230, 57, 35, 0.12);
-
-    --ln-h: 80px;
-    /* header height  */
-    --ln-h-scrolled: 64px;
-    /* compacted height after scroll */
-
     --ln-bg-solid: #fff;
     --ln-bg-glass: rgba(255, 255, 255, 0.72);
     --ln-blur: 18px;
@@ -32,7 +25,6 @@
     --ln-ease: cubic-bezier(0.4, 0, 0.2, 1);
     --ln-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-    --ln-font: 'Segoe UI', system-ui, -apple-system, sans-serif;
     --ln-z: 1000;
 }
 
@@ -270,7 +262,7 @@ header.ln-header.is-scrolled,
 
 .ln-burger__bar {
     display: block;
-    width: 20px;
+    width: 24px;
     height: 2px;
     background: var(--ln-text);
     border-radius: 2px;
@@ -407,12 +399,10 @@ header.ln-header.is-scrolled,
     text-align: center;
     justify-content: center;
     box-shadow: 0 4px 16px rgba(230, 57, 35, 0.30);
-    transition: background 0.2s, transform 0.18s;
-
     opacity: 0;
     transform: translateY(8px);
     transition:
-        background 0.2s,
+        background 0.2s var(--ln-ease),
         transform 0.2s var(--ln-ease),
         opacity 0.3s var(--ln-ease);
 }

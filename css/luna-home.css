@@ -1202,7 +1202,7 @@
 .luna-testimonials .luna-section-head__desc {
 	max-width: 600px;
 	font-size: clamp(15px, 1.5vw, 17px);
-	font-weight: 520;
+	font-weight: 500;
 	line-height: 1.68;
 	color: #6e6e73;
 }
@@ -1238,7 +1238,7 @@
 .luna-testimonials__score-content span {
 	color: #6e6e73;
 	font-size: 13px;
-	font-weight: 750;
+	font-weight: 700;
 	line-height: 1.28;
 }
 
@@ -1281,7 +1281,7 @@
 .luna-testimonials__stat span {
 	color: #6e6e73;
 	font-size: 12px;
-	font-weight: 780;
+	font-weight: 800;
 	line-height: 1.25;
 	text-align: right;
 }
@@ -1426,7 +1426,7 @@
 	padding: 0;
 	color: #3f3f46;
 	font-size: 16px;
-	font-weight: 560;
+	font-weight: 600;
 	line-height: 1.68;
 	letter-spacing: -0.012em;
 }
@@ -1854,7 +1854,7 @@
 	margin: 22px 0 0;
 	color: #6e6e73;
 	font-size: clamp(15px, 1.5vw, 17px);
-	font-weight: 520;
+	font-weight: 500;
 	line-height: 1.75;
 }
 
@@ -1890,7 +1890,7 @@
 	display: block;
 	color: #77777f;
 	font-size: 12px;
-	font-weight: 750;
+	font-weight: 700;
 	line-height: 1.3;
 }
 
