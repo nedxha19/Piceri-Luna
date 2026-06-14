@@ -7,6 +7,17 @@
 		return window.innerWidth <= 767;
 	}
 
+	function getLang() {
+		if (window.LunaI18n && typeof window.LunaI18n.lang === 'function') {
+			return window.LunaI18n.lang();
+		}
+		/* LunaI18n not yet bootstrapped — read localStorage directly
+		   (same key the i18n engine uses) to avoid Albanian flash on
+		   returning English-language users. */
+		try { return localStorage.getItem('luna-lang') || 'sq'; } catch (e) {}
+		return 'sq';
+	}
+
 	function escapeHtml(str) {
 		var div = document.createElement('div');
 		div.textContent = str || '';
@@ -17,8 +28,9 @@
 		return Number(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 	}
 
-	function buildPickerHtml(prices, pizzaId) {
+	function buildPickerHtml(prices, pizzaId, lang) {
 		var labelId = 'luna-picker-label-' + pizzaId;
+		var sizeLabel = lang === 'en' ? 'Size' : 'Madhësia';
 		var options = '';
 
 		LUNA_PIZZA_SIZES.forEach(function (size) {
@@ -31,7 +43,7 @@
 
 		return (
 			'<div class="luna-card__picker luna-size-picker" data-prices=\'' + JSON.stringify(prices) + '\'>' +
-			'<p class="luna-card__picker-label" id="' + labelId + '">Madhësia</p>' +
+			'<p class="luna-card__picker-label" id="' + labelId + '">' + sizeLabel + '</p>' +
 			'<div class="luna-picker" role="group" aria-labelledby="' + labelId + '">' +
 			'<div class="luna-picker__window">' +
 			'<div class="luna-picker__selection" aria-hidden="true"></div>' +
@@ -44,9 +56,12 @@
 		);
 	}
 
-	function buildCard(pizza, index) {
+	function buildCard(pizza, index, lang) {
 		var defaultPrice = pizza.prices[DEFAULT_SIZE_KEY];
-		var badge = index < 3 ? '<span class="luna-card__badge">E preferuar</span>' : '';
+		var badgeText = lang === 'en' ? 'Favourite' : 'E preferuar';
+		var badge = index < 3 ? '<span class="luna-card__badge">' + badgeText + '</span>' : '';
+		var name = (lang === 'en' && pizza.name_en) ? pizza.name_en : pizza.name;
+		var ingredients = (lang === 'en' && pizza.ingredients_en) ? pizza.ingredients_en : pizza.ingredients;
 
 		return (
 			'<article class="luna-card" data-pizza-id="' + escapeHtml(pizza.id) + '">' +
@@ -56,14 +71,14 @@
 			badge +
 			'<div class="luna-card__image-box">' +
 			'<a href="shop-detail.html" class="luna-card__image-link" tabindex="-1">' +
-			'<img class="luna-card__image" src="' + escapeHtml(pizza.image) + '" alt="' + escapeHtml(pizza.name) + '" width="280" height="280" loading="lazy">' +
+			'<img class="luna-card__image" src="' + escapeHtml(pizza.image) + '" alt="' + escapeHtml(name) + '" width="280" height="280" loading="lazy">' +
 			'</a>' +
 			'</div>' +
 			'</figure>' +
 
 			'<div class="luna-card__details">' +
 			'<div class="luna-card__meta">' +
-			'<h3 class="luna-card__name"><a href="shop-detail.html">' + escapeHtml(pizza.name) + '</a></h3>' +
+			'<h3 class="luna-card__name"><a href="shop-detail.html">' + escapeHtml(name) + '</a></h3>' +
 
 			'<div class="luna-card__price" data-luna-price data-selected-size="' + DEFAULT_SIZE_KEY + '" data-selected-price="' + defaultPrice + '">' +
 			'<span class="luna-card__price-value">' + formatPrice(defaultPrice) + '</span>' +
@@ -71,10 +86,10 @@
 			'</div>' +
 			'</div>' +
 
-			'<p class="luna-card__ingredients">' + escapeHtml(pizza.ingredients) + '</p>' +
+			'<p class="luna-card__ingredients">' + escapeHtml(ingredients) + '</p>' +
 			'</div>' +
 
-			buildPickerHtml(pizza.prices, pizza.id) +
+			buildPickerHtml(pizza.prices, pizza.id, lang) +
 
 			'</div>' +
 			'</article>'
@@ -96,10 +111,11 @@
 			return;
 		}
 
+		var lang = getLang();
 		var html = '';
 
 		LUNA_PIZZA_MENU.forEach(function (pizza, i) {
-			html += buildCard(pizza, i);
+			html += buildCard(pizza, i, lang);
 		});
 
 		$carousel.html(html);
@@ -265,35 +281,22 @@
 		});
 	}
 
-	$(document).ready(function () {
+	function fullRender() {
 		renderMenu();
-
-		/*
-		 * Order matters:
-		 * 1. Render cards
-		 * 2. Init carousel
-		 * 3. Mount size pickers
-		 * 4. Force default size to Normale 30 cm
-		 */
 		initCarousel();
-
 		setTimeout(function () {
 			mountSizePickers();
 			forceDefaultNormalSize();
 		}, 80);
+		setTimeout(forceDefaultNormalSize, 250);
+		setTimeout(forceDefaultNormalSize, 600);
+	}
 
-		setTimeout(function () {
-			forceDefaultNormalSize();
-		}, 250);
+	$(document).ready(function () {
+		fullRender();
 
-		setTimeout(function () {
-			forceDefaultNormalSize();
-		}, 600);
-
-		/*
-		 * Switch between native scroll (mobile) and Owl Carousel (desktop)
-		 * when the viewport crosses the 767px breakpoint.
-		 */
+		/* Switch between native scroll (mobile) and Owl Carousel (desktop)
+		 * when the viewport crosses the 767px breakpoint. */
 		var resizeTimer;
 		$(window).on('resize', function () {
 			clearTimeout(resizeTimer);
@@ -311,6 +314,11 @@
 				}
 			}, 200);
 		});
+	});
+
+	/* Re-render cards when the user switches language */
+	document.addEventListener('luna:langchange', function () {
+		fullRender();
 	});
 
 })(jQuery);

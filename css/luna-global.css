@@ -1279,7 +1279,9 @@ footer#luna-kontakt .footer.ptb-100 { display: none !important; }
 
 /* 1199px — tablet landscape */
 @media (max-width: 1199px) {
-  .ln-cta-group { display: none !important; }
+  /* luna-home.css sets display:none on .ln-cta-group at this breakpoint — override it.
+     At 601–1199px the group shows as icon-only pills (label hidden by luna-navbar.css). */
+  .ln-cta-group { display: flex !important; }
 
   .luna-cta__inner { flex-direction: column !important; align-items: flex-start !important; }
 
@@ -1857,6 +1859,9 @@ footer#luna-kontakt .footer.ptb-100 { display: none !important; }
   /* Show the bar on mobile */
   .luna-bottom-bar { display: block; }
 
+  /* Hide navbar CTA group — mobile bottom bar has Call + Menu buttons */
+  .ln-cta-group { display: none !important; }
+
   /* Push page content above the bar (≈ 64px bar height + safe area) */
   body.page-home {
     padding-bottom: calc(64px + env(safe-area-inset-bottom)) !important;
@@ -1866,4 +1871,26 @@ footer#luna-kontakt .footer.ptb-100 { display: none !important; }
   .luna-wa-fab {
     bottom: calc(72px + env(safe-area-inset-bottom)) !important;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INSTAGRAM MOSAIC — aspect-ratio fix
+   luna-home.css sets aspect-ratio:1 on all items. This breaks
+   the tall feature columns (items 1 & 6 span 2 grid rows).
+   Override to auto so the grid's own row sizing takes control.
+   ═══════════════════════════════════════════════════════════ */
+.luna-instagram__item {
+  aspect-ratio: auto !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TESTIMONIALS SLIDER — keyboard focus visibility (WCAG 2.4.7)
+   luna-home.css removes the browser outline with no substitute.
+   Replace with a visible focus ring that matches brand tokens.
+   ═══════════════════════════════════════════════════════════ */
+.luna-testimonials__slider .owl-nav button:focus-visible,
+.luna-testimonials__slider .owl-dots .owl-dot:focus-visible {
+  outline: 3px solid var(--red) !important;
+  outline-offset: 3px !important;
+  box-shadow: none !important;
 }

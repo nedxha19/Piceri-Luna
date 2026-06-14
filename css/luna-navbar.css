@@ -196,13 +196,21 @@ header.ln-header.is-scrolled,
     opacity: 1;
 }
 
+/* ─── CTA group (two phone pills) ───────────────────────────── */
+.ln-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
 /* ─── CTA button ─────────────────────────────────────────────── */
 .ln-cta {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     flex-shrink: 0;
-    margin-left: auto;
+    margin-left: 0;           /* reset — group positions these, not auto-margin */
     padding: 10px 20px;
     font-size: 14px;
     font-weight: 600;
@@ -460,17 +468,32 @@ body {
 }
 
 /* ─── Responsive ─────────────────────────────────────────────── */
-@media (max-width: 900px) {
 
-    .ln-nav,
+/*
+ * Breakpoint logic (all widths are available inside header inner):
+ *
+ *  ≥1200px  logo + nav + lang + [Luna 1 pill] [Luna 2 pill]   full text
+ *  901–1199 logo + nav + lang + [📞][📞]                       icon-only pills
+ *   ≤900px  logo + lang + [📞][📞] + ☰                        nav → sidebar
+ *   ≤600px  logo + ☰                                           pills hidden; bottom bar handles calls
+ */
+
+/* 1199px — collapse CTA text to icon-only (saves ~340px for nav breathing room) */
+@media (max-width: 1199px) {
     .ln-cta__label {
         display: none;
     }
 
     .ln-cta {
-        /* show icon-only on tablet */
         padding: 10px 12px;
         gap: 0;
+    }
+}
+
+/* 900px — hide desktop nav, show hamburger */
+@media (max-width: 900px) {
+    .ln-nav {
+        display: none;
     }
 
     .ln-burger {
@@ -478,12 +501,12 @@ body {
     }
 }
 
-@media (max-width: 600px) {
-    .ln-cta {
+/* 767px — hide CTA group; mobile bottom bar (shown by luna-global.css) handles calls */
+@media (max-width: 767px) {
+    .ln-cta-group {
         display: none;
     }
 
-    /* let the mobile menu hold the CTA */
     .ln-burger {
         display: inline-flex;
     }

@@ -11,18 +11,14 @@
 	--luna-muted: #6e6e73;
 	--luna-radius-lg: 28px;
 	--luna-radius-md: 18px;
-	--luna-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+	--luna-font: var(--font); /* alias to global token: 'Montserrat' defined in luna-global.css */
 }
 
 .page-home .main {
 	overflow-x: hidden;
 }
 
-/* ---- Spacing system (8px grid) ---- */
-.page-home [id^="luna-"] {
-	scroll-margin-top: 96px;
-}
-
+/* ---- Section spacing (8px grid, py=clamp(72px,9vw,112px) set in luna-global.css) ---- */
 .page-home .luna-section {
 	padding: 88px 0;
 }
@@ -387,76 +383,6 @@
 	line-height: 1.4;
 }
 
-/* ---- Story ---- */
-.luna-story {
-	background: var(--luna-cream);
-}
-
-.luna-story__grid {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 48px;
-	align-items: center;
-}
-
-.luna-story__media {
-	position: relative;
-}
-
-.luna-story__media img {
-	width: 100%;
-	border-radius: var(--luna-radius-lg);
-	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-}
-
-.luna-story__media-badge {
-	position: absolute;
-	bottom: -16px;
-	right: -16px;
-	padding: 20px 24px;
-	background: var(--luna-gold);
-	border-radius: var(--luna-radius-md);
-	box-shadow: 0 12px 30px rgba(251, 178, 0, 0.35);
-}
-
-.luna-story__media-badge strong {
-	display: block;
-	font-size: 28px;
-	font-weight: 700;
-	color: var(--luna-dark);
-	line-height: 1;
-}
-
-.luna-story__list {
-	list-style: none;
-	padding: 0;
-	margin: 24px 0 0;
-}
-
-.luna-story__list li {
-	position: relative;
-	padding-left: 28px;
-	margin-bottom: 12px;
-	font-size: 15px;
-	color: var(--luna-muted);
-}
-
-.luna-story__list li::before {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 8px;
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background: var(--luna-red);
-}
-
-.luna-story__cta {
-	margin-top: 24px;
-	display: inline-block;
-}
-
 /* ---- Steps ---- */
 .luna-steps {
 	background: #fff;
@@ -712,17 +638,6 @@
 	pointer-events: none;
 }
 
-.page-home .luna-story .black-jamun {
-	opacity: 0.35;
-	pointer-events: none;
-	z-index: 0;
-}
-
-.page-home .luna-story .container {
-	position: relative;
-	z-index: 1;
-}
-
 .page-home .feeddback-part.luna-section {
 	margin-bottom: 0;
 }
@@ -747,11 +662,6 @@
 
 	.luna-trust__grid {
 		grid-template-columns: repeat(2, 1fr);
-	}
-
-	.luna-story__grid {
-		grid-template-columns: 1fr;
-		gap: 32px;
 	}
 
 	.luna-steps__grid {
@@ -879,7 +789,7 @@
 	background: rgba(196, 30, 58, 0.10);
 	color: var(--luna-red, #c41e3a);
 	font-size: 12px;
-	font-weight: 850;
+	font-weight: 900;
 	letter-spacing: 0.13em;
 	text-transform: uppercase;
 }
@@ -899,7 +809,7 @@
 	margin-left: auto;
 	margin-right: auto;
 	font-size: clamp(2rem, 4.8vw, 3.65rem);
-	font-weight: 850;
+	font-weight: 900;
 	line-height: 1;
 	letter-spacing: -0.065em;
 	color: #1d1d1f;
@@ -1049,7 +959,7 @@
 	margin: 0 0 13px;
 	color: #1d1d1f;
 	font-size: clamp(21px, 2vw, 26px);
-	font-weight: 850;
+	font-weight: 900;
 	line-height: 1.1;
 	letter-spacing: -0.045em;
 }
@@ -1105,7 +1015,7 @@
 	background: #1d1d1f;
 	color: #ffffff;
 	font-size: 14px;
-	font-weight: 850;
+	font-weight: 900;
 	text-decoration: none;
 	box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
 	transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
@@ -1193,7 +1103,7 @@
 .luna-testimonials .luna-section-head__title {
 	max-width: 760px;
 	font-size: clamp(2rem, 4.4vw, 3.55rem);
-	font-weight: 880;
+	font-weight: 900;
 	line-height: 1.02;
 	letter-spacing: -0.065em;
 	color: #1d1d1f;
@@ -1223,7 +1133,7 @@
 
 .luna-testimonials__score-number {
 	font-size: 44px;
-	font-weight: 920;
+	font-weight: 900;
 	line-height: 1;
 	letter-spacing: -0.07em;
 	color: var(--luna-red, #c41e3a);
@@ -1403,7 +1313,7 @@
 	margin: 0;
 	color: #1d1d1f;
 	font-size: 17px;
-	font-weight: 880;
+	font-weight: 900;
 	line-height: 1.1;
 	letter-spacing: -0.035em;
 }
@@ -1411,7 +1321,7 @@
 .luna-testimonial-card__person span {
 	color: #8a8a91;
 	font-size: 12px;
-	font-weight: 740;
+	font-weight: 800;
 	line-height: 1.2;
 }
 
@@ -1447,7 +1357,7 @@
 	background: rgba(196, 30, 58, 0.08);
 	color: var(--luna-red, #c41e3a);
 	font-size: 12px;
-	font-weight: 850;
+	font-weight: 900;
 }
 
 .luna-testimonials__slider .owl-nav {
@@ -1827,7 +1737,7 @@
 	background: rgba(196, 30, 58, 0.09);
 	color: var(--luna-red);
 	font-size: 12px;
-	font-weight: 850;
+	font-weight: 900;
 	letter-spacing: 0.13em;
 	text-transform: uppercase;
 }
@@ -2018,7 +1928,7 @@
 	margin: 0 0 12px;
 	color: #1d1d1f;
 	font-size: clamp(20px, 2vw, 24px);
-	font-weight: 850;
+	font-weight: 900;
 	line-height: 1.12;
 	letter-spacing: -0.045em;
 }
@@ -2194,12 +2104,6 @@
 	margin-top: 6px;
 	color: #1d1d1f;
 	font-weight: 800;
-}
-
-@media (max-width: 1199px) {
-	.ln-cta-group {
-		display: none;
-	}
 }
 
 @media (max-width: 575px) {
